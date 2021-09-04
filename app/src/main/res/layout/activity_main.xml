@@ -10,7 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="180dp"
         android:layout_height="71dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="144dp"
         android:contentDescription="LYFR Logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -29,10 +29,10 @@
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/create_new_user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.508" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/create_new_user"
