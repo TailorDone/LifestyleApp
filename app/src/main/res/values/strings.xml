@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">LYFR</string>
     <string name="tvName">Name</string>
-    <string name="etDOB">DOB</string>
     <string name="etHeight">Height</string>
-    <string name="etSex">Sex</string>
     <string name="etSex">Sex</string>
     <string name="tvWeight">Weight</string>
     <string name="etWeight">Weight</string>
