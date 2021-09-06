@@ -1,13 +1,13 @@
 package com.example.lyfr
 
+import User
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.text.isDigitsOnly
 
 class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
@@ -30,15 +30,22 @@ class NewUserActivity : AppCompatActivity() {
         stringHeight = findViewById(R.id.etHeight)
         stringWeight = findViewById(R.id.etWeight)
 
-        if (savedInstanceState != null){
-            stringName.setText(savedInstanceState.getString("username"))
-            stringCity.setText(savedInstanceState.getString("city"))
-            stringCountry.setText(savedInstanceState.getString("country"))
-            stringAge.setText(savedInstanceState.getString("age"))
-            stringSex.setText(savedInstanceState.getString("sex"))
-            stringHeight.setText(savedInstanceState.getString("height"))
-            stringWeight.setText(savedInstanceState.getString("width"))
-        }
+        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString("fname", "")
+        val savedCity = sharedPref.getString("city", "CITY")
+        val savedCountry = sharedPref.getString("country", "")
+        val savedSex = sharedPref.getString("sex", "M/F")
+        val savedAge = sharedPref.getString("age", "")
+        val savedHeight = sharedPref.getString("height", "")
+        val savedWeight = sharedPref.getString("weight", "")
+
+        stringName.setText(savedName)
+        stringCity.setText(savedCity)
+        stringCountry.setText(savedCountry)
+        stringAge.setText(savedAge)
+        stringSex.setText(savedSex)
+        stringHeight.setText(savedHeight)
+        stringWeight.setText(savedWeight)
 
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
         saveProfileButton.setOnClickListener{
@@ -49,30 +56,31 @@ class NewUserActivity : AppCompatActivity() {
                 Toast.makeText(this, "All fields must be completed", Toast.LENGTH_SHORT).show()
 
             else {
-                val intentSaveProfile = Intent(this, NewUserActivity::class.java).apply {
+                var currentUser = User(stringName.text.toString(),
+                    stringCity.text.toString(),
+                    stringCountry.text.toString(),
+                    stringSex.text.toString(),
+                    stringAge.text.toString(),
+                    stringHeight.text.toString(),
+                    stringWeight.text.toString()
+                )
+
+                val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+                with (sharedPref.edit()) {
+                    putString("fname", currentUser.fname)
+                    putString("city", currentUser.city)
+                    putString("country", currentUser.country)
+                    putString("sex", currentUser.sex)
+                    putString("age", currentUser.ageStr)
+                    putString("height", currentUser.heightStr)
+                    putString("weight", currentUser.weightStr)
+                    commit()
+                }
+
+                val intentSaveProfile = Intent(this, UserHomeActivity::class.java).apply {
                 }
                 startActivity(intentSaveProfile)
             }
         }
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val name = stringName.text.toString()
-        val city = stringCity.text.toString()
-        val country = stringCountry.text.toString()
-        val age = stringAge.text.toString()
-        val sex = stringSex.text.toString()
-        val height = stringHeight.text.toString()
-        val width = stringWeight.text.toString()
-        outState.putString("username", name)
-        outState.putString("city", city)
-        outState.putString("country", country)
-        outState.putString("age", age)
-        outState.putString("sex", sex)
-        outState.putString("height", height)
-        outState.putString("width", width)
-    }
-
-
 }
