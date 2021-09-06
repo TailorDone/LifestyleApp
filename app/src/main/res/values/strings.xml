@@ -15,4 +15,15 @@
     <string name="etAge">Age</string>
     <string name="buttonSaveProfile">Save</string>
     <string name="buttonCreateNewUser">New User</string>
+    <string name="tvWelcomeUser">Welcome, {user}</string>
+    <string name="tvBMICalculator">BMI CALCULATOR</string>
+    <string name="tvBMIValue">19.5</string>
+    <string name="tvBMIAge">Age:</string>
+    <string name="tvBMIAgeValue">30</string>
+    <string name="tvBMISex">Sex:</string>
+    <string name="tvBMISexValue">F</string>
+    <string name="tvBMIHeight">Height:</string>
+    <string name="tvBMIHeightValue">5\'2</string>
+    <string name="tvBMIWeight">Weight:</string>
+    <string name="tvBMIWeightValue">115</string>
 </resources>

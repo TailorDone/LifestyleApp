@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BMIActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="800dp"
+        android:layout_height="160dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="181dp"
+        android:layout_height="125dp"
+        app:srcCompat="@android:drawable/ic_media_previous"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="106dp"
+        android:layout_height="109dp"
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        tools:layout_editor_absoluteX="347dp"
+        tools:layout_editor_absoluteY="32dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="635dp"
+        tools:layout_editor_absoluteY="13dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="796dp"
+        android:layout_height="1078dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout_editor_absoluteX="4dp">
+
+        <TextView
+            android:id="@+id/tvBMICalculator"
+            android:layout_width="match_parent"
+            android:layout_height="181dp"
+            android:gravity="center"
+            android:text="@string/tvBMICalculator"
+            android:textSize="80sp" />
+
+        <TextView
+            android:id="@+id/tvBMIValue"
+            android:layout_width="match_parent"
+            android:layout_height="369dp"
+            android:gravity="center"
+            android:text="@string/tvBMIValue"
+            android:textSize="96sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="447dp"
+            android:gravity="center_vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvBMIAge"
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/tvAge"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:id="@+id/tvBMIAgeValue"
+                    android:layout_width="89dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/tvAgeValue"
+                    android:textSize="48sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvBMISex"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/tvBMISex"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:id="@+id/tvBMISexValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/tvBMISexValue"
+                    android:textSize="48sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvBMIHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/tvBMIHeight"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:id="@+id/tvBMIHeightValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/tvBMIHeightValue"
+                    android:textSize="48sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="165dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvBMIWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/tvBMIWeight"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:id="@+id/tvBMIWeightValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/tvBMIWeightValue"
+                    android:textSize="48sp" />
+            </TableRow>
+        </TableLayout>
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="match_parent"
+            android:layout_height="89dp"
+            app:srcCompat="?attr/actionModeSelectAllDrawable" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
