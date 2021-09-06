@@ -12,7 +12,7 @@
     <string name="buttonChangePicture">Change Profile Picture</string>
     <string name="etCountry">Country</string>
     <string name="tvCountry">Country</string>
-    <string name="etDOB">DOB</string>
-    <string name="buttonCreateUserDone">Done</string>
+    <string name="etAge">Age</string>
+    <string name="buttonSaveProfile">Save</string>
     <string name="buttonCreateNewUser">New User</string>
 </resources>

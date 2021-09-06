@@ -10,19 +10,15 @@ class MainActivity : AppCompatActivity(), LandingPageExistingUsersFragment.DataP
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button = findViewById<Button>(R.id.buttonCreateNewUser)
-        button.setOnClickListener{
-            val intent = Intent(this, NewUserActivity::class.java).apply {
+        val newUserButton = findViewById<Button>(R.id.buttonCreateNewUser)
+        newUserButton.setOnClickListener{
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
             }
-            startActivity(intent)
+            startActivity(editProfileIntent)
         }
     }
 
     override fun onDataPass(data: Array<String>) {
         TODO("Not yet implemented")
     }
-
-//     fun newUser(){
-//        setContentView(R.layout.activity_new_user)
-//    }
 }
