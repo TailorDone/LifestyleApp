@@ -16,10 +16,8 @@ class UserHomeActivity : AppCompatActivity() {
 
         val BMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
                 val intentBMI = Intent(this, BMIActivity::class.java).apply {
-                    putExtra("AGE", )
                 }
                 startActivity(intentBMI)
             }
         }
-    }
-}
+

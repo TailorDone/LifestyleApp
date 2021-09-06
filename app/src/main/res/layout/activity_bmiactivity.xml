@@ -78,7 +78,7 @@
                     android:layout_width="96dp"
                     android:layout_height="wrap_content"
                     android:gravity="center|center_vertical"
-                    android:text="@string/tvAge"
+                    android:text="@string/tvBMIAge"
                     android:textSize="48sp" />
 
                 <TextView
@@ -86,7 +86,7 @@
                     android:layout_width="89dp"
                     android:layout_height="match_parent"
                     android:gravity="center|center_vertical"
-                    android:text="@string/tvAgeValue"
+                    android:text="@string/tvBMIAgeValue"
                     android:textSize="48sp" />
             </TableRow>
 
