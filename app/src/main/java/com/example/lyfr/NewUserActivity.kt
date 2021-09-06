@@ -3,11 +3,17 @@ package com.example.lyfr
 import User
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.MutableLiveData
+import android.graphics.Bitmap
 
 class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
@@ -21,6 +27,7 @@ class NewUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_user)
+
 
         stringName = findViewById(R.id.etName)
         stringCity = findViewById(R.id.etCity)
@@ -46,6 +53,17 @@ class NewUserActivity : AppCompatActivity() {
         stringSex.setText(savedSex)
         stringHeight.setText(savedHeight)
         stringWeight.setText(savedWeight)
+
+        val imgBtn = findViewById<ImageButton>(R.id.imageButtonCamera)
+        val registry: ActivityResultRegistry
+        val thumbnailLiveData = MutableLiveData<Bitmap?>()
+        val pickImage = registerForActivityResult(ActivityResultContracts.GetContent(), registry) {
+                bitmap: Bitmap? -> thumbnailLiveData.setValue(bitmap)
+        }
+
+        imgBtn.setOnClickListener {
+            pickImage.launch("image/*")
+        }
 
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
         saveProfileButton.setOnClickListener{
