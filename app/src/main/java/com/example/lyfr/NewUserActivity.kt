@@ -77,9 +77,9 @@ class NewUserActivity : AppCompatActivity() {
                     commit()
                 }
 
-                val intentSaveProfile = Intent(this, HomePage::class.java).apply {
-                }
-                startActivity(intentSaveProfile)
+//                val intentSaveProfile = Intent(this, UserHomePage::class.java).apply {
+//                }
+//                startActivity(intentSaveProfile)
             }
         }
     }
