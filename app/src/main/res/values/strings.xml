@@ -15,7 +15,7 @@
     <string name="etAge">Age</string>
     <string name="buttonSaveProfile">Save</string>
     <string name="buttonCreateNewUser">New User</string>
-    <string name="tvWelcomeUser">Welcome,</string>
+    <string name="tvWelcomeUser">WELCOME,</string>
     <string name="tvBMICalculator">BMI CALCULATOR</string>
     <string name="tvBMIValue">19.5</string>
     <string name="tvBMIAge">Age:</string>

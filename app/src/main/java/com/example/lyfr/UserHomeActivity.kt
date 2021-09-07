@@ -17,7 +17,7 @@ class UserHomeActivity : AppCompatActivity() {
         var userFirstName = findViewById<TextView>(R.id.tvUserName)
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("fname", "{username}")
-        userFirstName.setText(savedName)
+        userFirstName.setText(savedName?.uppercase())
 
         val BMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
         BMIButton.setOnClickListener {
