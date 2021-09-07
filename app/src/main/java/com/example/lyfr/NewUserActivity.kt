@@ -6,14 +6,13 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.MutableLiveData
 import android.graphics.Bitmap
+import android.widget.*
+import com.bumptech.glide.Glide
+import java.io.IOException
 
 class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
@@ -23,6 +22,14 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var stringSex: EditText
     lateinit var stringHeight: EditText
     lateinit var stringWeight: EditText
+    private val previewImage by lazy { findViewById<ImageView>(R.id.imageButtonCamera) }
+    private val selectImageFromGalleryResult = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let { previewImage.setImageURI(uri) }
+    }
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,16 +61,10 @@ class NewUserActivity : AppCompatActivity() {
         stringHeight.setText(savedHeight)
         stringWeight.setText(savedWeight)
 
-        val imgBtn = findViewById<ImageButton>(R.id.imageButtonCamera)
-        val registry: ActivityResultRegistry
-        val thumbnailLiveData = MutableLiveData<Bitmap?>()
-        val pickImage = registerForActivityResult(ActivityResultContracts.GetContent(), registry) {
-                bitmap: Bitmap? -> thumbnailLiveData.setValue(bitmap)
-        }
 
-        imgBtn.setOnClickListener {
-            pickImage.launch("image/*")
-        }
+
+        fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
+        findViewById<ImageButton>(R.id.imageButtonCamera).setOnClickListener { selectImageFromGallery() }
 
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
         saveProfileButton.setOnClickListener{
