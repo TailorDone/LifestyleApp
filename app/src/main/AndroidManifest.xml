@@ -10,6 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LYFR">
         <activity
+            android:parentActivityName=".UserHomeActivity"
+            android:name=".BMIActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UserHomeActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".NewUserActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity"

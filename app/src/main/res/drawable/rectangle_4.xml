@@ -39,7 +39,7 @@
                             >
 
                             <item
-                                android:color="#79E1F2"
+                                android:color="@color/gradient_blue"
                                 android:offset="0"
                                 />
 
