@@ -25,6 +25,11 @@
     <string name="tvBMIHeightValue">5\'2</string>
     <string name="tvBMIWeight">Weight:</string>
     <string name="tvBMIWeightValue">115</string>
+    <string name="tvPounds">lbs</string>
+    <string name="tvKilograms">kg</string>
+    <string name="tvInches">in</string>
+    <string name="tvMeters">m</string>
+    <string name="tvColon">:</string>
     <string name="tvWeather">WEATHER</string>
     <string name="tvFitnessGoals">FITNESS GOALS</string>
     <string name="tvFindAHike">FIND A HIKE</string>

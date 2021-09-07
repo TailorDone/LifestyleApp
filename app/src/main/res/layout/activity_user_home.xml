@@ -28,7 +28,7 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/raleway"
         android:text="@string/tvWelcomeUser"
-        android:textColor="@color/white"
+        android:textColor="@color/gradient_purple"
         android:textSize="30dp"
         app:layout_constraintEnd_toStartOf="@+id/ivUserAvatar"
         app:layout_constraintHorizontal_bias="0.198"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/raleway_bold"
         android:text="MYNAME"
-        android:textColor="@color/white"
+        android:textColor="@color/gradient_purple"
         android:textSize="35dp"
         app:layout_constraintStart_toStartOf="@+id/tvWelcomeUser"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeUser" />

@@ -38,13 +38,13 @@
                         >
 
                         <item
-                            android:color="@color/gradient_blue"
-                            android:offset="0.15"
+                            android:color="@color/BMI_pink"
+                            android:offset="0.35"
                             />
 
                         <item
                             android:color="@color/white"
-                            android:offset="0.43"
+                            android:offset="0.65"
                             />
 
                     </gradient>

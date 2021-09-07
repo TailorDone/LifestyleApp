@@ -10,8 +10,8 @@ class User (val name: String,
     var fname : String = nameArray[0]
     var lname : String = ""
     var age: Int = ageStr.toInt()
-    var height: Int = heightStr.toInt()
-    var weight: Int = weightStr.toInt()
+    var height: Double = heightStr.toDouble()
+    var weight: Double = weightStr.toDouble()
 
     init {
         if (nameArray.size > 1)

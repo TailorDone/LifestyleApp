@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +9,8 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#E170CB"
+        android:layout_height="80dp"
+        android:background="#FFFFEAFA"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,22 +21,22 @@
         android:id="@+id/tvBMICalculator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="60dp"
         android:fontFamily="@font/raleway_bold"
         android:gravity="center_vertical"
         android:text="@string/tvBMICalculator"
-        android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textColor="@color/BMI_pink"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.507" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintStart_toEndOf="@+id/tvBMICalculator"
@@ -53,154 +52,162 @@
         android:text="19.5"
         android:textColor="@color/BMI_pink"
         android:textSize="120dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+    <TableLayout
+        android:id="@+id/tableLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="4dp" />
+        android:background="#FFFFEAFA"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/BMI_pink"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar2"
-        tools:layout_editor_absoluteX="4dp">
-
-        <TableLayout
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
-            <TableRow
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvBMIHeight"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center">
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="@string/tvHeight"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/tvBMIAge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="right|center_vertical"
-                    android:text="@string/tvAge"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
-
-                <TextView
-                    android:id="@+id/tvBMIAgeValue"
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="left|center_vertical"
-                    android:text="@string/tvBMIAgeValue"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvColon"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center">
+                android:layout_marginStart="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/tvColon"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/tvBMISex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="right|center_vertical"
-                    android:text="@string/tvSex"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
-
-                <TextView
-                    android:id="@+id/tvBMISexValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="left|center_vertical"
-                    android:text="@string/tvBMISexValue"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvHeightInches"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center">
+                android:layout_marginStart="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="69"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/tvBMIHeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="right|center_vertical"
-                    android:text="@string/tvHeight"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
-
-                <TextView
-                    android:id="@+id/tvBMIHeightValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="left|center_vertical"
-                    android:text="@string/tvBMIHeightValue"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvInches"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:layout_marginStart="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="in"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/tvBMIWeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="right|center_vertical"
-                    android:text="@string/tvWeight"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
+            <TextView
+                android:id="@+id/tvHeightMeters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="1.75"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/tvBMIWeightValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="left|center_vertical"
-                    android:text="@string/tvBMIWeightValue"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
+            <TextView
+                android:id="@+id/tvMeters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="m"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
 
-            </TableRow>
-        </TableLayout>
+        </TableRow>
 
-    </LinearLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/tvBMIWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="@string/tvWeight"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvColon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/tvColon"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvWeightPounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="110"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvPounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/tvPounds"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvWeightKilos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="3.00"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/tvKilograms"
+                android:textColor="@color/BMI_pink"
+                android:textSize="25sp" />
+
+        </TableRow>
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

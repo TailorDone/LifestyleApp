@@ -134,7 +134,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="numberSigned"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/tvHeight"
         app:layout_constraintTop_toBottomOf="@+id/etCountry" />
@@ -234,7 +234,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="numberSigned"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
         app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toEndOf="@+id/tvWeight"
@@ -260,6 +260,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/gradient_blue"
         app:layout_constraintTop_toBottomOf="@+id/etSex" />
 
     <androidx.constraintlayout.widget.Guideline
