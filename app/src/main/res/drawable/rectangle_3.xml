@@ -39,12 +39,12 @@
 
                         <item
                             android:color="#7879F1"
-                            android:offset="0.3"
+                            android:offset="0.25"
                             />
 
                         <item
                             android:color="#FFFFFF"
-                            android:offset="0.45"
+                            android:offset="0.43"
                             />
 
                     </gradient>
