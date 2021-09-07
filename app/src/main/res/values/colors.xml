@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="BMI_pink">#FFE170CB</color>
+    <color name="FITNESS_purple">#FFA379F2</color>
+    <color name="HIKE_green">#FF60EACF</color>
+    <color name="WEATHER_blue">#FF79B7F2</color>
 </resources>

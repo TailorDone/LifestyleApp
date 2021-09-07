@@ -25,11 +25,11 @@
         android:id="@+id/tvWelcomeUser"
         android:layout_width="166dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/raleway"
         android:text="@string/tvWelcomeUser"
-        android:textColor="#FFFFFF"
-        android:textSize="22dp"
+        android:textColor="@color/white"
+        android:textSize="30dp"
         app:layout_constraintEnd_toStartOf="@+id/ivUserAvatar"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/raleway_bold"
         android:text="MYNAME"
-        android:textColor="#FFFFFF"
-        android:textSize="27dp"
+        android:textColor="@color/white"
+        android:textSize="35dp"
         app:layout_constraintStart_toStartOf="@+id/tvWelcomeUser"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeUser" />
 
@@ -51,7 +51,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvWelcomeUser"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +73,8 @@
                 android:id="@+id/ibBMI"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 android:backgroundTint="#00FFFFFF"
                 android:scaleType="centerInside"
@@ -85,9 +86,37 @@
                 android:id="@+id/ibWeather"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 app:srcCompat="@android:drawable/btn_star_big_off" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvBMI"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/raleway_bold"
+                android:gravity="center"
+                android:text="BMI\nCALCULATOR"
+                android:textColor="@color/BMI_pink"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tvWeather"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/raleway_bold"
+                android:gravity="center_horizontal"
+                android:text="@string/tvWeather"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="18dp" />
         </TableRow>
 
         <TableRow
@@ -98,7 +127,8 @@
                 android:id="@+id/ibFitnessGoals"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 app:srcCompat="@android:drawable/checkbox_on_background" />
 
@@ -106,9 +136,37 @@
                 android:id="@+id/ibHikeMap"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 app:srcCompat="@android:drawable/ic_dialog_map" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvFitnessGoals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/raleway_bold"
+                android:gravity="center"
+                android:text="FITNESS\nGOALS"
+                android:textColor="@color/FITNESS_purple"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/raleway_bold"
+                android:gravity="center"
+                android:text="FIND A\nHIKE"
+                android:textColor="@color/HIKE_green"
+                android:textSize="18dp" />
         </TableRow>
 
     </TableLayout>
