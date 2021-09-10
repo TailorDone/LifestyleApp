@@ -3,11 +3,14 @@ package com.example.lyfr
 import User
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 
 class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
@@ -23,11 +26,25 @@ class NewUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_user)
 
         stringName = findViewById(R.id.etName)
+        var labelName = findViewById<TextView>(R.id.tvName)
         stringZip = findViewById(R.id.etZip)
+        var labelZip = findViewById<TextView>(R.id.tvZip)
         stringAge = findViewById(R.id.etDate)
+        var labelAge = findViewById<TextView>(R.id.tvDOB)
         stringSex = findViewById(R.id.etSex)
+        var labelSex = findViewById<TextView>(R.id.tvSex)
         stringHeight = findViewById(R.id.etHeight)
+        var labelHeight = findViewById<TextView>(R.id.tvHeight)
         stringWeight = findViewById(R.id.etWeight)
+        var labelWeight = findViewById<TextView>(R.id.tvWeight)
+
+        var labelHashMap : HashMap<EditText, TextView> = HashMap<EditText, TextView>()
+        labelHashMap.put(stringName, labelName)
+        labelHashMap.put(stringZip, labelZip)
+        labelHashMap.put(stringAge, labelAge)
+        labelHashMap.put(stringSex, labelSex)
+        labelHashMap.put(stringHeight, labelHeight)
+        labelHashMap.put(stringWeight, labelWeight)
 
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "")
@@ -76,6 +93,19 @@ class NewUserActivity : AppCompatActivity() {
                 val intentSaveProfile = Intent(this, UserHomeActivity::class.java).apply {
                 }
                 startActivity(intentSaveProfile)
+            }
+        }
+
+        labelHashMap.forEach {
+            it.key.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    it.value.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gradient_purple))
+                    it.value.setTextColor(ContextCompat.getColorStateList(this, R.color.white))
+                }
+                else {
+                    it.value.setBackgroundTintList(null)
+                    it.value.setTextColor(ContextCompat.getColorStateList(this, R.color.gradient_purple))
+                }
             }
         }
     }
