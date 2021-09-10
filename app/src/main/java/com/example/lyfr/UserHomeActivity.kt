@@ -14,10 +14,11 @@ class UserHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_home)
 
-        var userFirstName = findViewById<TextView>(R.id.tvUserName)
+        var name = findViewById<TextView>(R.id.tvUserName)
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val savedName = sharedPref.getString("fname", "{username}")
-        userFirstName.setText(savedName?.uppercase())
+        val savedName = sharedPref.getString("name", "{username}")
+        val nameArray = savedName?.split(" ")?.toTypedArray()
+        name.text = nameArray?.get(0)?.uppercase() ?: "TO LYFR!"
 
         val BMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
         BMIButton.setOnClickListener {
