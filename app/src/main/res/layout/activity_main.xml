@@ -40,23 +40,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/clouds" />
 
-    <TextView
-        android:id="@+id/logo"
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="LYFR Logo"
-        android:fontFamily="@font/righteous"
-        android:text="LYFR"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        android:textSize="120sp"
-        android:textStyle="normal"
+        android:tint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/buttonCreateNewUser"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/screen_background_light" />
+        app:layout_constraintTop_toTopOf="@+id/rectangle_4"
+        app:srcCompat="@drawable/asset_4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
