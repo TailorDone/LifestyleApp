@@ -30,8 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
         android:text="@string/tvChangePicture"
+        android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,11 +41,14 @@
 
     <TextView
         android:id="@+id/tvEditProfile"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/raleway_bold"
         android:gravity="center"
         android:text="@string/tvEditProfile"
+        android:textColor="@color/gradient_purple"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/imageButtonCamera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -53,17 +58,19 @@
     <TextView
         android:id="@+id/tvName"
         android:layout_width="80dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="74dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
         android:text="@string/tvName"
         android:textAlignment="center"
+        android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toStartOf="@+id/etName"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:background="@drawable/rounded_corners"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/etName"
@@ -79,18 +86,20 @@
     <TextView
         android:id="@+id/tvZip"
         android:layout_width="80dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
         android:text="@string/tvZip"
         android:textAlignment="center"
+        android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toStartOf="@+id/etZip"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
-        android:background="@drawable/rounded_corners"/>
+        app:layout_constraintTop_toTopOf="@+id/etZip" />
 
     <EditText
         android:id="@+id/etZip"
@@ -129,16 +138,18 @@
     <TextView
         android:id="@+id/tvDOB"
         android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
         android:text="@string/tvAge"
         android:textAlignment="center"
+        android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toStartOf="@+id/etDate"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvZip"
-        android:background="@drawable/rounded_corners"/>
+        app:layout_constraintTop_toTopOf="@+id/etDate" />
 
     <EditText
         android:id="@+id/etDate"
@@ -150,49 +161,55 @@
         android:inputType="date"
         app:layout_constraintEnd_toStartOf="@+id/tvHeight"
         app:layout_constraintStart_toEndOf="@+id/tvDOB"
-        app:layout_constraintTop_toBottomOf="@+id/tvZip" />
+        app:layout_constraintTop_toBottomOf="@+id/etZip" />
 
     <TextView
         android:id="@+id/tvHeight"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
         android:text="@string/tvHeight"
         android:textAlignment="center"
+        android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toStartOf="@+id/etHeight"
         app:layout_constraintStart_toEndOf="@+id/etDate"
-        app:layout_constraintTop_toBottomOf="@+id/etZip"
-        android:background="@drawable/rounded_corners"/>
+        app:layout_constraintTop_toTopOf="@+id/etHeight" />
 
     <TextView
         android:id="@+id/tvWeight"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
         android:text="@string/tvWeight"
         android:textAlignment="center"
+        android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toStartOf="@+id/etWeight"
         app:layout_constraintStart_toEndOf="@+id/etSex"
-        app:layout_constraintTop_toBottomOf="@+id/etHeight"
-        android:background="@drawable/rounded_corners"/>
+        app:layout_constraintTop_toTopOf="@+id/etWeight" />
 
     <TextView
         android:id="@+id/tvSex"
         android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
         android:text="@string/tvSex"
         android:textAlignment="center"
+        android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toStartOf="@+id/etSex"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDOB"
-        android:background="@drawable/rounded_corners"/>
+        app:layout_constraintTop_toTopOf="@+id/etSex" />
 
     <EditText
         android:id="@+id/etSex"

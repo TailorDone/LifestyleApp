@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">LYFR</string>
-    <string name="tvName">NAME</string>
-    <string name="tvHeight">HEIGHT</string>
-    <string name="tvSex">SEX</string>
-    <string name="tvWeight">WEIGHT</string>
+    <string name="tvName">Name</string>
+    <string name="tvHeight">Height</string>
+    <string name="tvSex">Sex</string>
+    <string name="tvWeight">Weight</string>
     <string name="tvChangePicture">Change Profile Picture</string>
     <string name="tvEditProfile">EDIT PROFILE</string>
     <string name="etZip">Country</string>
-    <string name="tvZip">ZIP CODE</string>
+    <string name="tvZip">ZIP Code</string>
     <string name="buttonChangePicture">Change Profile Picture</string>
-    <string name="tvAge">AGE</string>
+    <string name="tvAge">Age</string>
     <string name="buttonSaveProfile">Save</string>
     <string name="buttonCreateNewUser">New User</string>
     <string name="tvWelcomeUser">WELCOME,</string>
