@@ -6,11 +6,9 @@
     <string name="tvWeight">WEIGHT</string>
     <string name="tvChangePicture">Change Profile Picture</string>
     <string name="tvEditProfile">EDIT PROFILE</string>
-    <string name="tvCity">CITY</string>
-    <string name="etCity">City</string>
+    <string name="etZip">Country</string>
+    <string name="tvZip">ZIP CODE</string>
     <string name="buttonChangePicture">Change Profile Picture</string>
-    <string name="etCountry">Country</string>
-    <string name="tvCountry">COUNTRY</string>
     <string name="tvAge">AGE</string>
     <string name="buttonSaveProfile">Save</string>
     <string name="buttonCreateNewUser">New User</string>

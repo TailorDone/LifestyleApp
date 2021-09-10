@@ -54,7 +54,7 @@
         android:id="@+id/tvName"
         android:layout_width="80dp"
         android:layout_height="48dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="74dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/tvName"
@@ -62,13 +62,14 @@
         app:layout_constraintEnd_toStartOf="@+id/etName"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:background="@drawable/rounded_corners"/>
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="240dp"
         android:layout_height="48dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="74dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,56 +77,31 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/tvCity"
+        android:id="@+id/tvZip"
         android:layout_width="80dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
-        android:text="@string/tvCity"
+        android:text="@string/tvZip"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/etCity"
+        app:layout_constraintEnd_toStartOf="@+id/etZip"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        android:background="@drawable/rounded_corners"/>
 
     <EditText
-        android:id="@+id/etCity"
+        android:id="@+id/etZip"
         android:layout_width="240dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvCity"
+        app:layout_constraintStart_toEndOf="@+id/tvZip"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
-
-    <TextView
-        android:id="@+id/tvCountry"
-        android:layout_width="80dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center"
-        android:text="@string/tvCountry"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/etCountry"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCity" />
-
-    <EditText
-        android:id="@+id/etCountry"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvCountry"
-        app:layout_constraintTop_toBottomOf="@+id/etCity" />
 
     <EditText
         android:id="@+id/etHeight"
@@ -137,7 +113,7 @@
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/tvHeight"
-        app:layout_constraintTop_toBottomOf="@+id/etCountry" />
+        app:layout_constraintTop_toBottomOf="@+id/etZip" />
 
     <TextView
         android:id="@+id/textView2"
@@ -148,7 +124,7 @@
         android:text="in."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etHeight"
-        app:layout_constraintTop_toBottomOf="@+id/etCountry" />
+        app:layout_constraintTop_toBottomOf="@+id/etZip" />
 
     <TextView
         android:id="@+id/tvDOB"
@@ -158,13 +134,14 @@
         android:gravity="center"
         android:text="@string/tvAge"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/editTextDate"
+        app:layout_constraintEnd_toStartOf="@+id/etDate"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
+        app:layout_constraintTop_toBottomOf="@+id/tvZip"
+        android:background="@drawable/rounded_corners"/>
 
     <EditText
-        android:id="@+id/editTextDate"
+        android:id="@+id/etDate"
         android:layout_width="60dp"
         android:layout_height="48dp"
         android:layout_marginStart="15dp"
@@ -173,7 +150,7 @@
         android:inputType="date"
         app:layout_constraintEnd_toStartOf="@+id/tvHeight"
         app:layout_constraintStart_toEndOf="@+id/tvDOB"
-        app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
+        app:layout_constraintTop_toBottomOf="@+id/tvZip" />
 
     <TextView
         android:id="@+id/tvHeight"
@@ -185,8 +162,9 @@
         android:text="@string/tvHeight"
         android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/etHeight"
-        app:layout_constraintStart_toEndOf="@+id/editTextDate"
-        app:layout_constraintTop_toBottomOf="@+id/etCountry" />
+        app:layout_constraintStart_toEndOf="@+id/etDate"
+        app:layout_constraintTop_toBottomOf="@+id/etZip"
+        android:background="@drawable/rounded_corners"/>
 
     <TextView
         android:id="@+id/tvWeight"
@@ -199,7 +177,8 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/etWeight"
         app:layout_constraintStart_toEndOf="@+id/etSex"
-        app:layout_constraintTop_toBottomOf="@+id/etHeight" />
+        app:layout_constraintTop_toBottomOf="@+id/etHeight"
+        android:background="@drawable/rounded_corners"/>
 
     <TextView
         android:id="@+id/tvSex"
@@ -212,7 +191,8 @@
         app:layout_constraintEnd_toStartOf="@+id/etSex"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDOB" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDOB"
+        android:background="@drawable/rounded_corners"/>
 
     <EditText
         android:id="@+id/etSex"
@@ -225,7 +205,7 @@
         android:text="M/F"
         app:layout_constraintEnd_toStartOf="@+id/tvWeight"
         app:layout_constraintStart_toEndOf="@+id/tvSex"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+        app:layout_constraintTop_toBottomOf="@+id/etDate" />
 
     <EditText
         android:id="@+id/etWeight"
@@ -255,12 +235,12 @@
         android:id="@+id/buttonSaveProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/gradient_blue"
         android:text="@string/buttonSaveProfile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/gradient_blue"
         app:layout_constraintTop_toBottomOf="@+id/etSex" />
 
     <androidx.constraintlayout.widget.Guideline
