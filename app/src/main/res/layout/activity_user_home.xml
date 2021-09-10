@@ -89,7 +89,11 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="0"
-                app:srcCompat="@android:drawable/btn_star_big_off" />
+                android:backgroundTint="@color/white"
+                android:scaleType="fitCenter"
+                android:scaleX="1.1"
+                android:scaleY="1.1"
+                app:srcCompat="@drawable/weather" />
         </TableRow>
 
         <TableRow
@@ -130,7 +134,11 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="0"
-                app:srcCompat="@android:drawable/checkbox_on_background" />
+                android:backgroundTint="@color/white"
+                android:scaleType="fitCenter"
+                android:scaleX="1.1"
+                android:scaleY="1.1"
+                app:srcCompat="@drawable/heartbeat" />
 
             <ImageButton
                 android:id="@+id/ibHikeMap"
@@ -139,7 +147,11 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="0"
-                app:srcCompat="@android:drawable/ic_dialog_map" />
+                android:backgroundTint="@color/white"
+                android:scaleType="fitCenter"
+                android:scaleX="1.1"
+                android:scaleY="1.1"
+                app:srcCompat="@drawable/hike" />
         </TableRow>
 
         <TableRow
