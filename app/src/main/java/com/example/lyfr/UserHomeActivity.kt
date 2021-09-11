@@ -36,8 +36,8 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         val nameArray = savedName?.split(" ")?.toTypedArray()
         name.text = nameArray?.get(0)?.uppercase() ?: "TO LYFR!"
 
-        val BMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
-        BMIButton.setOnClickListener {
+        val bMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
+        bMIButton.setOnClickListener {
             val intentBMI = Intent(this, BMIActivity::class.java).apply {
             }
             startActivity(intentBMI)
@@ -50,6 +50,13 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
             intentHike.setPackage("com.google.android.apps.maps")
             startActivity(intentHike)
 
+        }
+
+        val fitnessGoalsButton = findViewById<Button>(R.id.ibFitnessGoals) as ImageButton
+        fitnessGoalsButton.setOnClickListener{
+            val intentFitnessGoals = Intent(this, FitnessGoalsActivity::class.java).apply{
+            }
+            startActivity(intentFitnessGoals)
         }
 
     }
