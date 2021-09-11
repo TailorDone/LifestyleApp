@@ -29,7 +29,7 @@
         android:fontFamily="@font/raleway_medium"
         android:text="@string/tvWelcomeUser"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toStartOf="@+id/ivUserAvatar"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
         android:fontFamily="@font/raleway_bold"
         android:text="MYNAME"
         android:textColor="@color/gradient_purple"
-        android:textSize="35sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/tvWelcomeUser"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeUser" />
 
@@ -50,7 +50,7 @@
         android:id="@+id/ivUserAvatar"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvWelcomeUser"
