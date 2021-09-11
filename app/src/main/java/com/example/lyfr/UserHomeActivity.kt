@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat
 
 class UserHomeActivity : AppCompatActivity(), LocationListener {
 
-    //lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationManager : LocationManager
     private val locationPermissionCode = 2
     private lateinit var userLocation: String
