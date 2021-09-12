@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:background="@color/WEATHER_blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -84,11 +84,18 @@
             android:src="@drawable/add" />
     </TableRow>
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="355dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/trWind"
+        app:srcCompat="@drawable/rectangle_37" />
+
     <TableRow
         android:id="@+id/trWeatherCondition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EAF3FD"
         android:gravity="center"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
@@ -110,10 +117,9 @@
         android:id="@+id/trHighLow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/WEATHER_blue"
         android:gravity="center"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/trFeelsLike"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -182,10 +188,9 @@
         android:id="@+id/trFeelsLike"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/WEATHER_blue"
         android:gravity="center"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/trHumidity">
 
         <TextView
@@ -224,10 +229,9 @@
         android:id="@+id/trHumidity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/WEATHER_blue"
         android:gravity="center"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/trWind"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -268,9 +272,8 @@
         android:id="@+id/trWind"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/WEATHER_blue"
         android:gravity="center"
-        android:paddingTop="20dp"
+        android:paddingTop="15dp"
         android:paddingBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
