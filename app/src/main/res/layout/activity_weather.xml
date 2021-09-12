@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WeatherActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#FFEAF3FD"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:fontFamily="@font/raleway_bold"
+        android:gravity="center_vertical"
+        android:text="@string/tvBMICalculator"
+        android:textColor="@color/WEATHER_blue"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.507" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintStart_toEndOf="@+id/tvWeather"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvTemperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="19.5"
+        android:textColor="@color/WEATHER_blue"
+        android:textSize="120dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFEAF3FD"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/tvBMIHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="@string/tvHeight"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvColon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/tvColon"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvHeightInches"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="69"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvInches"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="in"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvHeightMeters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="1.75"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvMeters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="m"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/tvBMIWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="@string/tvWeight"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvColon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/tvColon"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvWeightPounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="110"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvPounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/tvPounds"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvWeightKilos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="right|center_vertical"
+                android:text="3.00"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/tvKilograms"
+                android:textColor="@color/WEATHER_blue"
+                android:textSize="25sp" />
+
+        </TableRow>
+
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

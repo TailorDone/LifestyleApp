@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lyfr">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LYFR">
-
         <activity
-            android:parentActivityName=".UserHomeActivity"
+            android:name=".WeatherActivity"
+            android:exported="true"
+            android:parentActivityName=".UserHomeActivity"/>
+        <activity
             android:name=".BMIActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".UserHomeActivity" />
         <activity
             android:name=".UserHomeActivity"
             android:exported="true"
@@ -24,7 +28,7 @@
         <activity
             android:name=".FitnessGoalsActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".UserHomeActivity" />
         <activity
             android:name=".NewUserActivity"
             android:exported="true"
@@ -44,6 +48,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 
 </manifest>
