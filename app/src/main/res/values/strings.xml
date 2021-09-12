@@ -31,4 +31,10 @@
     <string name="tvWeather">WEATHER</string>
     <string name="tvFitnessGoals">FITNESS GOALS</string>
     <string name="tvFindAHike">FIND A HIKE</string>
+    <string name="tvDegrees">°</string>
+    <string name="tvHIGH">HIGH:</string>
+    <string name="tvLOW">LOW:</string>
+    <string name="tvFeelsLike">FEELS LIKE:</string>
+    <string name="tvHumidity">HUMIDITY:</string>
+    <string name="tvWind">WIND:</string>
 </resources>
