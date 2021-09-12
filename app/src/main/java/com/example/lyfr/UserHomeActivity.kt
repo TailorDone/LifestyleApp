@@ -59,6 +59,13 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
             startActivity(intentFitnessGoals)
         }
 
+        val weatherButton = findViewById<Button>(R.id.ibWeather) as ImageButton
+        weatherButton.setOnClickListener{
+            val intentWeather = Intent(this, WeatherActivity::class.java).apply{
+            }
+            startActivity(intentWeather)
+        }
+
     }
 
     private fun getLocation() {
