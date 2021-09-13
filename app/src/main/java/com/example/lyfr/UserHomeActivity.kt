@@ -1,5 +1,7 @@
 package com.example.lyfr
 
+import CurrentWeather
+import MyApiEndpointInterface
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,6 +19,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.net.URL
+import retrofit2.converter.gson.GsonConverterFactory
+
+import retrofit2.Retrofit
+
+
+
 
 class UserHomeActivity : AppCompatActivity(), LocationListener {
 
@@ -61,8 +73,9 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
 
         val weatherButton = findViewById<Button>(R.id.ibWeather) as ImageButton
         weatherButton.setOnClickListener{
-            val intentWeather = Intent(this, WeatherActivity::class.java).apply{
-            }
+//            val weatherURL = "https://api.openweathermap.org/data/2.5/weather?zip=" + 84119 + ",us&appid=17f7e1b88d2773dd429bd27a7d747611&units=imperial"
+//            val result = (URL(weatherURL).readText())
+            val intentWeather = Intent(this, WeatherActivity::class.java)
             startActivity(intentWeather)
         }
 

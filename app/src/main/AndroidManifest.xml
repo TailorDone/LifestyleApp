@@ -14,9 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LYFR">
         <activity
+            android:name=".TestAPI"
+            android:exported="true" />
+        <activity
             android:name=".WeatherActivity"
             android:exported="true"
-            android:parentActivityName=".UserHomeActivity"/>
+            android:parentActivityName=".UserHomeActivity" />
         <activity
             android:name=".BMIActivity"
             android:exported="true"
