@@ -38,7 +38,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/raleway_bold"
         android:gravity="center"
-        android:text="West Valley City"
         android:textColor="#FF5A5A5A"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/trTEMPicon"
@@ -72,7 +71,6 @@
             android:layout_height="116dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="101"
             android:textColor="#FF5A5A5A"
             android:textSize="90sp" />
 
@@ -81,7 +79,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginLeft="40dp"
-            android:src="@drawable/add" />
+            app:srcCompat="?attr/listChoiceBackgroundIndicator" />
     </TableRow>
 
     <ImageView
@@ -107,7 +105,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:gravity="right|center_vertical"
-            android:text="THUNDERSTORM"
             android:textColor="#FF5A5A5A"
             android:textSize="30sp" />
 
@@ -138,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="sans-serif-medium"
-            android:text="110"
+            android:text="--"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -169,7 +166,7 @@
             android:layout_marginLeft="10dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="right|center_vertical"
-            android:text="110"
+            android:text="--"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -210,7 +207,7 @@
             android:layout_marginStart="10dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="right|center_vertical"
-            android:text="110"
+            android:text="--"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -252,7 +249,7 @@
             android:layout_marginStart="10dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="right|center_vertical"
-            android:text="69"
+            android:text="--"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -294,7 +291,7 @@
             android:layout_marginStart="10dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="right|center_vertical"
-            android:text="110"
+            android:text="--"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
