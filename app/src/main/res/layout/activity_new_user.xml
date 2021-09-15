@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageButtonCamera2"
         app:layout_constraintStart_toEndOf="@+id/imageButtonCamera"
         app:layout_constraintTop_toBottomOf="@+id/tvEditProfile"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        tools:src="@tools:sample/avatars" />
 
     <ImageButton
         android:id="@+id/imageButtonCamera2"
