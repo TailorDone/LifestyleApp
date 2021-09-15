@@ -9,244 +9,309 @@
     tools:context=".NewUserActivity">
 
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="45dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/etName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonCamera2"
+        android:text="@string/ChoosePicture" />
+
+    <ImageView
+        android:id="@+id/image_preview"
+        android:layout_width="126dp"
+        android:layout_height="122dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="223dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDate"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonCamera2"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonCamera"
+        app:layout_constraintTop_toBottomOf="@+id/tvEditProfile"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
     <ImageButton
-        android:id="@+id/imageButtonCamera"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="48dp"
+        android:id="@+id/imageButtonCamera2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
         android:background="#00FFFFFF"
         android:scaleType="centerInside"
         android:scaleX="1"
         android:scaleY="1"
         android:src="@drawable/add"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/image_preview"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/add" />
+
+    <ImageButton
+        android:id="@+id/imageButtonCamera"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="4dp"
+        android:background="#00FFFFFF"
+        android:scaleType="centerInside"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:src="@drawable/add"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/image_preview"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEditProfile"
+        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/add" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginEnd="203dp"
+        android:layout_marginBottom="48dp"
         android:gravity="center"
-        android:text="@string/tvChangePicture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintBottom_toTopOf="@+id/tvName"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonCamera" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonCamera"
+        android:text="@string/TakePicture" />
 
     <TextView
         android:id="@+id/tvEditProfile"
-        android:layout_width="100dp"
-        android:layout_height="16dp"
+        android:layout_width="84dp"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="17dp"
         android:gravity="center"
         android:text="@string/tvEditProfile"
-        app:layout_constraintBottom_toTopOf="@+id/imageButtonCamera"
+        app:layout_constraintBottom_toTopOf="@+id/image_preview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="80dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="36dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/tvName"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/tvCity"
         app:layout_constraintEnd_toStartOf="@+id/etName"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/etName"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/etCity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/tvCity"
-        android:layout_width="80dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="36dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/tvCity"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/tvCountry"
         app:layout_constraintEnd_toStartOf="@+id/etCity"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <EditText
         android:id="@+id/etCity"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/etCountry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvCity"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <TextView
         android:id="@+id/tvCountry"
-        android:layout_width="80dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="36dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/tvCountry"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/tvDOB"
         app:layout_constraintEnd_toStartOf="@+id/etCountry"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCity" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCity" />
 
     <EditText
         android:id="@+id/etCountry"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvCountry"
         app:layout_constraintTop_toBottomOf="@+id/etCity" />
 
     <EditText
         android:id="@+id/etHeight"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:ems="10"
         android:inputType="numberSigned"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/tvHeight"
-        app:layout_constraintTop_toBottomOf="@+id/etCountry" />
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="30dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="in."
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etHeight"
         app:layout_constraintTop_toBottomOf="@+id/etCountry" />
 
     <TextView
         android:id="@+id/tvDOB"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/etAge"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/tvSex"
         app:layout_constraintEnd_toStartOf="@+id/editTextDate"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
 
     <EditText
         android:id="@+id/editTextDate"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/etSex"
         app:layout_constraintEnd_toStartOf="@+id/tvHeight"
         app:layout_constraintStart_toEndOf="@+id/tvDOB"
-        app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
+        app:layout_constraintTop_toBottomOf="@+id/image_preview" />
 
     <TextView
         android:id="@+id/tvHeight"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="56dp"
         android:gravity="center"
         android:text="@string/etHeight"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
         app:layout_constraintEnd_toStartOf="@+id/etHeight"
         app:layout_constraintStart_toEndOf="@+id/editTextDate"
-        app:layout_constraintTop_toBottomOf="@+id/etCountry" />
+        app:layout_constraintTop_toTopOf="@+id/etCountry" />
 
     <TextView
         android:id="@+id/tvWeight"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="15dp"
         android:gravity="center"
         android:text="@string/tvWeight"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/etWeight"
         app:layout_constraintEnd_toStartOf="@+id/etWeight"
         app:layout_constraintStart_toEndOf="@+id/etSex"
-        app:layout_constraintTop_toBottomOf="@+id/etHeight" />
+        app:layout_constraintTop_toTopOf="@+id/etWeight" />
 
     <TextView
         android:id="@+id/tvSex"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="253dp"
         android:gravity="center"
         android:text="@string/etSex"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/etSex"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDOB" />
 
     <EditText
         android:id="@+id/etSex"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="103dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="M/F"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSaveProfile"
         app:layout_constraintEnd_toStartOf="@+id/tvWeight"
         app:layout_constraintStart_toEndOf="@+id/tvSex"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
     <EditText
         android:id="@+id/etWeight"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:ems="10"
         android:inputType="numberSigned"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
-        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toEndOf="@+id/tvWeight"
-        app:layout_constraintTop_toBottomOf="@+id/etHeight" />
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="30dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="253dp"
         android:gravity="center"
         android:text="lbs."
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etWeight"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -255,10 +320,10 @@
         android:id="@+id/buttonSaveProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="102dp"
         android:text="@string/buttonSaveProfile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etSex" />
 
@@ -267,6 +332,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.02872777" />
+        app:layout_constraintGuide_percent="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

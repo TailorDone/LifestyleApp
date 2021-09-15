@@ -6,13 +6,17 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.MutableLiveData
 import android.graphics.Bitmap
 import android.widget.*
-import com.bumptech.glide.Glide
-import java.io.IOException
+import android.graphics.ImageDecoder
+import android.widget.ImageView
+import androidx.core.content.FileProvider
+import androidx.core.content.FileProvider.getUriForFile
+import androidx.lifecycle.lifecycleScope
+import com.example.lyfr.ImageUri.latestTmpUri
+import java.io.File
+import java.util.*
 
 class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
@@ -22,10 +26,60 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var stringSex: EditText
     lateinit var stringHeight: EditText
     lateinit var stringWeight: EditText
-    private val previewImage by lazy { findViewById<ImageView>(R.id.imageButtonCamera) }
-    private val selectImageFromGalleryResult = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let { previewImage.setImageURI(uri) }
+
+    var bitmap: Bitmap? = null
+
+    private val takeImageResult =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+            if (isSuccess) {
+                latestTmpUri?.let { uri ->
+                    val source = ImageDecoder
+                        .createSource(this.contentResolver, uri)
+                    bitmap = ImageDecoder.decodeBitmap(source)
+                    previewImage.setImageBitmap(bitmap)
+                }
+            }
+            val intent = Intent(this, LookAtPicture::class.java)
+            startActivity(intent)
+        }
+
+    private val selectImageFromGalleryResult =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                previewImage.setImageURI(uri)
+            }
+        }
+
+    val previewImage by lazy { findViewById<ImageView>(R.id.image_preview) }
+
+    private fun setClickListeners() {
+        findViewById<ImageButton>(R.id.imageButtonCamera).setOnClickListener { takeImage() }
+        findViewById<ImageButton>(R.id.imageButtonCamera2).setOnClickListener { selectImageFromGallery() }
     }
+
+    private fun takeImage() {
+        lifecycleScope.launchWhenStarted {
+            getTmpFileUri().let { uri ->
+                latestTmpUri = uri
+                takeImageResult.launch(uri)
+            }
+        }
+    }
+
+    private fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
+
+    private fun getTmpFileUri(): Uri {
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return getUriForFile(
+            applicationContext,
+            "com.example.lyfr.provider",
+            tmpFile
+
+        )}
 
 
 
@@ -34,6 +88,7 @@ class NewUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_user)
+        setClickListeners()
 
 
         stringName = findViewById(R.id.etName)
@@ -63,8 +118,8 @@ class NewUserActivity : AppCompatActivity() {
 
 
 
-        fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
-        findViewById<ImageButton>(R.id.imageButtonCamera).setOnClickListener { selectImageFromGallery() }
+//        fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
+//        findViewById<ImageButton>(R.id.imageButtonCamera).setOnClickListener { selectImageFromGallery() }
 
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
         saveProfileButton.setOnClickListener{
@@ -100,6 +155,10 @@ class NewUserActivity : AppCompatActivity() {
                 }
                 startActivity(intentSaveProfile)
             }
+
         }
+
+
+        }
+
     }
-}

@@ -26,4 +26,6 @@
     <string name="tvBMIHeightValue">5\'2</string>
     <string name="tvBMIWeight">Weight:</string>
     <string name="tvBMIWeightValue">115</string>
+    <string name="TakePicture">Take Picture</string>
+    <string name="ChoosePicture">Choose Picture</string>
 </resources>
