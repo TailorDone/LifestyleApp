@@ -3,7 +3,6 @@ package com.example.lyfr
 import User
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +10,17 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import android.net.Uri
+import androidx.activity.result.contract.ActivityResultContracts
+import android.graphics.Bitmap
+import android.widget.*
+import android.graphics.ImageDecoder
+import android.widget.ImageView
+import androidx.core.content.FileProvider.getUriForFile
+import androidx.lifecycle.lifecycleScope
+import com.example.lyfr.ImageUri.latestTmpUri
+import java.io.File
+import java.util.*
 
 class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
@@ -21,9 +31,64 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var stringWeight: EditText
     var currentUser = User()
 
+    var bitmap: Bitmap? = null
+
+    private val takeImageResult =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+            if (isSuccess) {
+                latestTmpUri?.let { uri ->
+                    val source = ImageDecoder
+                        .createSource(this.contentResolver, uri)
+                    bitmap = ImageDecoder.decodeBitmap(source)
+                    previewImage.setImageBitmap(bitmap)
+                }
+            }
+            val intent = Intent(this, LookAtPicture::class.java)
+            startActivity(intent)
+        }
+
+    private val selectImageFromGalleryResult =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                previewImage.setImageURI(uri)
+            }
+        }
+
+    val previewImage by lazy { findViewById<ImageView>(R.id.image_preview) }
+
+    private fun setClickListeners() {
+        findViewById<ImageButton>(R.id.imageButtonCamera).setOnClickListener { takeImage() }
+        findViewById<ImageButton>(R.id.imageButtonCamera2).setOnClickListener { selectImageFromGallery() }
+    }
+
+    private fun takeImage() {
+        lifecycleScope.launchWhenStarted {
+            getTmpFileUri().let { uri ->
+                latestTmpUri = uri
+                takeImageResult.launch(uri)
+            }
+        }
+    }
+
+    private fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
+
+    private fun getTmpFileUri(): Uri {
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return getUriForFile(
+            applicationContext,
+            "com.example.lyfr.provider",
+            tmpFile
+
+        )}
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_user)
+        setClickListeners()
 
         stringName = findViewById(R.id.etName)
         var labelName = findViewById<TextView>(R.id.tvName)
@@ -46,7 +111,7 @@ class NewUserActivity : AppCompatActivity() {
         labelHashMap.put(stringHeight, labelHeight)
         labelHashMap.put(stringWeight, labelWeight)
 
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "")
         val savedZip = sharedPref.getString("zip", "")
         val savedSex = sharedPref.getString("sex", "M/F")
@@ -79,7 +144,7 @@ class NewUserActivity : AppCompatActivity() {
                 val weight = stringWeight.text.toString()
                 currentUser.weight = weight.toDouble()
 
-                val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+                val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
                 with (sharedPref.edit()) {
                     putString("name", currentUser.name)
                     putString("zip", currentUser.zip)
