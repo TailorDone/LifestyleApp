@@ -1,7 +1,5 @@
 package com.example.lyfr
 
-import CurrentWeather
-import MyApiEndpointInterface
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,20 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.net.URL
-import retrofit2.converter.gson.GsonConverterFactory
-
-import retrofit2.Retrofit
-
-
-
+import kotlin.math.pow
 
 class UserHomeActivity : AppCompatActivity(), LocationListener {
 
@@ -42,17 +30,41 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         setContentView(R.layout.activity_user_home)
         getLocation()
 
-        var name = findViewById<TextView>(R.id.tvUserName)
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val savedName = sharedPref.getString("name", "{username}")
-        val nameArray = savedName?.split(" ")?.toTypedArray()
-        name.text = nameArray?.get(0)?.uppercase() ?: "TO LYFR!"
+//        var name = findViewById<TextView>(R.id.tvUserName)
+//        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+//        val savedName = sharedPref.getString("name", "{username}")
+//        val nameArray = savedName?.split(" ")?.toTypedArray()
+//        name.text = nameArray?.get(0)?.uppercase() ?: "TO LYFR!"
 
         val bMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
-        bMIButton.setOnClickListener {
-            val intentBMI = Intent(this, BMIActivity::class.java).apply {
+        if(isTablet()) {
+            bMIButton.setOnClickListener {
+                var fragmentBMI = FragmentBMI()
+                val fTrans = supportFragmentManager.beginTransaction()
+
+                val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+                val savedHeight = sharedPref.getString("height", "")
+                val savedWeight = sharedPref.getString("weight", "")
+                val bundle = Bundle()
+                bundle.putString("height", savedHeight)
+                bundle.putString("weight", savedWeight)
+                fragmentBMI.arguments = bundle
+
+                fTrans.replace(
+                    R.id.mainFrame,
+                    fragmentBMI,
+                    "frag_bmi"
+                )
+                fTrans.addToBackStack(null)
+                fTrans.commit()
             }
-            startActivity(intentBMI)
+        }
+        else {
+            bMIButton.setOnClickListener {
+                val intentBMI = Intent(this, BMIActivity::class.java).apply {
+                }
+                startActivity(intentBMI)
+            }
         }
 
         val findHikeButton = findViewById<Button>(R.id.ibHikeMap)as ImageButton
@@ -73,8 +85,6 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
 
         val weatherButton = findViewById<Button>(R.id.ibWeather) as ImageButton
         weatherButton.setOnClickListener{
-//            val weatherURL = "https://api.openweathermap.org/data/2.5/weather?zip=" + 84119 + ",us&appid=17f7e1b88d2773dd429bd27a7d747611&units=imperial"
-//            val result = (URL(weatherURL).readText())
             val intentWeather = Intent(this, WeatherActivity::class.java)
             startActivity(intentWeather)
         }
@@ -101,5 +111,9 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun isTablet(): Boolean {
+        return resources.getBoolean(R.bool.isTablet)
     }
 }
