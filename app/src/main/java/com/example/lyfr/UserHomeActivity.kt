@@ -30,33 +30,44 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         setContentView(R.layout.activity_user_home)
         getLocation()
 
-//        var name = findViewById<TextView>(R.id.tvUserName)
-//        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-//        val savedName = sharedPref.getString("name", "{username}")
-//        val nameArray = savedName?.split(" ")?.toTypedArray()
-//        name.text = nameArray?.get(0)?.uppercase() ?: "TO LYFR!"
+        loadWelcome()
 
-        val bMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
+        var fragmentWelcome = FragmentWelcome()
+        val fTrans = supportFragmentManager.beginTransaction()
+        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString("name", "{username}")
+        val bundle = Bundle()
+        bundle.putString("username", savedName)
+        fragmentWelcome.arguments = bundle
+
+        fTrans.replace(
+            R.id.mainFrame,
+            fragmentWelcome,
+            "frag_welcome"
+        )
+        fTrans.addToBackStack("fragmentWelcome")
+        fTrans.commit()
+
+        val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
         if(isTablet()) {
             bMIButton.setOnClickListener {
+                val fTransBMI = supportFragmentManager.beginTransaction()
                 var fragmentBMI = FragmentBMI()
-                val fTrans = supportFragmentManager.beginTransaction()
 
-                val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
                 val savedHeight = sharedPref.getString("height", "")
                 val savedWeight = sharedPref.getString("weight", "")
-                val bundle = Bundle()
-                bundle.putString("height", savedHeight)
-                bundle.putString("weight", savedWeight)
-                fragmentBMI.arguments = bundle
+                val bundleBMI = Bundle()
+                bundleBMI.putString("height", savedHeight)
+                bundleBMI.putString("weight", savedWeight)
+                fragmentBMI.arguments = bundleBMI
 
-                fTrans.replace(
+                fTransBMI.replace(
                     R.id.mainFrame,
                     fragmentBMI,
                     "frag_bmi"
                 )
-                fTrans.addToBackStack(null)
-                fTrans.commit()
+                fTransBMI.addToBackStack("FragmentBMI")
+                fTransBMI.commit()
             }
         }
         else {
@@ -89,6 +100,11 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
             startActivity(intentWeather)
         }
 
+        val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
+        welcomeButton.setOnClickListener{
+            loadWelcome()
+        }
+
     }
 
     private fun getLocation() {
@@ -115,5 +131,23 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
 
     fun isTablet(): Boolean {
         return resources.getBoolean(R.bool.isTablet)
+    }
+
+    fun loadWelcome() {
+        var fragmentWelcome = FragmentWelcome()
+        val fTrans = supportFragmentManager.beginTransaction()
+        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString("name", "{username}")
+        val bundle = Bundle()
+        bundle.putString("username", savedName)
+        fragmentWelcome.arguments = bundle
+
+        fTrans.replace(
+            R.id.mainFrame,
+            fragmentWelcome,
+            "frag_welcome"
+        )
+        fTrans.addToBackStack("fragmentWelcome")
+        fTrans.commit()
     }
 }

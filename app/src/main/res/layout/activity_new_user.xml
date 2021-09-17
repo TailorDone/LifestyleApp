@@ -44,7 +44,7 @@
         android:id="@+id/tvEditProfile"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/raleway_bold"
         android:gravity="center"
         android:text="@string/tvEditProfile"
@@ -278,12 +278,5 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etSex" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.02872777" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
