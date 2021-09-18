@@ -16,7 +16,6 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlin.math.pow
 
 class UserHomeActivity : AppCompatActivity(), LocationListener {
 
@@ -95,9 +94,30 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         }
 
         val weatherButton = findViewById<Button>(R.id.ibWeather) as ImageButton
-        weatherButton.setOnClickListener{
-            val intentWeather = Intent(this, WeatherActivity::class.java)
-            startActivity(intentWeather)
+        if(isTablet()) {
+            weatherButton.setOnClickListener {
+                val fTransWeather = supportFragmentManager.beginTransaction()
+                var fragmentWeather = FragmentWeather()
+
+                val savedZIP = sharedPref.getString("zip", "")
+                val bundleWeather = Bundle()
+                bundleWeather.putString("zip", savedZIP)
+                fragmentWeather.arguments = bundleWeather
+
+                fTransWeather.replace(
+                    R.id.mainFrame,
+                    fragmentWeather,
+                    "frag_weather"
+                )
+                fTransWeather.addToBackStack("FragmentWeather")
+                fTransWeather.commit()
+            }
+        }
+        else {
+            weatherButton.setOnClickListener{
+                val intentWeather = Intent(this, WeatherActivity::class.java)
+                startActivity(intentWeather)
+            }
         }
 
         val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
@@ -147,7 +167,6 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
             fragmentWelcome,
             "frag_welcome"
         )
-        fTrans.addToBackStack("fragmentWelcome")
         fTrans.commit()
     }
 }

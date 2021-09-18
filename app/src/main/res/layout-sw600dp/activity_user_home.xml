@@ -26,8 +26,8 @@
                 android:layout_marginBottom="20dp"
                 android:layout_weight="0"
                 android:scaleType="centerInside"
-                app:tint="@color/white"
-                app:srcCompat="@drawable/asset_4" />
+                app:srcCompat="@drawable/asset_4"
+                app:tint="@color/white" />
 
             <ImageView
                 android:id="@+id/ProfilePic"

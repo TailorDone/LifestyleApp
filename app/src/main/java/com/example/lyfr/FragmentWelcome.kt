@@ -13,7 +13,7 @@ class FragmentWelcome : Fragment() {
                               savedInstanceState: Bundle?): View? {
         var fragmentView = inflater.inflate(R.layout.fragment_welcome, container, false)
         val userName = fragmentView.findViewById<TextView>(R.id.tvUserName)
-        userName.text = arguments?.getString("username") ?: "User"
+        userName.text = arguments?.getString("username")?.uppercase() ?: "USER"
         return fragmentView
     }
 }

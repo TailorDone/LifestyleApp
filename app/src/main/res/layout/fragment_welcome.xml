@@ -23,11 +23,11 @@
         android:id="@+id/tvWelcomeUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/raleway_medium"
         android:text="@string/tvWelcomeUser"
         android:textColor="@color/white"
-        android:textSize="50sp"
+        android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,4 +43,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeUser" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="778dp"
+        android:layout_height="775dp"
+        android:alpha="0.07"
+        android:tint="@color/gradient_purple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.598"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+        app:layout_constraintVertical_bias="0.645"
+        app:srcCompat="@drawable/lyfr_r" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="535dp"
+        android:layout_height="567dp"
+        android:fontFamily="@font/raleway_bold"
+        android:gravity="center"
+        android:text="How can I help you today?"
+        android:textColor="@color/gradient_purple"
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.166" />
 </androidx.constraintlayout.widget.ConstraintLayout>
