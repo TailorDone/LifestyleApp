@@ -14,8 +14,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:visibility="visible" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/tvFitnessGoals"
@@ -42,37 +41,65 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvBMR"
+        android:id="@+id/tvCaloriesNeeded"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
-        android:text="BMR"
+        android:text="Caloric Goal"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvBMRValue"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.12" />
 
     <TextView
-        android:id="@+id/tvBMRValue"
+        android:id="@+id/tvCaloriesNeededValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="19.5"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="120dp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
 
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBMR" />
+
+    <TextView
+        android:id="@+id/tvBMR"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="BMR"
+        android:textColor="@color/FITNESS_purple"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBMRValue" />
+
+    <TextView
+        android:id="@+id/tvBMRValue"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="19.5"
+        android:textColor="@color/FITNESS_purple"
+        android:textSize="100sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCaloriesNeeded" />
 
     <TableLayout
         android:id="@+id/tableLayout2"
@@ -86,143 +113,131 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/tvBMIHeight"
+                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="right|center_vertical"
-                android:text="@string/tvHeight"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
+                android:gravity="center"
+                android:text="Weight Goal:"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trWeightGoal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbLose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="Lose"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/rbMaintain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="Maintain"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/rbGain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gain"
+                    android:textSize="15sp" />
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trWeightGoalAmount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/etWeightGoalNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="number" />
 
             <TextView
-                android:id="@+id/tvColon"
+                android:id="@+id/tvPoundsPerWeek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/tvColon"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tvHeightInches"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="right|center_vertical"
-                android:text="69"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tvInches"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:fontFamily="sans-serif-light"
-                android:text="in"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tvHeightMeters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="right|center_vertical"
-                android:text="1.75"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tvMeters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:fontFamily="sans-serif-light"
-                android:text="m"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
+                android:text="lbs. per week" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+            android:layout_marginTop="20dp"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/tvBMIWeight"
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="LifeStyle:"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trLifestyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="25dp"
+            android:gravity="center">
+
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="right|center_vertical"
-                android:text="@string/tvWeight"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvColon2"
+                <RadioButton
+                    android:id="@+id/rbSedentary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="Sedentary" />
+
+                <RadioButton
+                    android:id="@+id/rbActive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Active" />
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/buttonCalculate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/tvColon"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tvWeightPounds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="right|center_vertical"
-                android:text="110"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tvPounds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/tvPounds"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tvWeightKilos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="right|center_vertical"
-                android:text="3.00"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/tvKilograms"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="25sp" />
-
+                android:gravity="center"
+                android:text="Calculate" />
         </TableRow>
 
     </TableLayout>
