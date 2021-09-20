@@ -87,10 +87,38 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         }
 
         val fitnessGoalsButton = findViewById<Button>(R.id.ibFitnessGoals) as ImageButton
-        fitnessGoalsButton.setOnClickListener{
-            val intentFitnessGoals = Intent(this, FitnessGoalsActivity::class.java).apply{
+        if(isTablet()) {
+            fitnessGoalsButton.setOnClickListener {
+                val fTransFitness = supportFragmentManager.beginTransaction()
+                var fragmentFitness = FragmentFitnessGoals()
+
+                val savedHeight = sharedPref.getString("height", "")
+                val savedWeight = sharedPref.getString("weight", "")
+                val savedAge = sharedPref.getString("age", "")
+                val savedSex = sharedPref.getString("sex", "")
+
+                val bundleBMI = Bundle()
+                bundleBMI.putString("height", savedHeight)
+                bundleBMI.putString("weight", savedWeight)
+                bundleBMI.putString("age", savedAge)
+                bundleBMI.putString("sex", savedSex)
+                fragmentFitness.arguments = bundleBMI
+
+                fTransFitness.replace(
+                    R.id.mainFrame,
+                    fragmentFitness,
+                    "frag_fitness"
+                )
+                fTransFitness.addToBackStack("FragmentFitness")
+                fTransFitness.commit()
             }
-            startActivity(intentFitnessGoals)
+        }
+        else {
+            fitnessGoalsButton.setOnClickListener {
+                val intentFitnessGoals = Intent(this, FitnessGoalsActivity::class.java).apply {
+                }
+                startActivity(intentFitnessGoals)
+            }
         }
 
         val weatherButton = findViewById<Button>(R.id.ibWeather) as ImageButton
