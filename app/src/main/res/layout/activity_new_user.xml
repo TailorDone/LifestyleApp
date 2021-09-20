@@ -87,17 +87,16 @@
         android:id="@+id/tvEditProfile"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginTop="25dp"
         android:fontFamily="@font/raleway_bold"
         android:gravity="center"
         android:text="@string/tvEditProfile"
         android:textColor="@color/gradient_purple"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageButtonCamera"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.154" />
 
     <TextView
         android:id="@+id/tvName"
@@ -318,15 +317,8 @@
         android:text="@string/buttonSaveProfile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSex" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.02872777" />
+        app:layout_constraintTop_toBottomOf="@+id/etSex"
+        app:layout_constraintVertical_bias="0.33" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

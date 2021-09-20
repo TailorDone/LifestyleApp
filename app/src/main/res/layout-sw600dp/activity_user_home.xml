@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gradient_purple"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <ImageView
+                android:id="@+id/Logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_weight="0"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/asset_4"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/ibProfilePic"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                android:layout_weight="0"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerInside"
+                android:src="@drawable/lyfr_r" />
+
+            <ImageButton
+                android:id="@+id/ibWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:paddingStart="35dp"
+                android:paddingEnd="35dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/house" />
+
+            <ImageButton
+                android:id="@+id/ibBMI"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:paddingStart="35dp"
+                android:paddingEnd="35dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/calculator" />
+
+            <ImageButton
+                android:id="@+id/ibFitnessGoals"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:paddingStart="35dp"
+                android:paddingEnd="35dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/heartbeat" />
+
+            <ImageButton
+                android:id="@+id/ibWeather"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:paddingStart="35dp"
+                android:paddingEnd="35dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/weather" />
+
+            <ImageButton
+                android:id="@+id/ibHikeMap"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:paddingStart="35dp"
+                android:paddingEnd="35dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/hike" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/mainFrame"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.5" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

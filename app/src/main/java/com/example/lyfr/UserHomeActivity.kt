@@ -1,7 +1,5 @@
 package com.example.lyfr
 
-import CurrentWeather
-import MyApiEndpointInterface
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,20 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.net.URL
-import retrofit2.converter.gson.GsonConverterFactory
-
-import retrofit2.Retrofit
-
-
-
 
 class UserHomeActivity : AppCompatActivity(), LocationListener {
 
@@ -42,17 +29,52 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         setContentView(R.layout.activity_user_home)
         getLocation()
 
-        var name = findViewById<TextView>(R.id.tvUserName)
+        loadWelcome()
+
+        var fragmentWelcome = FragmentWelcome()
+        val fTrans = supportFragmentManager.beginTransaction()
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "{username}")
-        val nameArray = savedName?.split(" ")?.toTypedArray()
-        name.text = nameArray?.get(0)?.uppercase() ?: "TO LYFR!"
+        val bundle = Bundle()
+        bundle.putString("username", savedName)
+        fragmentWelcome.arguments = bundle
 
-        val bMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
-        bMIButton.setOnClickListener {
-            val intentBMI = Intent(this, BMIActivity::class.java).apply {
+        fTrans.replace(
+            R.id.mainFrame,
+            fragmentWelcome,
+            "frag_welcome"
+        )
+        fTrans.addToBackStack("fragmentWelcome")
+        fTrans.commit()
+
+        val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
+        if(isTablet()) {
+            bMIButton.setOnClickListener {
+                val fTransBMI = supportFragmentManager.beginTransaction()
+                var fragmentBMI = FragmentBMI()
+
+                val savedHeight = sharedPref.getString("height", "")
+                val savedWeight = sharedPref.getString("weight", "")
+                val bundleBMI = Bundle()
+                bundleBMI.putString("height", savedHeight)
+                bundleBMI.putString("weight", savedWeight)
+                fragmentBMI.arguments = bundleBMI
+
+                fTransBMI.replace(
+                    R.id.mainFrame,
+                    fragmentBMI,
+                    "frag_bmi"
+                )
+                fTransBMI.addToBackStack("FragmentBMI")
+                fTransBMI.commit()
             }
-            startActivity(intentBMI)
+        }
+        else {
+            bMIButton.setOnClickListener {
+                val intentBMI = Intent(this, BMIActivity::class.java).apply {
+                }
+                startActivity(intentBMI)
+            }
         }
 
         val findHikeButton = findViewById<Button>(R.id.ibHikeMap)as ImageButton
@@ -65,18 +87,79 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         }
 
         val fitnessGoalsButton = findViewById<Button>(R.id.ibFitnessGoals) as ImageButton
-        fitnessGoalsButton.setOnClickListener{
-            val intentFitnessGoals = Intent(this, FitnessGoalsActivity::class.java).apply{
+        if(isTablet()) {
+            fitnessGoalsButton.setOnClickListener {
+                val fTransFitness = supportFragmentManager.beginTransaction()
+                var fragmentFitness = FragmentFitnessGoals()
+
+                val savedHeight = sharedPref.getString("height", "")
+                val savedWeight = sharedPref.getString("weight", "")
+                val savedAge = sharedPref.getString("age", "")
+                val savedSex = sharedPref.getString("sex", "")
+
+                val bundleBMI = Bundle()
+                bundleBMI.putString("height", savedHeight)
+                bundleBMI.putString("weight", savedWeight)
+                bundleBMI.putString("age", savedAge)
+                bundleBMI.putString("sex", savedSex)
+                fragmentFitness.arguments = bundleBMI
+
+                fTransFitness.replace(
+                    R.id.mainFrame,
+                    fragmentFitness,
+                    "frag_fitness"
+                )
+                fTransFitness.addToBackStack("FragmentFitness")
+                fTransFitness.commit()
             }
-            startActivity(intentFitnessGoals)
+        }
+        else {
+            fitnessGoalsButton.setOnClickListener {
+                val intentFitnessGoals = Intent(this, FitnessGoalsActivity::class.java).apply {
+                }
+                startActivity(intentFitnessGoals)
+            }
         }
 
         val weatherButton = findViewById<Button>(R.id.ibWeather) as ImageButton
-        weatherButton.setOnClickListener{
-//            val weatherURL = "https://api.openweathermap.org/data/2.5/weather?zip=" + 84119 + ",us&appid=17f7e1b88d2773dd429bd27a7d747611&units=imperial"
-//            val result = (URL(weatherURL).readText())
-            val intentWeather = Intent(this, WeatherActivity::class.java)
-            startActivity(intentWeather)
+        if(isTablet()) {
+            weatherButton.setOnClickListener {
+                val fTransWeather = supportFragmentManager.beginTransaction()
+                var fragmentWeather = FragmentWeather()
+
+                val savedZIP = sharedPref.getString("zip", "")
+                val bundleWeather = Bundle()
+                bundleWeather.putString("zip", savedZIP)
+                fragmentWeather.arguments = bundleWeather
+
+                fTransWeather.replace(
+                    R.id.mainFrame,
+                    fragmentWeather,
+                    "frag_weather"
+                )
+                fTransWeather.addToBackStack("FragmentWeather")
+                fTransWeather.commit()
+            }
+        }
+        else {
+            weatherButton.setOnClickListener{
+                val intentWeather = Intent(this, WeatherActivity::class.java)
+                startActivity(intentWeather)
+            }
+        }
+
+        val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
+        welcomeButton.setOnClickListener{
+            loadWelcome()
+        }
+
+        if(isTablet()) {
+            val profilePicButton = findViewById<Button>(R.id.ibProfilePic) as ImageButton
+            profilePicButton.setOnClickListener {
+                val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+                }
+                startActivity(editProfileIntent)
+            }
         }
 
     }
@@ -101,5 +184,26 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun isTablet(): Boolean {
+        return resources.getBoolean(R.bool.isTablet)
+    }
+
+    fun loadWelcome() {
+        var fragmentWelcome = FragmentWelcome()
+        val fTrans = supportFragmentManager.beginTransaction()
+        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString("name", "{username}")
+        val bundle = Bundle()
+        bundle.putString("username", savedName)
+        fragmentWelcome.arguments = bundle
+
+        fTrans.replace(
+            R.id.mainFrame,
+            fragmentWelcome,
+            "frag_welcome"
+        )
+        fTrans.commit()
     }
 }
