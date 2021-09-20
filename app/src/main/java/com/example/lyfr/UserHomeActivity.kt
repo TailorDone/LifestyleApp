@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -28,24 +29,21 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_home)
         getLocation()
-
-        loadWelcome()
-
-        var fragmentWelcome = FragmentWelcome()
-        val fTrans = supportFragmentManager.beginTransaction()
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val savedName = sharedPref.getString("name", "{username}")
-        val bundle = Bundle()
-        bundle.putString("username", savedName)
-        fragmentWelcome.arguments = bundle
 
-        fTrans.replace(
-            R.id.mainFrame,
-            fragmentWelcome,
-            "frag_welcome"
-        )
-        fTrans.addToBackStack("fragmentWelcome")
-        fTrans.commit()
+        if (isTablet()) {
+            loadWelcome()
+            val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
+            welcomeButton.setOnClickListener {
+                loadWelcome()
+            }
+        }
+        else {
+            val savedName = sharedPref.getString("name", "{username}")
+            val splitName = savedName?.split(" ")
+            val userName = findViewById<TextView>(R.id.tvUserName)
+            userName.text = splitName?.get(0)?.uppercase() ?: "USER"
+        }
 
         val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
         if(isTablet()) {
@@ -83,7 +81,6 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
             val intentHike = Intent(Intent.ACTION_VIEW, locUri)
             intentHike.setPackage("com.google.android.apps.maps")
             startActivity(intentHike)
-
         }
 
         val fitnessGoalsButton = findViewById<Button>(R.id.ibFitnessGoals) as ImageButton
@@ -148,11 +145,6 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
             }
         }
 
-        val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
-        welcomeButton.setOnClickListener{
-            loadWelcome()
-        }
-
         if(isTablet()) {
             val profilePicButton = findViewById<Button>(R.id.ibProfilePic) as ImageButton
             profilePicButton.setOnClickListener {
@@ -195,8 +187,9 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
         val fTrans = supportFragmentManager.beginTransaction()
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "{username}")
+        val splitName = savedName?.split(" ")
         val bundle = Bundle()
-        bundle.putString("username", savedName)
+        bundle.putString("username", splitName?.get(0))
         fragmentWelcome.arguments = bundle
 
         fTrans.replace(
