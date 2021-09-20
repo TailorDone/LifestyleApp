@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.widget.TextView
 import kotlin.math.pow
 
-val POUNDS_TO_KILOGRAM = 0.454
-val INCHES_TO_METERS = 0.0254
+const val POUNDS_TO_KILOGRAM = 0.454
+const val INCHES_TO_METERS = 0.0254
 
 class BMIActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

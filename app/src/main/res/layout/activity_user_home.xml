@@ -30,7 +30,7 @@
         android:text="@string/tvWelcomeUser"
         android:textColor="@color/white"
         android:textSize="23sp"
-        app:layout_constraintEnd_toStartOf="@+id/ivUserAvatar"
+        app:layout_constraintEnd_toStartOf="@+id/ibProfilePic"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeUser" />
 
     <ImageView
-        android:id="@+id/ivUserAvatar"
+        android:id="@+id/ibProfilePic"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginStart="60dp"

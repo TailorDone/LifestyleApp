@@ -125,6 +125,15 @@ class UserHomeActivity : AppCompatActivity(), LocationListener {
             loadWelcome()
         }
 
+        if(isTablet()) {
+            val profilePicButton = findViewById<Button>(R.id.ibProfilePic) as ImageButton
+            profilePicButton.setOnClickListener {
+                val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+                }
+                startActivity(editProfileIntent)
+            }
+        }
+
     }
 
     private fun getLocation() {

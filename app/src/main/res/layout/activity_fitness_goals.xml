@@ -48,16 +48,16 @@
         android:gravity="center"
         android:text="Daily Caloric Goal"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.067" />
 
     <TextView
-        android:id="@+id/tvCaloriesNeededValu"
+        android:id="@+id/tvCaloriesNeededValue"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,10 +65,24 @@
         android:gravity="center"
         android:text="--"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="100sp"
+        android:textSize="70sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCaloriesNeeded" />
+
+    <TextView
+        android:id="@+id/tvWarning"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Warning: It is not adivsed to lose more than 2 pounds a week."
+        android:textColor="@color/FITNESS_purple"
+        android:textSize="17sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCaloriesNeededValue" />
 
     <TextView
         android:id="@+id/tvBMR"
@@ -80,11 +94,11 @@
         android:gravity="center"
         android:text="BMR"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCaloriesNeededValu" />
+        app:layout_constraintTop_toBottomOf="@+id/tvWarning" />
 
     <TextView
         android:id="@+id/tvBMRValue"
@@ -94,7 +108,7 @@
         android:gravity="center"
         android:text="--"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="40sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
 
@@ -107,7 +121,7 @@
         android:background="#F4EDFF"
         android:gravity="center"
         android:paddingTop="15dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/trWeightGoal">
 
         <TextView
@@ -127,10 +141,10 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/trWeightGoalAmount">
 
         <RadioGroup
+            android:id="@+id/rgWeightGoals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -173,8 +187,7 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingBottom="15dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tableRow">
 
         <EditText
@@ -183,7 +196,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:textColor="@color/FITNESS_purple" />
 
         <TextView
@@ -201,7 +214,8 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingBottom="5dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/trLifestyle">
 
         <TextView
@@ -221,34 +235,26 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingBottom="20dp"
+        android:paddingBottom="25dp"
         app:layout_constraintBottom_toTopOf="@id/trSubmit">
 
-        <RadioGroup
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvLifeStyleValue"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:paddingEnd="10dp"
+            android:textAlignment="textEnd"
+            android:textColor="#FFA379F2"
+            android:textSize="17sp" />
 
-            <RadioButton
-                android:id="@+id/rbSedentary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="sans-serif"
-                android:text="Sedentary"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="17sp" />
+        <SeekBar
+            android:id="@+id/seekBarLifeStyle"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="175dp"
+            android:layout_height="match_parent"
+            android:max="4"
+            android:progress="0" />
 
-            <RadioButton
-                android:id="@+id/rbActive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="Active"
-                android:textColor="@color/FITNESS_purple"
-                android:textSize="17sp" />
-        </RadioGroup>
     </TableRow>
 
     <TableRow
@@ -257,7 +263,7 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingBottom="30dp"
+        android:paddingBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
