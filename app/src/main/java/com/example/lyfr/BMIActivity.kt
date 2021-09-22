@@ -1,18 +1,38 @@
 package com.example.lyfr
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.ImageView
 import kotlin.math.pow
+import com.example.lyfr.databinding.ActivityBmiactivityBinding
 
 const val POUNDS_TO_KILOGRAM = 0.454
 const val INCHES_TO_METERS = 0.0254
 
+
 class BMIActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityBmiactivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityBmiactivityBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_bmiactivity)
+
+        val previewImage by lazy { findViewById<ImageButton>(R.id.image_preview) }
+        previewImage.setImageURI(null)
+        previewImage.setImageURI(ImageUri.latestTmpUri)
+
+        previewImage.setOnClickListener{
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+            }
+            startActivity(editProfileIntent)}
+
+
 
         val userHeight = findViewById<TextView>(R.id.tvHeightInches)
         val userHeightMeters = findViewById<TextView>(R.id.tvHeightMeters)

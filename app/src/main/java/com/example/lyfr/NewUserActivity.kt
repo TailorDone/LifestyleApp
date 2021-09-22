@@ -16,7 +16,7 @@ import android.graphics.Bitmap
 import android.widget.*
 import android.graphics.ImageDecoder
 import android.widget.ImageView
-import androidx.core.content.FileProvider.getUriForFile
+import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.lyfr.ImageUri.latestTmpUri
 import java.io.File
@@ -40,9 +40,11 @@ class NewUserActivity : AppCompatActivity() {
                     val source = ImageDecoder
                         .createSource(this.contentResolver, uri)
                     bitmap = ImageDecoder.decodeBitmap(source)
-                    previewImage.setImageBitmap(bitmap)
+
                 }
+                previewImage.setImageBitmap(bitmap)
             }
+
             val intent = Intent(this, LookAtPicture::class.java)
             startActivity(intent)
         }
@@ -54,41 +56,18 @@ class NewUserActivity : AppCompatActivity() {
             }
         }
 
-    val previewImage by lazy { findViewById<ImageView>(R.id.image_preview) }
+    private val previewImage by lazy { findViewById<ImageView>(R.id.image_preview) }
 
-    private fun setClickListeners() {
-        findViewById<ImageButton>(R.id.imageButtonCamera).setOnClickListener { takeImage() }
-        findViewById<ImageButton>(R.id.imageButtonCamera2).setOnClickListener { selectImageFromGallery() }
-    }
 
-    private fun takeImage() {
-        lifecycleScope.launchWhenStarted {
-            getTmpFileUri().let { uri ->
-                latestTmpUri = uri
-                takeImageResult.launch(uri)
-            }
-        }
-    }
-
-    private fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
-
-    private fun getTmpFileUri(): Uri {
-        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
-            createNewFile()
-            deleteOnExit()
-        }
-
-        return getUriForFile(
-            applicationContext,
-            "com.example.lyfr.provider",
-            tmpFile
-
-        )}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_user)
         setClickListeners()
+
+        val previewImage by lazy { findViewById<ImageView>(R.id.image_preview) }
+        previewImage.setImageURI(null)
+        previewImage.setImageURI(ImageUri.latestTmpUri)
 
         stringName = findViewById(R.id.etName)
         var labelName = findViewById<TextView>(R.id.tvName)
@@ -174,4 +153,32 @@ class NewUserActivity : AppCompatActivity() {
             }
         }
     }
+    private fun setClickListeners() {
+        findViewById<ImageButton>(R.id.imageButtonCamera).setOnClickListener { takeImage() }
+        findViewById<ImageButton>(R.id.imageButtonCamera2).setOnClickListener { selectImageFromGallery() }
+    }
+
+    private fun takeImage() {
+        lifecycleScope.launchWhenStarted {
+            getTmpFileUri().let { uri ->
+                latestTmpUri = uri
+                takeImageResult.launch(uri)
+            }
+        }
+    }
+
+    private fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
+
+    private fun getTmpFileUri(): Uri {
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return FileProvider.getUriForFile(
+            applicationContext,
+            "com.example.lyfr.provider",
+            tmpFile
+
+        )}
 }

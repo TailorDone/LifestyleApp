@@ -34,7 +34,6 @@
             android:exported="true"
             android:parentActivityName=".UserHomeActivity" />
         <activity
-            android:parentActivityName=".MainActivity"
             android:name=".LookAtPicture"
             android:exported="true" />
         <activity

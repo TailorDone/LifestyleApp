@@ -31,10 +31,10 @@
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <ImageButton
+        android:id="@+id/image_preview"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"

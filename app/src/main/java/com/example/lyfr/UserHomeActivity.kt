@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.media.Image
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -35,6 +36,8 @@ import android.os.Looper
 
 import com.google.android.gms.location.LocationRequest
 
+import com.example.lyfr.databinding.ActivityUserHomeBinding
+
 
 
 
@@ -50,11 +53,15 @@ class UserHomeActivity : AppCompatActivity() {
     var PERMISSION_ID = 44
     lateinit var mFusedLocationClient : FusedLocationProviderClient
 
+    private lateinit var binding: ActivityUserHomeBinding
+
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityUserHomeBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_user_home)
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+
 
         if (isTablet()) {
             loadWelcome()
@@ -70,7 +77,7 @@ class UserHomeActivity : AppCompatActivity() {
             userName.text = splitName?.get(0)?.uppercase() ?: "USER"
         }
 
-        val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
+        val bMIButton = findViewById<Button>(R.id.ibBMI) as ImageButton
         if(isTablet()) {
             bMIButton.setOnClickListener {
                 val fTransBMI = supportFragmentManager.beginTransaction()
@@ -171,14 +178,20 @@ class UserHomeActivity : AppCompatActivity() {
                 startActivity(intentWeather)
             }
         }
-
+        val previewImage by lazy { findViewById<ImageButton>(R.id.image_preview) }
         if(isTablet()) {
-            val profilePicButton = findViewById<Button>(R.id.ibProfilePic) as ImageButton
-            profilePicButton.setOnClickListener {
+            previewImage.setImageURI(null)
+            previewImage.setImageURI(ImageUri.latestTmpUri)
+        }
+        else {
+
+            previewImage.setImageURI(null)
+            previewImage.setImageURI(ImageUri.latestTmpUri)
+
+            previewImage.setOnClickListener{
                 val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
                 }
-                startActivity(editProfileIntent)
-            }
+                startActivity(editProfileIntent)}
         }
 
     }
@@ -192,7 +205,7 @@ class UserHomeActivity : AppCompatActivity() {
             if (isLocationEnabled()) {
 
                 // getting last location from FusedLocationClient object
-                mFusedLocationClient.getLastLocation()
+                mFusedLocationClient.lastLocation
                     .addOnCompleteListener(OnCompleteListener<Location?> { task ->
                         val location = task.result
                         if (location == null) {

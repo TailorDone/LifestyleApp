@@ -2,12 +2,16 @@ package com.example.lyfr
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.abs
+import com.example.lyfr.databinding.ActivityFitnessGoalsBinding
+
 
 const val INCHES_TO_CENTIMETERS = 2.54
 const val POUNDS_TO_CALORIES = 3500
@@ -24,10 +28,25 @@ class FitnessGoalsActivity : AppCompatActivity() {
     class ActivityLevel(val lifestyle: String, val scale : Double) {
     }
 
+    private lateinit var binding: ActivityFitnessGoalsBinding
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityFitnessGoalsBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_fitness_goals)
+
+
+
+        val previewImage by lazy { findViewById<ImageButton>(R.id.image_preview) }
+        previewImage.setImageURI(null)
+        previewImage.setImageURI(ImageUri.latestTmpUri)
+
+        previewImage.setOnClickListener{
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+            }
+            startActivity(editProfileIntent)}
+
 
         val userBMR = findViewById<TextView>(R.id.tvBMRValue)
         val caloricGoal = findViewById<TextView>(R.id.tvCaloriesNeededValue)
@@ -146,6 +165,7 @@ class FitnessGoalsActivity : AppCompatActivity() {
                     warning.text = "Warning: You are below the daily recommended caloric minimum."
             }
         }
+
     }
     fun calculateCaloricGoal(): Int {
         var caloricChange = (weightChange * POUNDS_TO_CALORIES) / 7
@@ -153,4 +173,8 @@ class FitnessGoalsActivity : AppCompatActivity() {
         caloricGoal = (caloricGoal + caloricChange).toInt()
         return caloricGoal
     }
+
+
 }
+
+

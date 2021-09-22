@@ -3,8 +3,10 @@ package com.example.lyfr
 import CurrentWeather
 import MyApiEndpointInterface
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -13,11 +15,24 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.example.lyfr.databinding.ActivityWeatherBinding
+
+private lateinit var binding: ActivityWeatherBinding
 
 class WeatherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityWeatherBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_weather)
+
+        val previewImage by lazy { findViewById<ImageButton>(R.id.image_preview) }
+        previewImage.setImageURI(null)
+        previewImage.setImageURI(ImageUri.latestTmpUri)
+
+        previewImage.setOnClickListener{
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+            }
+            startActivity(editProfileIntent)}
 
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedZip = sharedPref.getString("zip", "")

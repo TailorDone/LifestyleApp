@@ -23,15 +23,16 @@
 
     <TextView
         android:id="@+id/tvWelcomeUser"
-        android:layout_width="166dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
         android:fontFamily="@font/raleway_medium"
         android:text="@string/tvWelcomeUser"
         android:textColor="@color/white"
         android:textSize="23sp"
-        app:layout_constraintEnd_toStartOf="@+id/ibProfilePic"
-        app:layout_constraintHorizontal_bias="0.198"
+        app:layout_constraintEnd_toStartOf="@+id/image_preview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,24 +47,16 @@
         app:layout_constraintStart_toStartOf="@+id/tvWelcomeUser"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeUser" />
 
-    <ImageView
-        android:id="@+id/ibProfilePic"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvWelcomeUser"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="102dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName">
+        app:layout_constraintTop_toBottomOf="@+id/image_preview">
+
 
         <TableRow
             android:layout_width="match_parent"
@@ -77,7 +70,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 android:backgroundTint="#00FFFFFF"
-                android:scaleType="centerInside"
+                android:scaleType="fitCenter"
                 android:scaleX="1.1"
                 android:scaleY="1.1"
                 app:srcCompat="@drawable/calculator" />
@@ -98,7 +91,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tvBMI"
@@ -156,7 +149,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tvFitnessGoals"
@@ -182,5 +175,23 @@
         </TableRow>
 
     </TableLayout>
+
+    <ImageButton
+        android:id="@+id/image_preview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="83dp"
+        android:layout_weight="0"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvWelcomeUser"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
