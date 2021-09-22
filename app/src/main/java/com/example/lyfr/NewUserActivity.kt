@@ -28,7 +28,6 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
     lateinit var stringZip: EditText
     lateinit var stringAge: EditText
-    lateinit var stringSex: EditText
     lateinit var stringHeight: EditText
     lateinit var stringWeight: EditText
     var currentUser = User()
@@ -49,7 +48,10 @@ class NewUserActivity : AppCompatActivity() {
         var labelZip = findViewById<TextView>(R.id.tvZip)
         stringAge = findViewById(R.id.etDate)
         var labelAge = findViewById<TextView>(R.id.tvDOB)
-        stringSex = findViewById(R.id.etSex)
+        val photoOptions = findViewById<LinearLayout>(R.id.photoOptions)
+        val sexButtons = findViewById<RadioGroup>(R.id.etSex)
+        var radioButtonSexM = findViewById<RadioButton>(R.id.male)
+        var radioButtonSexF = findViewById<RadioButton>(R.id.female)
         var labelSex = findViewById<TextView>(R.id.tvSex)
         stringHeight = findViewById(R.id.etHeight)
         var labelHeight = findViewById<TextView>(R.id.tvHeight)
@@ -60,14 +62,13 @@ class NewUserActivity : AppCompatActivity() {
         labelHashMap.put(stringName, labelName)
         labelHashMap.put(stringZip, labelZip)
         labelHashMap.put(stringAge, labelAge)
-        labelHashMap.put(stringSex, labelSex)
         labelHashMap.put(stringHeight, labelHeight)
         labelHashMap.put(stringWeight, labelWeight)
 
         val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "")
         val savedZip = sharedPref.getString("zip", "")
-        val savedSex = sharedPref.getString("sex", "M/F")
+        val savedSex = sharedPref.getString("sex", "")
         val savedAge = sharedPref.getString("age", "")
         val savedHeight = sharedPref.getString("height", "")
         val savedWeight = sharedPref.getString("weight", "")
@@ -75,15 +76,21 @@ class NewUserActivity : AppCompatActivity() {
         stringName.setText(savedName)
         stringZip.setText(savedZip)
         stringAge.setText(savedAge)
-        stringSex.setText(savedSex)
         stringHeight.setText(savedHeight)
         stringWeight.setText(savedWeight)
+
+        when (savedSex) {
+            "M" -> radioButtonSexM.isChecked = true
+            "F" -> radioButtonSexF.isChecked = true
+            else -> {
+            }
+        }
 
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
         saveProfileButton.setOnClickListener{
             if (stringName.text.toString().isBlank() || stringZip.text.toString().isBlank() ||
                 stringAge.text.toString().isBlank() || stringHeight.text.toString().isBlank()  ||
-                stringWeight.text.toString().isBlank() || stringSex.text.toString().isBlank())
+                stringWeight.text.toString().isBlank() || (!radioButtonSexF.isChecked && !radioButtonSexM.isChecked))
                 Toast.makeText(this, "All fields must be completed", Toast.LENGTH_SHORT).show()
 
             else {
@@ -91,7 +98,12 @@ class NewUserActivity : AppCompatActivity() {
                 currentUser.zip = stringZip.text.toString()
                 val age = stringAge.text.toString()
                 currentUser.age = age.toInt()
-                currentUser.sex = stringSex.text.toString()
+                val selectedSex = findViewById<RadioButton>(sexButtons.checkedRadioButtonId)
+                var sex : String
+                if (selectedSex == radioButtonSexM)
+                    sex = "M"
+                else sex = "F"
+                currentUser.sex = sex
                 val height = stringHeight.text.toString()
                 currentUser.height = height.toDouble()
                 val weight = stringWeight.text.toString()
@@ -114,7 +126,6 @@ class NewUserActivity : AppCompatActivity() {
             }
         }
 
-        val photoOptions = findViewById<LinearLayout>(R.id.photoOptions)
         var isItShowing = false
         previewImage.setOnClickListener{
             if (isItShowing) {
@@ -140,6 +151,18 @@ class NewUserActivity : AppCompatActivity() {
                 }
             }
         }
+
+        sexButtons.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                labelSex.backgroundTintList = ContextCompat.getColorStateList(this, R.color.gradient_purple)
+                labelSex.setTextColor(ContextCompat.getColorStateList(this, R.color.white))
+            }
+            else {
+                labelSex.setBackgroundTintList(null)
+                labelSex.setTextColor(ContextCompat.getColorStateList(this, R.color.gradient_purple))
+            }
+        }
+
     }
 
     private fun setClickListeners() {
