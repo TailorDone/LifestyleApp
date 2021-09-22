@@ -15,6 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import android.graphics.Bitmap
 import android.widget.*
 import android.graphics.ImageDecoder
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ImageView
 import androidx.core.content.FileProvider.getUriForFile
 import androidx.lifecycle.lifecycleScope
@@ -111,6 +113,20 @@ class NewUserActivity : AppCompatActivity() {
                 startActivity(intentSaveProfile)
             }
         }
+
+        val photoOptions = findViewById<LinearLayout>(R.id.photoOptions)
+        var isItShowing = false
+        previewImage.setOnClickListener{
+            if (isItShowing) {
+                photoOptions.visibility = GONE
+                isItShowing = false
+            }
+            else {
+                photoOptions.visibility = VISIBLE
+                isItShowing = true
+            }
+        }
+
 
         labelHashMap.forEach {
             it.key.setOnFocusChangeListener { _, hasFocus ->
