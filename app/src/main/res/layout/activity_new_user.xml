@@ -11,28 +11,29 @@
 
     <RadioGroup
         android:id="@+id/etSex"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="35dp"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@id/height_weight"
-        app:layout_constraintStart_toEndOf="@+id/tvSex"
-        app:layout_constraintTop_toBottomOf="@+id/etDate">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/tvSex"
+        app:layout_constraintStart_toStartOf="@+id/tvSex"
+        app:layout_constraintTop_toBottomOf="@id/tvSex">
 
         <RadioButton
             android:id="@+id/male"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:fontFamily="@font/raleway_semibold"
             android:text="M"
             android:textColor="@color/gradient_purple" />
 
         <RadioButton
             android:id="@+id/female"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:fontFamily="@font/raleway_semibold"
             android:text="F"
             android:textColor="@color/gradient_purple" />
@@ -54,9 +55,11 @@
         android:id="@+id/height_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/etSex"
-        app:layout_constraintTop_toTopOf="@+id/etSex">
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@id/tvSex"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvZip">
 
         <TableRow
             android:layout_width="match_parent"
@@ -64,7 +67,7 @@
 
             <TextView
                 android:id="@+id/tvHeight"
-                android:layout_width="75dp"
+                android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:background="@drawable/rounded_corners"
                 android:fontFamily="@font/raleway_semibold"
@@ -87,9 +90,8 @@
                 android:id="@+id/textView2"
                 android:layout_width="30dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="4dp"
                 android:fontFamily="@font/raleway_semibold"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:text="in."
                 android:textColor="@color/gradient_purple" />
         </TableRow>
@@ -100,7 +102,7 @@
 
             <TextView
                 android:id="@+id/tvWeight"
-                android:layout_width="75dp"
+                android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:background="@drawable/rounded_corners"
                 android:fontFamily="@font/raleway_semibold"
@@ -124,9 +126,8 @@
                 android:id="@+id/textView3"
                 android:layout_width="30dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="4dp"
                 android:fontFamily="@font/raleway_semibold"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:text="lbs."
                 android:textColor="@color/gradient_purple" />
         </TableRow>
@@ -163,12 +164,12 @@
     <TextView
         android:id="@+id/tvEditProfile"
         android:layout_width="wrap_content"
-        android:layout_height="16dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/raleway_bold"
         android:gravity="center"
         android:text="@string/tvEditProfile"
         android:textColor="@color/gradient_purple"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -180,7 +181,7 @@
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
@@ -196,7 +197,6 @@
         android:id="@+id/etName"
         android:layout_width="240dp"
         android:layout_height="48dp"
-        android:ems="10"
         android:fontFamily="@font/raleway_semibold"
         android:inputType="textPersonName"
         android:maxLength="10"
@@ -209,8 +209,8 @@
         android:id="@+id/tvZip"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
@@ -220,28 +220,25 @@
         app:layout_constraintEnd_toStartOf="@id/etZip"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etZip" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <EditText
         android:id="@+id/etZip"
         android:layout_width="90dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
         android:fontFamily="sans-serif-medium"
         android:inputType="numberSigned"
         android:maxLength="5"
         android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toStartOf="@id/tvDOB"
         app:layout_constraintStart_toEndOf="@+id/tvZip"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        app:layout_constraintTop_toTopOf="@+id/tvZip" />
 
     <TextView
         android:id="@+id/tvDOB"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
@@ -251,14 +248,13 @@
         app:layout_constraintEnd_toStartOf="@+id/etDate"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/etZip"
-        app:layout_constraintTop_toTopOf="@+id/etDate" />
+        app:layout_constraintTop_toTopOf="@+id/tvZip" />
 
     <EditText
         android:id="@+id/etDate"
         android:layout_width="50dp"
         android:layout_height="48dp"
         android:layout_marginStart="15dp"
-        android:ems="10"
         android:fontFamily="sans-serif-medium"
         android:inputType="date"
         android:textColor="@color/gradient_purple"
@@ -266,22 +262,22 @@
         app:layout_constraintStart_toEndOf="@+id/tvDOB"
         app:layout_constraintTop_toTopOf="@+id/etZip" />
 
+
     <TextView
         android:id="@+id/tvSex"
-        android:layout_width="60dp"
+        android:layout_width="125dp"
         android:layout_height="40dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/raleway_semibold"
         android:gravity="center"
         android:text="@string/tvSex"
         android:textAlignment="center"
         android:textColor="@color/gradient_purple"
-        app:layout_constraintEnd_toStartOf="@+id/etSex"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etSex" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/height_weight"
+        app:layout_constraintTop_toBottomOf="@+id/tvDOB" />
 
     <Button
         android:id="@+id/buttonSaveProfile"

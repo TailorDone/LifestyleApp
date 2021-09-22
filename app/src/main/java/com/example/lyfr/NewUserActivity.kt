@@ -126,7 +126,6 @@ class NewUserActivity : AppCompatActivity() {
             }
         }
 
-        val photoOptions = findViewById<LinearLayout>(R.id.photoOptions)
         var optionsVisible = false
         previewImage.setOnClickListener{
             if (optionsVisible) {
