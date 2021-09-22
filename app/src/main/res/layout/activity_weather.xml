@@ -52,10 +52,11 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginRight="20dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/lyfr_r"/>
+        app:srcCompat="@drawable/lyfr_r" />
 
     <TableRow
         android:id="@+id/trTEMPicon"

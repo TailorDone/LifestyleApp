@@ -3,11 +3,16 @@ package com.example.lyfr
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 import kotlin.math.abs
 
 const val INCHES_TO_CENTIMETERS = 2.54
@@ -47,9 +52,14 @@ class FitnessGoalsActivity : AppCompatActivity() {
         val savedWeight = sharedPref.getString("weight", "")
         val savedAge = sharedPref.getString("age", "")
         val savedSex = sharedPref.getString("sex", "M")
+        val profilePicture = sharedPref.getString("profilePicture", "")
         val weightInKG = savedWeight?.toDouble()?.times(POUNDS_TO_KILOGRAM)
         val heightInCM = savedHeight?.toDouble()?.times(INCHES_TO_CENTIMETERS)
         val age = savedAge?.toInt()
+
+        if (profilePicture != null) {
+            loadImageFromStorage(profilePicture)
+        }
 
         val seekBar = findViewById<SeekBar>(R.id.seekBarLifeStyle)
         var lifestyle = findViewById<TextView>(R.id.tvLifeStyleValue)
@@ -161,5 +171,16 @@ class FitnessGoalsActivity : AppCompatActivity() {
         var caloricGoal = (BMR * lifestyleScaleFactor).toInt()
         caloricGoal = (caloricGoal + caloricChange).toInt()
         return caloricGoal
+    }
+
+    private fun loadImageFromStorage(path: String) {
+        try {
+            val f = File(path, "profile.jpg")
+            val b =  BitmapFactory.decodeStream(FileInputStream(f))
+            val img = findViewById<View>(R.id.profilePicture) as ImageView
+            img.setImageBitmap(b)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
     }
 }

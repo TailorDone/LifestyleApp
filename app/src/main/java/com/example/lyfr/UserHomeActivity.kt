@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import androidx.core.app.ActivityCompat.requestPermissions
+import com.example.lyfr.NewUserActivity
 
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
@@ -154,6 +155,7 @@ class UserHomeActivity : AppCompatActivity() {
 
         if(isTablet()) {
             val profilePicButton = findViewById<Button>(R.id.profilePictureTablet) as ImageButton
+
             profilePicButton.setOnClickListener {
                 val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
                 }

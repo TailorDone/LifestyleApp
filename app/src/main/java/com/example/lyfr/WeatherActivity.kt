@@ -4,8 +4,10 @@ import CurrentWeather
 import MyApiEndpointInterface
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.View.GONE
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +17,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 
 class WeatherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +35,11 @@ class WeatherActivity : AppCompatActivity() {
 
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedZip = sharedPref.getString("zip", "")
+        val profilePicture = sharedPref.getString("profilePicture", "")
+
+        if (profilePicture != null) {
+            loadImageFromStorage(profilePicture)
+        }
 
         val currentTemp = findViewById<TextView>(R.id.tvTemperature)
         val currentCity = findViewById<TextView>(R.id.tvCityName)
@@ -75,5 +85,16 @@ class WeatherActivity : AppCompatActivity() {
                 currentWind.text = "--"
             }
         })
+    }
+
+    private fun loadImageFromStorage(path: String) {
+        try {
+            val f = File(path, "profile.jpg")
+            val b =  BitmapFactory.decodeStream(FileInputStream(f))
+            val img = findViewById<View>(R.id.profilePicture) as ImageView
+            img.setImageBitmap(b)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
     }
 }

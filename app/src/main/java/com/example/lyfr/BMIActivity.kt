@@ -2,10 +2,15 @@ package com.example.lyfr
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 import kotlin.math.pow
 
 const val POUNDS_TO_KILOGRAM = 0.454
@@ -34,15 +39,31 @@ class BMIActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedHeight = sharedPref.getString("height", "")
         val savedWeight = sharedPref.getString("weight", "")
+        val profilePicture = sharedPref.getString("profilePicture", "")
         val kg = savedWeight?.toDouble()?.times(POUNDS_TO_KILOGRAM)
         val meters = savedHeight?.toDouble()?.times(INCHES_TO_METERS)
         val meters_squared = meters?.pow(2)
         val BMI = (meters_squared?.let { kg?.div(it) })
+
+        if (profilePicture != null) {
+            loadImageFromStorage(profilePicture)
+        }
 
         userHeight.setText("%.0f".format(savedHeight?.toDouble()))
         userHeightMeters.setText("%.2f".format(meters))
         userWeight.setText("%.0f".format(savedWeight?.toDouble()))
         userWeightKilos.setText("%.2f".format(kg))
         userBMI.setText("%.1f".format(BMI))
+    }
+
+    private fun loadImageFromStorage(path: String) {
+        try {
+            val f = File(path, "profile.jpg")
+            val b =  BitmapFactory.decodeStream(FileInputStream(f))
+            val img = findViewById<View>(R.id.profilePicture) as ImageView
+            img.setImageBitmap(b)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
     }
 }

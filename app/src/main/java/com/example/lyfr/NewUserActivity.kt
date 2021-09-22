@@ -1,7 +1,6 @@
 package com.example.lyfr
 
 import User
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,8 +20,13 @@ import android.widget.ImageView
 import androidx.core.content.FileProvider.getUriForFile
 import androidx.lifecycle.lifecycleScope
 import com.example.lyfr.ImageUri.latestTmpUri
-import java.io.File
 import java.util.*
+import android.content.ContextWrapper
+import java.lang.Exception
+import android.graphics.BitmapFactory
+import android.view.View
+import java.io.*
+
 
 class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
@@ -33,7 +37,6 @@ class NewUserActivity : AppCompatActivity() {
     var currentUser = User()
     lateinit var previewImage : ImageView
     var bitmap: Bitmap? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +55,6 @@ class NewUserActivity : AppCompatActivity() {
         val sexButtons = findViewById<RadioGroup>(R.id.etSex)
         var radioButtonSexM = findViewById<RadioButton>(R.id.male)
         var radioButtonSexF = findViewById<RadioButton>(R.id.female)
-        var labelSex = findViewById<TextView>(R.id.tvSex)
         stringHeight = findViewById(R.id.etHeight)
         var labelHeight = findViewById<TextView>(R.id.tvHeight)
         stringWeight = findViewById(R.id.etWeight)
@@ -72,7 +74,9 @@ class NewUserActivity : AppCompatActivity() {
         val savedAge = sharedPref.getString("age", "")
         val savedHeight = sharedPref.getString("height", "")
         val savedWeight = sharedPref.getString("weight", "")
+        var picturePath = sharedPref.getString("profilePicture", "")
 
+        picturePath?.let { loadImageFromStorage(it) }
         stringName.setText(savedName)
         stringZip.setText(savedZip)
         stringAge.setText(savedAge)
@@ -94,6 +98,9 @@ class NewUserActivity : AppCompatActivity() {
                 Toast.makeText(this, "All fields must be completed", Toast.LENGTH_SHORT).show()
 
             else {
+                //saves bitmap photo
+                picturePath = bitmap?.let { it1 -> saveToInternalStorage(it1) }
+
                 currentUser.name = stringName.text.toString()
                 currentUser.zip = stringZip.text.toString()
                 val age = stringAge.text.toString()
@@ -108,6 +115,7 @@ class NewUserActivity : AppCompatActivity() {
                 currentUser.height = height.toDouble()
                 val weight = stringWeight.text.toString()
                 currentUser.weight = weight.toDouble()
+                currentUser.profilePicturePath = picturePath.toString()
 
                 val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
                 with (sharedPref.edit()) {
@@ -117,6 +125,7 @@ class NewUserActivity : AppCompatActivity() {
                     putString("age", age)
                     putString("height", height)
                     putString("weight", weight)
+                    putString("profilePicture", picturePath)
                     commit()
                 }
 
@@ -200,5 +209,42 @@ class NewUserActivity : AppCompatActivity() {
             "com.example.lyfr.provider",
             tmpFile
 
-        )}
+        )
+    }
+
+    private fun saveToInternalStorage(bitmapImage: Bitmap): String? {
+        val cw = ContextWrapper(applicationContext)
+        // path to /data/data/yourapp/app_data/imageDir
+        val directory = cw.getDir("imageDir", MODE_PRIVATE)
+        // Create imageDir
+        val mypath = File(directory, "profile.jpg")
+        var fos: FileOutputStream? = null
+        try {
+            fos = FileOutputStream(mypath)
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close()
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return directory.absolutePath
+    }
+
+    private fun loadImageFromStorage(path: String) {
+        try {
+            val f = File(path, "profile.jpg")
+            val b =  BitmapFactory.decodeStream(FileInputStream(f))
+            val img = findViewById<View>(R.id.image_preview) as ImageView
+            img.setImageBitmap(b)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+    }
 }
