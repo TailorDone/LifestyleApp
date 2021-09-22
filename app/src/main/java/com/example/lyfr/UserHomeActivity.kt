@@ -5,50 +5,21 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import androidx.core.app.ActivityCompat.requestPermissions
-
-import androidx.annotation.NonNull
-import androidx.core.location.LocationManagerCompat
-
-import com.google.android.gms.tasks.OnCompleteListener
-
-import androidx.core.location.LocationManagerCompat.isLocationEnabled
-import com.google.android.gms.location.LocationResult
-
-import com.google.android.gms.location.LocationCallback
-
-import android.os.Looper
-
-import com.google.android.gms.location.LocationRequest
-
-
-
-
-
-
-
+import android.widget.Toast
 
 class UserHomeActivity : AppCompatActivity() {
-
-    private lateinit var locationManager : LocationManager
-    private val locationPermissionCode = 2
-    private lateinit var userLocation: String
-    var PERMISSION_ID = 44
     lateinit var mFusedLocationClient : FusedLocationProviderClient
+    var userLocation = ""
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,14 +71,20 @@ class UserHomeActivity : AppCompatActivity() {
             }
         }
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation()
+
         val findHikeButton = findViewById<Button>(R.id.ibHikeMap)as ImageButton
         findHikeButton.setOnClickListener {
-            val locUri = Uri.parse("geo:${userLocation}?q=" + Uri.encode("Hikes"))
-            val intentHike = Intent(Intent.ACTION_VIEW, locUri)
-            intentHike.setPackage("com.google.android.apps.maps")
-            startActivity(intentHike)
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            val locationEnabled = getLocation()
+            if (locationEnabled) {
+                val locUri = Uri.parse("geo:${userLocation}?q=" + Uri.encode("Hikes"))
+                val intentHike = Intent(Intent.ACTION_VIEW, locUri)
+                intentHike.setPackage("com.google.android.apps.maps")
+                startActivity(intentHike)
+            }
+            else
+                Toast.makeText(this, "Location must be enabled.", Toast.LENGTH_SHORT).show()
+
         }
 
         val fitnessGoalsButton = findViewById<Button>(R.id.ibFitnessGoals) as ImageButton
@@ -184,71 +161,28 @@ class UserHomeActivity : AppCompatActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLastLocation() {
+    private fun getLocation() : Boolean {
         // check if permissions are given
         if (checkPermissions()) {
-
-            // check if location is enabled
-            if (isLocationEnabled()) {
-
                 // getting last location from FusedLocationClient object
-                mFusedLocationClient.getLastLocation()
-                    .addOnCompleteListener(OnCompleteListener<Location?> { task ->
-                        val location = task.result
-                        if (location == null) {
-                            requestNewLocationData()
-                        } else {
-                            userLocation = "${location.latitude},${location.longitude}"
-                        }
-                    })
-            } else {
-                Toast.makeText(this, "Please turn on" + " your location...", Toast.LENGTH_LONG)
-                    .show()
-            }
+                val task = mFusedLocationClient.lastLocation
+                task.addOnSuccessListener{
+                    val location = task.result
+                    userLocation = "${location.latitude},${location.longitude}"
+                }
+            return true
         } else {
             // if permissions aren't available, request for permissions
             requestPermissions()
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun requestNewLocationData() {
-
-        // Initializing LocationRequest object with appropriate methods
-        val mLocationRequest = LocationRequest()
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest.interval = 5
-        mLocationRequest.fastestInterval = 0
-        mLocationRequest.numUpdates = 1
-
-        // setting LocationRequest on FusedLocationClient
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient.requestLocationUpdates(
-            mLocationRequest,
-            mLocationCallback,
-            Looper.myLooper()
-        )
-    }
-
-    private val mLocationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            val mLastLocation = locationResult.lastLocation
-            userLocation = "${mLastLocation.latitude},${mLastLocation.longitude}"
+            return false
         }
     }
 
     // method to check for permissions
     private fun checkPermissions(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
         // If we want background location on Android 10.0 and higher, use:
-        ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
     // method to request for permissions
@@ -257,37 +191,8 @@ class UserHomeActivity : AppCompatActivity() {
             this, arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ), PERMISSION_ID
+            ), 101
         )
-    }
-
-    // method to check if location is enabled
-    private fun isLocationEnabled(): Boolean {
-        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
-    }
-
-    // If everything is alright then
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_ID) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation()
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (checkPermissions()) {
-            getLastLocation()
-        }
     }
 
     fun isTablet(): Boolean {
