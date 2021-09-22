@@ -52,10 +52,11 @@
         android:layout_height="75dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/lyfr_r"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvWelcomeUser"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lyfr_r" />
 
     <TableLayout
         android:id="@+id/tableLayout"

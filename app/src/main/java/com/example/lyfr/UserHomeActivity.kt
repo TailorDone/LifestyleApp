@@ -5,15 +5,19 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import androidx.core.app.ActivityCompat.requestPermissions
-import com.example.lyfr.NewUserActivity
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
@@ -24,6 +28,7 @@ class UserHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_home)
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val profilePicture = sharedPref.getString("profilePicture", "")
 
         if (isTablet()) {
             loadWelcome()
@@ -37,12 +42,6 @@ class UserHomeActivity : AppCompatActivity() {
             val splitName = savedName?.split(" ")
             val userName = findViewById<TextView>(R.id.tvUserName)
             userName.text = splitName?.get(0)?.uppercase() ?: "USER"
-            val profilePic = findViewById<ImageView>(R.id.profilePicture)
-            profilePic.setOnClickListener{
-                val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
-                }
-                startActivity(editProfileIntent)
-            }
         }
 
         val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
@@ -153,14 +152,14 @@ class UserHomeActivity : AppCompatActivity() {
             }
         }
 
-        if(isTablet()) {
-            val profilePicButton = findViewById<Button>(R.id.profilePictureTablet) as ImageButton
-
-            profilePicButton.setOnClickListener {
-                val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
-                }
-                startActivity(editProfileIntent)
+        val profilePictureButton = findViewById<ImageView>(R.id.profilePicture)
+        if (profilePicture != null) {
+            loadImageFromStorage(profilePicture)
+        }
+        profilePictureButton.setOnClickListener{
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
             }
+            startActivity(editProfileIntent)
         }
 
     }
@@ -220,5 +219,16 @@ class UserHomeActivity : AppCompatActivity() {
             "frag_welcome"
         )
         fTrans.commit()
+    }
+
+    private fun loadImageFromStorage(path: String) {
+        try {
+            val f = File(path, "profile.jpg")
+            val b =  BitmapFactory.decodeStream(FileInputStream(f))
+            val img = findViewById<View>(R.id.profilePicture) as ImageView
+            img.setImageBitmap(b)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
     }
 }

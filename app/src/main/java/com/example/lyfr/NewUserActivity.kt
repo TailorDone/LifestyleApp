@@ -76,7 +76,7 @@ class NewUserActivity : AppCompatActivity() {
         val savedWeight = sharedPref.getString("weight", "")
         var picturePath = sharedPref.getString("profilePicture", "")
 
-        picturePath?.let { loadImageFromStorage(it) }
+        bitmap = picturePath?.let { loadImageFromStorage(it) }
         stringName.setText(savedName)
         stringZip.setText(savedZip)
         stringAge.setText(savedAge)
@@ -237,14 +237,16 @@ class NewUserActivity : AppCompatActivity() {
         return directory.absolutePath
     }
 
-    private fun loadImageFromStorage(path: String) {
+    private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
             val f = File(path, "profile.jpg")
             val b =  BitmapFactory.decodeStream(FileInputStream(f))
             val img = findViewById<View>(R.id.image_preview) as ImageView
             img.setImageBitmap(b)
+            return b
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
         }
+        return null
     }
 }
