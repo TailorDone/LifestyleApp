@@ -20,7 +20,7 @@ class FragmentWeather : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var fragmentView = inflater.inflate(R.layout.activity_weather, container, false)
+        var fragmentView = inflater.inflate(R.layout.fragment_weather, container, false)
 
         val currentTemp = fragmentView.findViewById<TextView>(R.id.tvTemperature)
         val currentCity = fragmentView.findViewById<TextView>(R.id.tvCityName)

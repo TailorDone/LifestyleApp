@@ -37,7 +37,7 @@
                 app:tint="@color/white" />
 
             <ImageButton
-                android:id="@+id/ibProfilePic"
+                android:id="@+id/profilePictureTablet"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
                 android:layout_gravity="center"

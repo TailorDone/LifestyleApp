@@ -3,8 +3,10 @@ package com.example.lyfr
 import CurrentWeather
 import MyApiEndpointInterface
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.GONE
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -18,6 +20,13 @@ class WeatherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
+
+        val profilePic = findViewById<ImageView>(R.id.profilePicture)
+        profilePic.setOnClickListener{
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+            }
+            startActivity(editProfileIntent)
+        }
 
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedZip = sharedPref.getString("zip", "")

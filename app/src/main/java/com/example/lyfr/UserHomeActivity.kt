@@ -8,14 +8,11 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import androidx.core.app.ActivityCompat.requestPermissions
-import android.widget.Toast
 
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
@@ -39,6 +36,12 @@ class UserHomeActivity : AppCompatActivity() {
             val splitName = savedName?.split(" ")
             val userName = findViewById<TextView>(R.id.tvUserName)
             userName.text = splitName?.get(0)?.uppercase() ?: "USER"
+            val profilePic = findViewById<ImageView>(R.id.profilePicture)
+            profilePic.setOnClickListener{
+                val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+                }
+                startActivity(editProfileIntent)
+            }
         }
 
         val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
@@ -150,7 +153,7 @@ class UserHomeActivity : AppCompatActivity() {
         }
 
         if(isTablet()) {
-            val profilePicButton = findViewById<Button>(R.id.ibProfilePic) as ImageButton
+            val profilePicButton = findViewById<Button>(R.id.profilePictureTablet) as ImageButton
             profilePicButton.setOnClickListener {
                 val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
                 }

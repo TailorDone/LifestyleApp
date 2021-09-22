@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="120dp"
         android:background="@color/WEATHER_blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -21,13 +21,13 @@
         android:id="@+id/tvWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:fontFamily="@font/raleway_bold"
         android:gravity="center_vertical"
         android:text="@string/tvWeather"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="45sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.507" />
@@ -39,23 +39,13 @@
         android:fontFamily="@font/raleway_bold"
         android:gravity="center"
         android:textColor="#FF5A5A5A"
-        android:textSize="30sp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@id/trTEMPicon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_chainStyle="spread" />
-
-    <ImageView
-        android:id="@+id/profilePicture"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/lyfr_r"/>
 
     <TableRow
         android:id="@+id/trTEMPicon"
@@ -68,24 +58,24 @@
         <TextView
             android:id="@+id/tvTemperature"
             android:layout_width="wrap_content"
-            android:layout_height="116dp"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:textColor="#FF5A5A5A"
-            android:textSize="90sp" />
+            android:textSize="120sp" />
 
         <ImageView
             android:id="@+id/weatherIcon"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_marginLeft="40dp"
             app:srcCompat="?attr/listChoiceBackgroundIndicator" />
     </TableRow>
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="match_parent"
-        android:layout_height="355dp"
+        android:layout_width="906dp"
+        android:layout_height="500dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/trWind"
         app:srcCompat="@drawable/rectangle_37" />
@@ -106,7 +96,7 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="right|center_vertical"
             android:textColor="#FF5A5A5A"
-            android:textSize="30sp" />
+            android:textSize="45sp" />
 
     </TableRow>
 
@@ -127,7 +117,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/tvHIGH"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvHIGHtemp"
@@ -137,7 +127,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="--"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -146,7 +136,7 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/tvDegrees"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
 
         <TextView
@@ -157,7 +147,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/tvLOW"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvLowtemp"
@@ -168,7 +158,7 @@
             android:gravity="right|center_vertical"
             android:text="--"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -177,7 +167,7 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/tvDegrees"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
     </TableRow>
 
@@ -198,7 +188,7 @@
             android:gravity="right|center_vertical"
             android:text="@string/tvFeelsLike"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvFeelsLikeTemp"
@@ -209,7 +199,7 @@
             android:gravity="right|center_vertical"
             android:text="--"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -218,7 +208,7 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/tvDegrees"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
     </TableRow>
 
@@ -240,7 +230,7 @@
             android:gravity="right|center_vertical"
             android:text="@string/tvHumidity"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvHumidityPercent"
@@ -251,7 +241,7 @@
             android:gravity="right|center_vertical"
             android:text="--"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvPercent"
@@ -261,7 +251,7 @@
             android:fontFamily="sans-serif-light"
             android:text="%"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
     </TableRow>
 
@@ -271,7 +261,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
-        android:paddingBottom="30dp"
+        android:paddingBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
@@ -282,7 +272,7 @@
             android:gravity="right|center_vertical"
             android:text="@string/tvWind"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvWindSpeed"
@@ -293,7 +283,7 @@
             android:gravity="right|center_vertical"
             android:text="--"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvMPH"
@@ -303,7 +293,7 @@
             android:fontFamily="sans-serif-light"
             android:text="mph"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="40sp" />
 
     </TableRow>
 

@@ -20,7 +20,7 @@ class FragmentFitnessGoals : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var fragmentView = inflater.inflate(R.layout.activity_fitness_goals, container, false)
+        var fragmentView = inflater.inflate(R.layout.fragment_fitness_goals, container, false)
 
         val userBMR = fragmentView.findViewById<TextView>(R.id.tvBMRValue)
         val caloricGoal = fragmentView.findViewById<TextView>(R.id.tvCaloriesNeededValue)

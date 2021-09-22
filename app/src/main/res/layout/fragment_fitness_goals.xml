@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="120dp"
         android:background="@color/FITNESS_purple"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -20,25 +20,15 @@
         android:id="@+id/tvFitnessGoals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
         android:fontFamily="@font/raleway_bold"
         android:gravity="center_vertical"
         android:text="@string/tvFitnessGoals"
         android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/profilePicture"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginRight="20dp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/lyfr_r"/>
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvCaloriesNeeded"
@@ -48,13 +38,13 @@
         android:gravity="center"
         android:text="Daily Caloric Goal"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="25sp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintVertical_bias="0.166" />
 
     <TextView
         android:id="@+id/tvCaloriesNeededValue"
@@ -65,7 +55,7 @@
         android:gravity="center"
         android:text="--"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="70sp"
+        android:textSize="120sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCaloriesNeeded" />
@@ -89,14 +79,14 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="BMR"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWarning" />
 
@@ -108,7 +98,7 @@
         android:gravity="center"
         android:text="--"
         android:textColor="@color/FITNESS_purple"
-        android:textSize="30sp"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
 
@@ -120,8 +110,8 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingTop="15dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="35dp"
+        android:paddingBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/trWeightGoal">
 
         <TextView
@@ -132,7 +122,7 @@
             android:gravity="center"
             android:text="Weight Goal:"
             android:textColor="#8E66DA"
-            android:textSize="20sp" />
+            android:textSize="40sp" />
     </TableRow>
 
     <TableRow
@@ -158,7 +148,7 @@
                 android:fontFamily="sans-serif"
                 android:text="Lose"
                 android:textColor="@color/FITNESS_purple"
-                android:textSize="17sp" />
+                android:textSize="25sp" />
 
             <RadioButton
                 android:id="@+id/rbMaintain"
@@ -168,7 +158,7 @@
                 android:fontFamily="sans-serif"
                 android:text="Maintain"
                 android:textColor="@color/FITNESS_purple"
-                android:textSize="17sp" />
+                android:textSize="25sp" />
 
             <RadioButton
                 android:id="@+id/rbGain"
@@ -177,7 +167,7 @@
                 android:fontFamily="sans-serif"
                 android:text="Gain"
                 android:textColor="@color/FITNESS_purple"
-                android:textSize="17sp" />
+                android:textSize="25sp" />
         </RadioGroup>
     </TableRow>
 
@@ -187,7 +177,7 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/tableRow">
 
         <EditText
@@ -197,14 +187,16 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="numberDecimal"
-            android:textColor="@color/FITNESS_purple" />
+            android:textColor="@color/FITNESS_purple"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/tvPoundsPerWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="lbs. per week"
-            android:textColor="@color/FITNESS_purple" />
+            android:textColor="@color/FITNESS_purple"
+            android:textSize="20sp" />
 
     </TableRow>
 
@@ -214,7 +206,7 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingTop="20dp"
+        android:paddingTop="40dp"
         android:paddingBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/trLifestyle">
 
@@ -226,7 +218,7 @@
             android:gravity="center"
             android:text="LifeStyle:"
             android:textColor="#8E66DA"
-            android:textSize="20sp" />
+            android:textSize="40sp" />
     </TableRow>
 
     <TableRow
@@ -235,22 +227,22 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingBottom="25dp"
+        android:paddingBottom="40dp"
         app:layout_constraintBottom_toTopOf="@id/trSubmit">
 
         <TextView
             android:id="@+id/tvLifeStyleValue"
-            android:layout_width="150dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:paddingEnd="10dp"
+            android:paddingEnd="20dp"
             android:textAlignment="textEnd"
             android:textColor="#FFA379F2"
-            android:textSize="17sp" />
+            android:textSize="25sp" />
 
         <SeekBar
             android:id="@+id/seekBarLifeStyle"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="175dp"
+            android:layout_width="275dp"
             android:layout_height="match_parent"
             android:max="4"
             android:progress="0" />
@@ -263,7 +255,7 @@
         android:layout_height="wrap_content"
         android:background="#F4EDFF"
         android:gravity="center"
-        android:paddingBottom="15dp"
+        android:paddingBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button

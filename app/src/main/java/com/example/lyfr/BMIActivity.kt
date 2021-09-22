@@ -1,8 +1,10 @@
 package com.example.lyfr
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import kotlin.math.pow
 
@@ -14,6 +16,13 @@ class BMIActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmiactivity)
 
+        val profilePic = findViewById<ImageView>(R.id.profilePicture)
+        profilePic.setOnClickListener{
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+            }
+            startActivity(editProfileIntent)
+        }
+
         val userHeight = findViewById<TextView>(R.id.tvHeightInches)
         val userHeightMeters = findViewById<TextView>(R.id.tvHeightMeters)
 
@@ -21,7 +30,6 @@ class BMIActivity : AppCompatActivity() {
         val userWeightKilos = findViewById<TextView>(R.id.tvWeightKilos)
 
         val userBMI = findViewById<TextView>(R.id.tvBMIValue)
-
 
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedHeight = sharedPref.getString("height", "")

@@ -2,6 +2,7 @@ package com.example.lyfr
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -28,6 +29,14 @@ class FitnessGoalsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fitness_goals)
+
+        val profilePic = findViewById<ImageView>(R.id.profilePicture)
+        profilePic.setOnClickListener {
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+            }
+            startActivity(editProfileIntent)
+        }
+
 
         val userBMR = findViewById<TextView>(R.id.tvBMRValue)
         val caloricGoal = findViewById<TextView>(R.id.tvCaloriesNeededValue)

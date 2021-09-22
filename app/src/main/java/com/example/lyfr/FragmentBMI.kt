@@ -1,9 +1,12 @@
 package com.example.lyfr
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlin.math.pow
@@ -13,7 +16,7 @@ class FragmentBMI : Fragment(R.layout.activity_bmiactivity) {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var fragmentView = inflater.inflate(R.layout.activity_bmiactivity, container, false)
+        var fragmentView = inflater.inflate(R.layout.fragment_bmiactivity, container, false)
 
         val userHeight = fragmentView.findViewById<TextView>(R.id.tvHeightInches)
         val userHeightMeters = fragmentView.findViewById<TextView>(R.id.tvHeightMeters)
