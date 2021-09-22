@@ -3,7 +3,7 @@ package com.example.lyfr
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
+import android.graphics.*
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
@@ -173,14 +173,31 @@ class FitnessGoalsActivity : AppCompatActivity() {
         return caloricGoal
     }
 
-    private fun loadImageFromStorage(path: String) {
+    private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
             val f = File(path, "profile.jpg")
-            val b =  BitmapFactory.decodeStream(FileInputStream(f))
+            var b =  BitmapFactory.decodeStream(FileInputStream(f))
             val img = findViewById<View>(R.id.profilePicture) as ImageView
+            b = getCircledBitmap(b)
             img.setImageBitmap(b)
+            return b
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
         }
+        return null
+    }
+
+    fun getCircledBitmap(bitmap: Bitmap): Bitmap? {
+        val output = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(output)
+        val paint = Paint()
+        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        paint.setAntiAlias(true)
+        canvas.drawARGB(0, 0, 0, 0)
+        canvas.drawCircle((bitmap.width / 2).toFloat(),
+            (bitmap.height / 2).toFloat(), (bitmap.width / 2).toFloat(), paint)
+        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        canvas.drawBitmap(bitmap, rect, rect, paint)
+        return output
     }
 }

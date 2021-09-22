@@ -49,10 +49,10 @@
 
     <ImageView
         android:id="@+id/profilePicture"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginRight="20dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"

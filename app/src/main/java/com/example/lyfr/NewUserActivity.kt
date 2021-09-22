@@ -11,9 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
-import android.graphics.Bitmap
 import android.widget.*
-import android.graphics.ImageDecoder
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
@@ -22,8 +20,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.lyfr.ImageUri.latestTmpUri
 import java.util.*
 import android.content.ContextWrapper
+import android.graphics.*
 import java.lang.Exception
-import android.graphics.BitmapFactory
 import android.view.View
 import java.io.*
 
@@ -43,7 +41,7 @@ class NewUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_user)
         setClickListeners()
 
-        previewImage = findViewById(R.id.image_preview)
+        previewImage = findViewById(R.id.profilePicture)
 
         stringName = findViewById(R.id.etName)
         var labelName = findViewById<TextView>(R.id.tvName)
@@ -240,13 +238,29 @@ class NewUserActivity : AppCompatActivity() {
     private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
             val f = File(path, "profile.jpg")
-            val b =  BitmapFactory.decodeStream(FileInputStream(f))
-            val img = findViewById<View>(R.id.image_preview) as ImageView
+            var b =  BitmapFactory.decodeStream(FileInputStream(f))
+            val img = findViewById<View>(R.id.profilePicture) as ImageView
+            b = getCircledBitmap(b)
             img.setImageBitmap(b)
             return b
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
         }
         return null
+    }
+
+    //function from Jewelzqiu https://gist.github.com/jewelzqiu/c0633c9f3089677ecf85
+    fun getCircledBitmap(bitmap: Bitmap): Bitmap? {
+        val output = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(output)
+        val paint = Paint()
+        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        paint.setAntiAlias(true)
+        canvas.drawARGB(0, 0, 0, 0)
+        canvas.drawCircle((bitmap.width / 2).toFloat(),
+            (bitmap.height / 2).toFloat(), (bitmap.width / 2).toFloat(), paint)
+        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        canvas.drawBitmap(bitmap, rect, rect, paint)
+        return output
     }
 }

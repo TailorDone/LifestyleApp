@@ -40,7 +40,7 @@
     </RadioGroup>
 
     <ImageView
-        android:id="@+id/image_preview"
+        android:id="@+id/profilePicture"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="10dp"
@@ -141,9 +141,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/image_preview"
-        app:layout_constraintStart_toEndOf="@+id/image_preview"
-        app:layout_constraintTop_toTopOf="@+id/image_preview">
+        app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
+        app:layout_constraintStart_toEndOf="@+id/profilePicture"
+        app:layout_constraintTop_toTopOf="@+id/profilePicture">
 
         <Button
             android:id="@+id/buttonTakePhoto"
@@ -192,7 +192,7 @@
         app:layout_constraintEnd_toStartOf="@+id/etName"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_preview" />
+        app:layout_constraintTop_toBottomOf="@id/profilePicture" />
 
     <EditText
         android:id="@+id/etName"
