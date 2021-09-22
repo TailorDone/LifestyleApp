@@ -151,18 +151,6 @@ class NewUserActivity : AppCompatActivity() {
                 }
             }
         }
-
-        sexButtons.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                labelSex.backgroundTintList = ContextCompat.getColorStateList(this, R.color.gradient_purple)
-                labelSex.setTextColor(ContextCompat.getColorStateList(this, R.color.white))
-            }
-            else {
-                labelSex.setBackgroundTintList(null)
-                labelSex.setTextColor(ContextCompat.getColorStateList(this, R.color.gradient_purple))
-            }
-        }
-
     }
 
     private fun setClickListeners() {
