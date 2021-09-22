@@ -3,7 +3,6 @@ package com.example.lyfr
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.ImageView
 import com.example.lyfr.databinding.PictureLookAtBinding
 
