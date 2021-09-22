@@ -9,79 +9,44 @@
     tools:context=".NewUserActivity">
 
 
-    <ImageButton
-        android:id="@+id/imageButtonCamera2"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="52dp"
-        android:background="#00FFFFFF"
-        android:scaleType="centerInside"
-        android:scaleX="1"
-        android:scaleY="1"
-        android:src="@drawable/camera"
-        android:tint="@color/gradient_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEditProfile"
-        tools:srcCompat="@drawable/camera" />
-
     <ImageView
         android:id="@+id/image_preview"
-        android:layout_width="97dp"
-        android:layout_height="87dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="223dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonCamera"
-        app:layout_constraintTop_toBottomOf="@+id/tvEditProfile"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/raleway_semibold"
-        android:gravity="center"
-        android:text="@string/tvChangePicture"
-        android:textColor="@color/gradient_purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.973"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonCamera2" />
-
-    <ImageButton
-        android:id="@+id/imageButtonCamera"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="52dp"
-        android:background="#00FFFFFF"
-        android:scaleType="centerInside"
-        android:scaleX="1"
-        android:scaleY="1"
-        android:src="@drawable/camera"
-        android:tint="@color/gradient_blue"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/camera"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/etName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEditProfile"
-        tools:srcCompat="@drawable/camera" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEditProfile" />
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
+        android:id="@+id/photoOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/raleway_semibold"
-        android:gravity="center"
-        android:text="@string/tvChangePicture"
-        android:textColor="@color/gradient_purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonCamera" />
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/image_preview"
+        app:layout_constraintStart_toEndOf="@+id/image_preview"
+        app:layout_constraintTop_toTopOf="@+id/image_preview">
+
+        <Button
+            android:id="@+id/buttonTakePhoto"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="#76D2E0"
+            android:text="Take Photo" />
+
+        <Button
+            android:id="@+id/buttonChoosePhoto"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="#76D2E0"
+            android:text="Choose Photo" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvEditProfile"
@@ -102,7 +67,7 @@
         android:id="@+id/tvName"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/raleway_semibold"
@@ -113,13 +78,12 @@
         app:layout_constraintEnd_toStartOf="@+id/etName"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/image_preview" />
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="240dp"
         android:layout_height="48dp"
-        android:layout_marginTop="74dp"
         android:ems="10"
         android:fontFamily="@font/raleway_semibold"
         android:inputType="textPersonName"
@@ -127,7 +91,7 @@
         android:textColor="@color/gradient_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/tvName" />
 
     <TextView
         android:id="@+id/tvZip"

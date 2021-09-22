@@ -30,65 +30,16 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var stringHeight: EditText
     lateinit var stringWeight: EditText
     var currentUser = User()
-
+    lateinit var previewImage : ImageView
     var bitmap: Bitmap? = null
 
-    private val takeImageResult =
-        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
-            if (isSuccess) {
-                latestTmpUri?.let { uri ->
-                    val source = ImageDecoder
-                        .createSource(this.contentResolver, uri)
-                    bitmap = ImageDecoder.decodeBitmap(source)
-                    previewImage.setImageBitmap(bitmap)
-                }
-            }
-            val intent = Intent(this, LookAtPicture::class.java)
-            startActivity(intent)
-        }
-
-    private val selectImageFromGalleryResult =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                previewImage.setImageURI(uri)
-            }
-        }
-
-    val previewImage by lazy { findViewById<ImageView>(R.id.image_preview) }
-
-    private fun setClickListeners() {
-        findViewById<ImageButton>(R.id.imageButtonCamera).setOnClickListener { takeImage() }
-        findViewById<ImageButton>(R.id.imageButtonCamera2).setOnClickListener { selectImageFromGallery() }
-    }
-
-    private fun takeImage() {
-        lifecycleScope.launchWhenStarted {
-            getTmpFileUri().let { uri ->
-                latestTmpUri = uri
-                takeImageResult.launch(uri)
-            }
-        }
-    }
-
-    private fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
-
-    private fun getTmpFileUri(): Uri {
-        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
-            createNewFile()
-            deleteOnExit()
-        }
-
-        return getUriForFile(
-            applicationContext,
-            "com.example.lyfr.provider",
-            tmpFile
-
-        )}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_user)
         setClickListeners()
+
+        previewImage = findViewById(R.id.image_preview)
 
         stringName = findViewById(R.id.etName)
         var labelName = findViewById<TextView>(R.id.tvName)
@@ -174,4 +125,53 @@ class NewUserActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun setClickListeners() {
+        findViewById<Button>(R.id.buttonTakePhoto).setOnClickListener { takeImage() }
+        findViewById<Button>(R.id.buttonChoosePhoto).setOnClickListener { selectImageFromGallery() }
+    }
+
+    val takeImageResult =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+            if (isSuccess) {
+                latestTmpUri?.let { uri ->
+                    val source = ImageDecoder.createSource(this.contentResolver, uri)
+                    bitmap = ImageDecoder.decodeBitmap(source)
+                    previewImage.setImageBitmap(bitmap)
+                }
+            }
+            val intent = Intent(this, LookAtPicture::class.java)
+            startActivity(intent)
+        }
+
+    val selectImageFromGalleryResult =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                previewImage.setImageURI(uri)
+            }
+        }
+
+    private fun takeImage() {
+        lifecycleScope.launchWhenStarted {
+            getTmpFileUri().let { uri ->
+                latestTmpUri = uri
+                takeImageResult.launch(uri)
+            }
+        }
+    }
+
+    private fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
+
+    private fun getTmpFileUri(): Uri {
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return getUriForFile(
+            applicationContext,
+            "com.example.lyfr.provider",
+            tmpFile
+
+        )}
 }
