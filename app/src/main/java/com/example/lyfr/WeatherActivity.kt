@@ -11,6 +11,8 @@ import android.view.View
 import android.view.View.GONE
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +24,17 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 
 class WeatherActivity : AppCompatActivity() {
+    private lateinit var mCurrentTemp : TextView
+    private lateinit var mCurrentCity : TextView
+    private lateinit var mCurrentCondition : TextView
+    private lateinit var mCurrentHigh : TextView
+    private lateinit var mCurrentLow : TextView
+    private lateinit var mCurrentFeelsLike : TextView
+    private lateinit var mCurrentHumidity : TextView
+    private lateinit var mCurrentWind : TextView
+    private lateinit var mWeatherViewModel : WeatherViewModel
+    private lateinit var mViewModelFactory: WeatherViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
@@ -33,23 +46,32 @@ class WeatherActivity : AppCompatActivity() {
             startActivity(editProfileIntent)
         }
 
+        //TO DO change this to not use shared preferences
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val savedZip = sharedPref.getString("zip", "")
         val profilePicture = sharedPref.getString("profilePicture", "")
+        val weatherIcon = findViewById<ImageView>(R.id.weatherIcon)
 
         if (profilePicture != null) {
             loadImageFromStorage(profilePicture)
         }
 
-        val currentTemp = findViewById<TextView>(R.id.tvTemperature)
-        val currentCity = findViewById<TextView>(R.id.tvCityName)
-        val weatherIcon = findViewById<ImageView>(R.id.weatherIcon)
-        val currentCondition = findViewById<TextView>(R.id.tvWeatherCondition)
-        val currentHigh = findViewById<TextView>(R.id.tvHIGHtemp)
-        val currentLow = findViewById<TextView>(R.id.tvLowtemp)
-        val currentFeelsLike = findViewById<TextView>(R.id.tvFeelsLikeTemp)
-        val currentHumidity = findViewById<TextView>(R.id.tvHumidityPercent)
-        val currentWind = findViewById<TextView>(R.id.tvWindSpeed)
+        //Get all the text views
+        mCurrentTemp = findViewById<TextView>(R.id.tvTemperature)
+        mCurrentCity = findViewById<TextView>(R.id.tvCityName)
+        mCurrentCondition = findViewById<TextView>(R.id.tvWeatherCondition)
+        mCurrentHigh = findViewById<TextView>(R.id.tvHIGHtemp)
+        mCurrentLow = findViewById<TextView>(R.id.tvLowtemp)
+        mCurrentFeelsLike = findViewById<TextView>(R.id.tvFeelsLikeTemp)
+        mCurrentHumidity = findViewById<TextView>(R.id.tvHumidityPercent)
+        mCurrentWind = findViewById<TextView>(R.id.tvWindSpeed)
+
+        //Grab an instance of the view model
+        mViewModelFactory = WeatherViewModelFactory()
+        mWeatherViewModel = ViewModelProvider(this, mViewModelFactory).get(WeatherViewModel::class.java)
+
+        //Set the observer
+        val weatherDataObserver
 
         val BASE_URL = "https://api.openweathermap.org/data/2.5/"
         val retrofit = Retrofit.Builder()
