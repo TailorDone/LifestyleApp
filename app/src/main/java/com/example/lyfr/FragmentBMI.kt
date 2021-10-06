@@ -31,11 +31,11 @@ class FragmentBMI : Fragment(R.layout.activity_bmiactivity) {
         val meters_squared = meters?.pow(2)
         val BMI = (meters_squared?.let { kg?.div(it) })
 
-        userHeight.setText("%.0f".format(height))
-        userHeightMeters.setText("%.2f".format(meters))
-        userWeight.setText("%.0f".format(weight))
-        userWeightKilos.setText("%.2f".format(kg))
-        userBMI.setText("%.1f".format(BMI))
+        userHeight.text = "%.0f".format(height)
+        userHeightMeters.text = "%.2f".format(meters)
+        userWeight.text = "%.0f".format(weight)
+        userWeightKilos.text = "%.2f".format(kg)
+        userBMI.text = "%.1f".format(BMI)
 
         return fragmentView
     }

@@ -63,7 +63,7 @@ class WeatherActivity : AppCompatActivity() {
         call.enqueue( object : Callback<CurrentWeather> {
             override fun onResponse(call: Call<CurrentWeather>, response: Response<CurrentWeather>) {
                 val weatherIconNumber = response.body()?.weather?.get(0)?.icon
-                Picasso.with(this@WeatherActivity).load("https://openweathermap.org/img/wn/" + weatherIconNumber + "@2x.png").into(weatherIcon);
+                Picasso.with(this@WeatherActivity).load("https://openweathermap.org/img/wn/" + weatherIconNumber + "@2x.png").into(weatherIcon)
                 currentTemp.text = ("%.0f".format(response.body()?.main?.get("temp")) + getText(R.string.tvDegrees))
                 currentCity.text = response.body()?.name ?: "Unknown"
                 currentCondition.text = response.body()?.weather?.get(0)?.main?.uppercase() ?: "Conditions"
@@ -106,11 +106,11 @@ class WeatherActivity : AppCompatActivity() {
         val canvas = Canvas(output)
         val paint = Paint()
         val rect = Rect(0, 0, bitmap.width, bitmap.height)
-        paint.setAntiAlias(true)
+        paint.isAntiAlias = true
         canvas.drawARGB(0, 0, 0, 0)
         canvas.drawCircle((bitmap.width / 2).toFloat(),
             (bitmap.height / 2).toFloat(), (bitmap.width / 2).toFloat(), paint)
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }

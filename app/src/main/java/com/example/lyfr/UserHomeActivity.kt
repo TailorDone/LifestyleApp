@@ -240,11 +240,11 @@ class UserHomeActivity : AppCompatActivity() {
         val canvas = Canvas(output)
         val paint = Paint()
         val rect = Rect(0, 0, bitmap.width, bitmap.height)
-        paint.setAntiAlias(true)
+        paint.isAntiAlias = true
         canvas.drawARGB(0, 0, 0, 0)
         canvas.drawCircle((bitmap.width / 2).toFloat(),
             (bitmap.height / 2).toFloat(), (bitmap.width / 2).toFloat(), paint)
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }

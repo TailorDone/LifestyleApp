@@ -149,11 +149,11 @@ class NewUserActivity : AppCompatActivity() {
         labelHashMap.forEach {
             it.key.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
-                    it.value.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gradient_purple))
+                    it.value.backgroundTintList = ContextCompat.getColorStateList(this, R.color.gradient_purple)
                     it.value.setTextColor(ContextCompat.getColorStateList(this, R.color.white))
                 }
                 else {
-                    it.value.setBackgroundTintList(null)
+                    it.value.backgroundTintList = null
                     it.value.setTextColor(ContextCompat.getColorStateList(this, R.color.gradient_purple))
                 }
             }
@@ -255,11 +255,11 @@ class NewUserActivity : AppCompatActivity() {
         val canvas = Canvas(output)
         val paint = Paint()
         val rect = Rect(0, 0, bitmap.width, bitmap.height)
-        paint.setAntiAlias(true)
+        paint.isAntiAlias = true
         canvas.drawARGB(0, 0, 0, 0)
         canvas.drawCircle((bitmap.width / 2).toFloat(),
             (bitmap.height / 2).toFloat(), (bitmap.width / 2).toFloat(), paint)
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }

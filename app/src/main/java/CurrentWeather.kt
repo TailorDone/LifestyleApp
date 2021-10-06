@@ -32,6 +32,4 @@ data class CurrentWeather(val coord: Map<String, Double>,
                    val id: Int,
                    val name: String,
                    val cod: Int,
-) {
-
-}
+)

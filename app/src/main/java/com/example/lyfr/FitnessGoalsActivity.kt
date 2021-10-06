@@ -27,8 +27,7 @@ class FitnessGoalsActivity : AppCompatActivity() {
     var BMR = 0
     var lifestyleScaleFactor = 0.0
     var weightChange = 0.0
-    class ActivityLevel(val lifestyle: String, val scale : Double) {
-    }
+    class ActivityLevel(val lifestyle: String, val scale : Double)
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -192,11 +191,11 @@ class FitnessGoalsActivity : AppCompatActivity() {
         val canvas = Canvas(output)
         val paint = Paint()
         val rect = Rect(0, 0, bitmap.width, bitmap.height)
-        paint.setAntiAlias(true)
+        paint.isAntiAlias = true
         canvas.drawARGB(0, 0, 0, 0)
         canvas.drawCircle((bitmap.width / 2).toFloat(),
             (bitmap.height / 2).toFloat(), (bitmap.width / 2).toFloat(), paint)
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }

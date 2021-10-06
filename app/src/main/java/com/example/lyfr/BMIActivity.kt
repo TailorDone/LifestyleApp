@@ -49,11 +49,11 @@ class BMIActivity : AppCompatActivity() {
             loadImageFromStorage(profilePicture)
         }
 
-        userHeight.setText("%.0f".format(savedHeight?.toDouble()))
-        userHeightMeters.setText("%.2f".format(meters))
-        userWeight.setText("%.0f".format(savedWeight?.toDouble()))
-        userWeightKilos.setText("%.2f".format(kg))
-        userBMI.setText("%.1f".format(BMI))
+        userHeight.text = "%.0f".format(savedHeight?.toDouble())
+        userHeightMeters.text = "%.2f".format(meters)
+        userWeight.text = "%.0f".format(savedWeight?.toDouble())
+        userWeightKilos.text = "%.2f".format(kg)
+        userBMI.text = "%.1f".format(BMI)
     }
 
     private fun loadImageFromStorage(path: String) : Bitmap? {
@@ -75,11 +75,11 @@ class BMIActivity : AppCompatActivity() {
         val canvas = Canvas(output)
         val paint = Paint()
         val rect = Rect(0, 0, bitmap.width, bitmap.height)
-        paint.setAntiAlias(true)
+        paint.isAntiAlias = true
         canvas.drawARGB(0, 0, 0, 0)
         canvas.drawCircle((bitmap.width / 2).toFloat(),
             (bitmap.height / 2).toFloat(), (bitmap.width / 2).toFloat(), paint)
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }

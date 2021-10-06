@@ -46,7 +46,7 @@ class FragmentWeather : Fragment() {
         call.enqueue( object : Callback<CurrentWeather> {
             override fun onResponse(call: Call<CurrentWeather>, response: Response<CurrentWeather>) {
                 val weatherIconNumber = response.body()?.weather?.get(0)?.icon
-                Picasso.with(this@FragmentWeather.context).load("https://openweathermap.org/img/wn/" + weatherIconNumber + "@2x.png").into(weatherIcon);
+                Picasso.with(this@FragmentWeather.context).load("https://openweathermap.org/img/wn/" + weatherIconNumber + "@2x.png").into(weatherIcon)
                 currentTemp.text = ("%.0f".format(response.body()?.main?.get("temp")) + getText(R.string.tvDegrees))
                 currentCity.text = response.body()?.name ?: "Unknown"
                 currentCondition.text = response.body()?.weather?.get(0)?.main?.uppercase() ?: "Conditions"
