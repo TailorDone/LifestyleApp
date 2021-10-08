@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface DAO {
     @Query("SELECT * FROM User")
-    fun getUsers(): List<User>
+    fun getUsers(): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUser(user: User)

@@ -18,13 +18,3 @@ class NewUserViewModel(private val repository: UserInfoRepository) : ViewModel()
         repository.insert(userInfo)
     }
 }
-
-class NewUserViewModelFactory(private val repository: UserInfoRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(NewUserViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return NewUserViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
