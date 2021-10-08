@@ -23,15 +23,20 @@ import android.content.ContextWrapper
 import android.graphics.*
 import java.lang.Exception
 import android.view.View
+import repository
 import java.io.*
+import androidx.lifecycle.Observer
 
 
 class NewUserActivity : AppCompatActivity() {
     lateinit var stringName: EditText
     lateinit var stringZip: EditText
+//    lateinit var stringSex : RadioButton
     lateinit var stringAge: EditText
     lateinit var stringHeight: EditText
     lateinit var stringWeight: EditText
+    lateinit var newUserViewModel: NewUserViewModel
+    var userRepository = repository().getInstance(application)
     var currentUser = User()
     lateinit var previewImage : ImageView
     var bitmap: Bitmap? = null
@@ -42,20 +47,21 @@ class NewUserActivity : AppCompatActivity() {
         setClickListeners()
 
         previewImage = findViewById(R.id.profilePicture)
-
         stringName = findViewById(R.id.etName)
-        var labelName = findViewById<TextView>(R.id.tvName)
         stringZip = findViewById(R.id.etZip)
-        var labelZip = findViewById<TextView>(R.id.tvZip)
+//        stringSex = findViewById(R.id.etSex)
         stringAge = findViewById(R.id.etDate)
+        stringHeight = findViewById(R.id.etHeight)
+        stringWeight = findViewById(R.id.etWeight)
+
+        var labelName = findViewById<TextView>(R.id.tvName)
+        var labelZip = findViewById<TextView>(R.id.tvZip)
         var labelAge = findViewById<TextView>(R.id.tvDOB)
         val photoOptions = findViewById<LinearLayout>(R.id.photoOptions)
         val sexButtons = findViewById<RadioGroup>(R.id.etSex)
         var radioButtonSexM = findViewById<RadioButton>(R.id.male)
         var radioButtonSexF = findViewById<RadioButton>(R.id.female)
-        stringHeight = findViewById(R.id.etHeight)
         var labelHeight = findViewById<TextView>(R.id.tvHeight)
-        stringWeight = findViewById(R.id.etWeight)
         var labelWeight = findViewById<TextView>(R.id.tvWeight)
 
         var labelHashMap : HashMap<EditText, TextView> = HashMap<EditText, TextView>()
@@ -66,20 +72,15 @@ class NewUserActivity : AppCompatActivity() {
         labelHashMap.put(stringWeight, labelWeight)
 
         val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
-        val savedName = sharedPref.getString("name", "")
-        val savedZip = sharedPref.getString("zip", "")
-        val savedSex = sharedPref.getString("sex", "")
-        val savedAge = sharedPref.getString("age", "")
-        val savedHeight = sharedPref.getString("height", "")
-        val savedWeight = sharedPref.getString("weight", "")
         var picturePath = sharedPref.getString("profilePicture", "")
 
         bitmap = picturePath?.let { loadImageFromStorage(it) }
-        stringName.setText(savedName)
-        stringZip.setText(savedZip)
-        stringAge.setText(savedAge)
-        stringHeight.setText(savedHeight)
-        stringWeight.setText(savedWeight)
+
+        //Grab an instance of the view model
+        newUserViewModel = NewUserViewModel(userRepository)
+
+        //Set the observer
+        newUserViewModel.userInfo.observe(this, observer)
 
         when (savedSex) {
             "M" -> radioButtonSexM.isChecked = true
@@ -262,5 +263,18 @@ class NewUserActivity : AppCompatActivity() {
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
+    }
+
+    //Create an observer that watches the LiveData<WeatherData> object
+    var observer = Observer<User>() {
+        fun onChanged(user: User){
+            if(user != null){
+                stringName.setText(user.name)
+                stringZip.setText(user.zip)
+                stringAge.setText(user.age)
+                stringHeight.setText(user.height.toString())
+                stringWeight.setText(user.weight.toString())
+            }
+        }
     }
 }

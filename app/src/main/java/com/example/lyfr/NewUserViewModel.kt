@@ -1,20 +1,21 @@
 package com.example.lyfr
 
+import User
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
+import repository
 
-class NewUserViewModel(private val repository: UserInfoRepository) : ViewModel() {
+class NewUserViewModel(private val repository: repository) : ViewModel() {
     init {
         Log.i("NewUserViewModel", "NewUserViewModel created!")
     }
-    val allUserInfo: LiveData<List<UserInfo>> = repository.allUserInfo.asLiveData()
+    val userInfo: LiveData<User> = repository.user
 
-    fun insert(userInfo: UserInfo) = viewModelScope.launch {
+
+    fun insert(userInfo: User) = viewModelScope.launch {
         repository.insert(userInfo)
     }
 }

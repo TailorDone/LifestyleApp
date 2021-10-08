@@ -1,6 +1,6 @@
 import android.app.Application
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
@@ -8,7 +8,7 @@ class repository (){
     private var instance: repository? = null
     private var dao: DAO? = null
 
-    lateinit var user: User
+    lateinit var user: LiveData<User>
 
     constructor(application: Application) : this() {
         val db: AppDatabase = AppDatabase.getDatabase(application)

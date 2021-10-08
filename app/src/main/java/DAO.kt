@@ -1,12 +1,10 @@
-import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 
 @Dao
 interface DAO {
     @Query("SELECT * FROM User")
-    fun getUsers(): User
+    fun getUsers(): LiveData<User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUser(user: User)
