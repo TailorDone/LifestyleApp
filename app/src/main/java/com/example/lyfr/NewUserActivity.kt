@@ -27,6 +27,22 @@ import java.io.*
 
 
 class NewUserActivity : AppCompatActivity() {
+
+    private lateinit var editNewUserView: EditText
+
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_new_word)
+        editNewUserView = findViewById(R.id.edit_user)
+
+
+    }
+
+    companion object {
+        const val EXTRA_REPLY = "com.example.lyfr.wordlistsql.REPLY"
+    }
+}
+
     lateinit var stringName: EditText
     lateinit var stringZip: EditText
     lateinit var stringAge: EditText
@@ -40,6 +56,19 @@ class NewUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_user)
         setClickListeners()
+
+        val button = findViewById<Button>(R.id.button_save)
+        button.setOnClickListener {
+            val replyIntent = Intent()
+            if (TextUtils.isEmpty(editNewUserView.text)) {
+                setResult(Activity.RESULT_CANCELED, replyIntent)
+            } else {
+                val word = editNewUserView.text.toString()
+                replyIntent.putExtra(NewUserActivity.EXTRA_REPLY, word)
+                setResult(Activity.RESULT_OK, replyIntent)
+            }
+            finish()
+        }
 
         previewImage = findViewById(R.id.profilePicture)
 

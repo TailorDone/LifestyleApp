@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(MainActivityViewModel::class.java)
 
-        binding.scoreText.text = viewModel.score.toString()
+        binding.text = viewModel.toString()
 
         return binding.root
     }
