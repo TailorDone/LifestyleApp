@@ -37,7 +37,7 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var stringWeight: EditText
     lateinit var newUserViewModel: NewUserViewModel
     var userRepository = repository().getInstance(application)
-    var currentUser = User()
+    var currentUser = newUserViewModel.userInfo.value
     lateinit var previewImage : ImageView
     var bitmap: Bitmap? = null
 
@@ -82,12 +82,12 @@ class NewUserActivity : AppCompatActivity() {
         //Set the observer
         newUserViewModel.userInfo.observe(this, observer)
 
-        when (savedSex) {
-            "M" -> radioButtonSexM.isChecked = true
-            "F" -> radioButtonSexF.isChecked = true
-            else -> {
-            }
-        }
+//        when (savedSex) {
+//            "M" -> radioButtonSexM.isChecked = true
+//            "F" -> radioButtonSexF.isChecked = true
+//            else -> {
+//            }
+//        }
 
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
         saveProfileButton.setOnClickListener{
@@ -100,27 +100,27 @@ class NewUserActivity : AppCompatActivity() {
                 //saves bitmap photo
                 picturePath = bitmap?.let { it1 -> saveToInternalStorage(it1) }
 
-                currentUser.name = stringName.text.toString()
-                currentUser.zip = stringZip.text.toString()
+                currentUser?.name ?: stringName.text.toString()
+                currentUser?.zip = stringZip.text.toString()
                 val age = stringAge.text.toString()
-                currentUser.age = age.toInt()
+                currentUser?.age = age.toInt()
                 val selectedSex = findViewById<RadioButton>(sexButtons.checkedRadioButtonId)
                 var sex : String
                 if (selectedSex == radioButtonSexM)
                     sex = "M"
                 else sex = "F"
-                currentUser.sex = sex
+                currentUser?.sex = sex
                 val height = stringHeight.text.toString()
-                currentUser.height = height.toDouble()
+                currentUser?.height = height.toDouble()
                 val weight = stringWeight.text.toString()
-                currentUser.weight = weight.toDouble()
-                currentUser.profilePicturePath = picturePath.toString()
+                currentUser?.weight = weight.toDouble()
+                currentUser?.profilePicturePath = picturePath.toString()
 
                 val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
                 with (sharedPref.edit()) {
-                    putString("name", currentUser.name)
-                    putString("zip", currentUser.zip)
-                    putString("sex", currentUser.sex)
+                    putString("name", currentUser?.name)
+                    putString("zip", currentUser?.zip)
+                    putString("sex", currentUser?.sex)
                     putString("age", age)
                     putString("height", height)
                     putString("weight", weight)
@@ -265,7 +265,7 @@ class NewUserActivity : AppCompatActivity() {
         return output
     }
 
-    //Create an observer that watches the LiveData<WeatherData> object
+    //Create an observer that watches the LiveData<User> object
     var observer = Observer<User>() {
         fun onChanged(user: User){
             if(user != null){

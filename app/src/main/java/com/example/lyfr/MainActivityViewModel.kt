@@ -1,19 +1,20 @@
 package com.example.lyfr
 
 import AppDatabase
+import User
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import repository
 import java.lang.IllegalArgumentException
 
-class MainActivityViewModel  : ViewModel() {
+class MainActivityViewModel(repository: repository) : ViewModel() {
+    var userData : LiveData<User>
     init {
         // log the creation of the viewmodel, use logcat to see logs
         Log.i("MainActivityViewModel", "MainActivityViewModel created!")
+        userData = repository.user
     }
 
     override fun onCleared() {
