@@ -1,10 +1,12 @@
+package com.example.lyfr
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [User::class], version = 1, exportSchema = false)
-public abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun dao(): DAO
 
@@ -21,7 +23,7 @@ public abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "AppDatabase"
+                    "com.example.lyfr.AppDatabase"
                 ).build()
                 INSTANCE = instance
                 // return instance

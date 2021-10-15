@@ -1,14 +1,11 @@
 package com.example.lyfr
 
-import CurrentWeather
-import MyApiEndpointInterface
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.View.GONE
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso

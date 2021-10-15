@@ -1,7 +1,5 @@
 package com.example.lyfr
 
-import CurrentWeather
-import MyApiEndpointInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

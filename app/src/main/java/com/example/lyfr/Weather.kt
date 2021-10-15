@@ -1,3 +1,5 @@
+package com.example.lyfr
+
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -1,6 +1,5 @@
 package com.example.lyfr
 
-import User
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,7 +22,6 @@ import android.content.ContextWrapper
 import android.graphics.*
 import java.lang.Exception
 import android.view.View
-import repository
 import java.io.*
 import androidx.lifecycle.Observer
 
@@ -265,7 +263,7 @@ class NewUserActivity : AppCompatActivity() {
         return output
     }
 
-    //Create an observer that watches the LiveData<User> object
+    //Create an observer that watches the LiveData<com.example.lyfr.User> object
     var observer = Observer<User>() {
         fun onChanged(user: User){
             if(user != null){

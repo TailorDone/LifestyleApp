@@ -1,3 +1,5 @@
+package com.example.lyfr
+
 import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity

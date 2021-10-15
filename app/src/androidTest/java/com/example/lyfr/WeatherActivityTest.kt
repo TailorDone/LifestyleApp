@@ -40,7 +40,7 @@ class WeatherActivityTest {
     fun weatherActivityTest() {
         val materialButton = onView(
             allOf(
-                withId(R.id.buttonCreateNewUser), withText("New User"),
+                withId(R.id.buttonCreateNewUser), withText("New com.example.lyfr.User"),
                 childAtPosition(
                     childAtPosition(
                         withId(android.R.id.content),
