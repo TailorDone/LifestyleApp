@@ -15,6 +15,8 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -22,13 +24,20 @@ import java.io.FileNotFoundException
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
     var userLocation = ""
+    lateinit var userHomeViewModel: UserHomeViewModel
+    lateinit var currentUser : LiveData<User>
+    lateinit var userName : TextView
+    lateinit var userZIP : String
+
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        userHomeViewModel = UserHomeViewModel(application)
+        currentUser = userHomeViewModel.userInfo
         setContentView(R.layout.activity_user_home)
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val profilePicture = sharedPref.getString("profilePicture", "")
+//        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+//        val profilePicture = sharedPref.getString("profilePicture", "")
 
         if (isTablet()) {
             loadWelcome()
@@ -38,7 +47,8 @@ class UserHomeActivity : AppCompatActivity() {
             }
         }
         else {
-            val savedName = sharedPref.getString("name", "{username}")
+//            val savedName = sharedPref.getString("name", "{username}")
+            val savedName = currentUser.value?.name
             val splitName = savedName?.split(" ")
             val userName = findViewById<TextView>(R.id.tvUserName)
             userName.text = splitName?.get(0)?.uppercase() ?: "USER"
@@ -50,12 +60,12 @@ class UserHomeActivity : AppCompatActivity() {
                 val fTransBMI = supportFragmentManager.beginTransaction()
                 var fragmentBMI = FragmentBMI()
 
-                val savedHeight = sharedPref.getString("height", "")
-                val savedWeight = sharedPref.getString("weight", "")
-                val bundleBMI = Bundle()
-                bundleBMI.putString("height", savedHeight)
-                bundleBMI.putString("weight", savedWeight)
-                fragmentBMI.arguments = bundleBMI
+//                val savedHeight = sharedPref.getString("height", "")
+//                val savedWeight = sharedPref.getString("weight", "")
+//                val bundleBMI = Bundle()
+//                bundleBMI.putString("height", savedHeight)
+//                bundleBMI.putString("weight", savedWeight)
+//                fragmentBMI.arguments = bundleBMI
 
                 fTransBMI.replace(
                     R.id.mainFrame,
@@ -96,17 +106,17 @@ class UserHomeActivity : AppCompatActivity() {
                 val fTransFitness = supportFragmentManager.beginTransaction()
                 var fragmentFitness = FragmentFitnessGoals()
 
-                val savedHeight = sharedPref.getString("height", "")
-                val savedWeight = sharedPref.getString("weight", "")
-                val savedAge = sharedPref.getString("age", "")
-                val savedSex = sharedPref.getString("sex", "")
-
-                val bundleBMI = Bundle()
-                bundleBMI.putString("height", savedHeight)
-                bundleBMI.putString("weight", savedWeight)
-                bundleBMI.putString("age", savedAge)
-                bundleBMI.putString("sex", savedSex)
-                fragmentFitness.arguments = bundleBMI
+//                val savedHeight = sharedPref.getString("height", "")
+//                val savedWeight = sharedPref.getString("weight", "")
+//                val savedAge = sharedPref.getString("age", "")
+//                val savedSex = sharedPref.getString("sex", "")
+//
+//                val bundleBMI = Bundle()
+//                bundleBMI.putString("height", savedHeight)
+//                bundleBMI.putString("weight", savedWeight)
+//                bundleBMI.putString("age", savedAge)
+//                bundleBMI.putString("sex", savedSex)
+//                fragmentFitness.arguments = bundleBMI
 
                 fTransFitness.replace(
                     R.id.mainFrame,
@@ -131,7 +141,8 @@ class UserHomeActivity : AppCompatActivity() {
                 val fTransWeather = supportFragmentManager.beginTransaction()
                 var fragmentWeather = FragmentWeather()
 
-                val savedZIP = sharedPref.getString("zip", "")
+//                val savedZIP = sharedPref.getString("zip", "")
+                val savedZIP = currentUser.value?.zip
                 val bundleWeather = Bundle()
                 bundleWeather.putString("zip", savedZIP)
                 fragmentWeather.arguments = bundleWeather
@@ -153,8 +164,9 @@ class UserHomeActivity : AppCompatActivity() {
         }
 
         val profilePictureButton = findViewById<ImageView>(R.id.profilePicture)
-        if (profilePicture != null) {
-            loadImageFromStorage(profilePicture)
+        var picturePath = currentUser.value?.profilePicturePath
+        if (picturePath != null) {
+            loadImageFromStorage(picturePath)
         }
         profilePictureButton.setOnClickListener{
             val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
@@ -206,8 +218,9 @@ class UserHomeActivity : AppCompatActivity() {
     fun loadWelcome() {
         var fragmentWelcome = FragmentWelcome()
         val fTrans = supportFragmentManager.beginTransaction()
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val savedName = sharedPref.getString("name", "{username}")
+//        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+//        val savedName = sharedPref.getString("name", "{username}")
+        val savedName = currentUser.value?.name
         val splitName = savedName?.split(" ")
         val bundle = Bundle()
         bundle.putString("username", splitName?.get(0))
@@ -247,5 +260,14 @@ class UserHomeActivity : AppCompatActivity() {
         paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
+    }
+
+    var observer = Observer<User>() {
+        fun onChanged(user: User){
+            if(user != null){
+                userName.setText(user.name)
+                userZIP = user.zip
+            }
+        }
     }
 }

@@ -34,9 +34,8 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var stringHeight: EditText
     lateinit var stringWeight: EditText
     lateinit var newUserViewModel: NewUserViewModel
-    var userRepository = repository().getInstance(application)
-    var currentUser = newUserViewModel.userInfo.value
     lateinit var previewImage : ImageView
+    var picturePath = ""
     var bitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,13 +68,13 @@ class NewUserActivity : AppCompatActivity() {
         labelHashMap.put(stringHeight, labelHeight)
         labelHashMap.put(stringWeight, labelWeight)
 
-        val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
-        var picturePath = sharedPref.getString("profilePicture", "")
+//        val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
+//        var picturePath = sharedPref.getString("profilePicture", "")
 
         bitmap = picturePath?.let { loadImageFromStorage(it) }
 
         //Grab an instance of the view model
-        newUserViewModel = NewUserViewModel(userRepository)
+        newUserViewModel = NewUserViewModel(application)
 
         //Set the observer
         newUserViewModel.userInfo.observe(this, observer)
@@ -87,6 +86,7 @@ class NewUserActivity : AppCompatActivity() {
 //            }
 //        }
 
+
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
         saveProfileButton.setOnClickListener{
             if (stringName.text.toString().isBlank() || stringZip.text.toString().isBlank() ||
@@ -96,35 +96,45 @@ class NewUserActivity : AppCompatActivity() {
 
             else {
                 //saves bitmap photo
-                picturePath = bitmap?.let { it1 -> saveToInternalStorage(it1) }
+                picturePath = bitmap?.let { it1 -> saveToInternalStorage(it1) }.toString()
+                var currentUser = User(
+                    name = stringName.text.toString(),
+                    zip = stringZip.text.toString(),
+                    age = stringAge.text.toString().toInt(),
+                    height = stringHeight.text.toString().toDouble(),
+                    weight = stringWeight.text.toString().toDouble(),
+                    sex = "M",
+                    profilePicturePath = picturePath
+                )
+                newUserViewModel.insert(currentUser)
 
-                currentUser?.name ?: stringName.text.toString()
-                currentUser?.zip = stringZip.text.toString()
-                val age = stringAge.text.toString()
-                currentUser?.age = age.toInt()
-                val selectedSex = findViewById<RadioButton>(sexButtons.checkedRadioButtonId)
-                var sex : String
-                if (selectedSex == radioButtonSexM)
-                    sex = "M"
-                else sex = "F"
-                currentUser?.sex = sex
-                val height = stringHeight.text.toString()
-                currentUser?.height = height.toDouble()
-                val weight = stringWeight.text.toString()
-                currentUser?.weight = weight.toDouble()
-                currentUser?.profilePicturePath = picturePath.toString()
-
-                val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
-                with (sharedPref.edit()) {
-                    putString("name", currentUser?.name)
-                    putString("zip", currentUser?.zip)
-                    putString("sex", currentUser?.sex)
-                    putString("age", age)
-                    putString("height", height)
-                    putString("weight", weight)
-                    putString("profilePicture", picturePath)
-                    commit()
-                }
+//                currentUser?.name ?: stringName.text.toString()
+//                currentUser?.zip = stringZip.text.toString()
+//                val age = stringAge.text.toString()
+//                currentUser?.age = age.toInt()
+//                val selectedSex = findViewById<RadioButton>(sexButtons.checkedRadioButtonId)
+//                var sex : String
+//                if (selectedSex == radioButtonSexM)
+//                    sex = "M"
+//                else sex = "F"
+//                currentUser?.sex = sex
+//                val height = stringHeight.text.toString()
+//                currentUser?.height = height.toDouble()
+//                val weight = stringWeight.text.toString()
+//                currentUser?.weight = weight.toDouble()
+//                currentUser?.profilePicturePath = picturePath.toString()
+//
+//                val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
+//                with (sharedPref.edit()) {
+//                    putString("name", currentUser?.name)
+//                    putString("zip", currentUser?.zip)
+//                    putString("sex", currentUser?.sex)
+//                    putString("age", age)
+//                    putString("height", height)
+//                    putString("weight", weight)
+//                    putString("profilePicture", picturePath)
+//                    commit()
+//                }
 
                 val intentSaveProfile = Intent(this, UserHomeActivity::class.java).apply {
                 }

@@ -16,7 +16,7 @@ class repository (){
         val db: AppDatabase = AppDatabase.getDatabase(application.applicationContext)
         dao = db.dao()
         if (dao != null) {
-            user = dao!!.getUsers()
+            user = dao!!.getUser()
         }
     }
 
@@ -26,6 +26,7 @@ class repository (){
             instance = repository(application)
         }
         return instance as repository
+
     }
 
     @WorkerThread
