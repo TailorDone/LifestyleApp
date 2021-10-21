@@ -3,21 +3,25 @@ package com.example.lyfr
 import android.app.Application
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 // Declares the com.example.lyfr.DAO as a private property in the constructor. Pass in the com.example.lyfr.DAO
 // instead of the whole database, because you only need access to the com.example.lyfr.DAO
-class repository (){
-    private var instance: repository? = null
-    private var dao: DAO? = null
+class repository (application: Application){
 
+    private var instance: repository? = null
+    private var dao: DAO?
     lateinit var user: LiveData<User>
 
-    constructor(application: Application) : this() {
-        val db: AppDatabase = AppDatabase.getDatabase(application.applicationContext)
-        dao = db.dao()
-        if (dao != null) {
-            user = dao!!.getUser()
-        }
+
+    init{
+        val db = AppDatabase.getDatabase(application)
+        dao = db?.dao()
+        user = dao!!.getUser()
     }
 
     @Synchronized
@@ -33,4 +37,5 @@ class repository (){
     suspend fun insert(user: User){
         dao?.addUser(user)
     }
+
 }

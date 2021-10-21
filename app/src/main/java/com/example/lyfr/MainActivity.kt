@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.lifecycle.Observer
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var userData : User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var mainActivityViewModel = MainActivityViewModel(application)
@@ -14,7 +17,14 @@ class MainActivity : AppCompatActivity() {
 
         val newUserButton = findViewById<Button>(R.id.buttonCreateNewUser)
 
-        if (mainActivityViewModel.userData.value?.name?.isNotEmpty() == true) {
+        val userObserver = Observer<User> {
+            user -> userData = user
+        }
+
+        mainActivityViewModel.userInfo.observe(this, userObserver)
+
+
+        if (mainActivityViewModel.userInfo.value?.name?.isNotEmpty() == true) {
             newUserButton.text = resources.getString(R.string.buttonContinue)
             newUserButton.setOnClickListener{
                 val loginIntent = Intent(this, UserHomeActivity::class.java).apply {

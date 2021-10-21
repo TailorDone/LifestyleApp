@@ -2,21 +2,24 @@ package com.example.lyfr
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class NewUserViewModel(application: Application) : AndroidViewModel(application) {
-    val repository = repository().getInstance(application)
+
+    val db = AppDatabase.getDatabase(application)
+    val repository = db.dao()
+    var userInfo: LiveData<User>
+
     init {
         Log.i("NewUserViewModel", "NewUserViewModel created!")
+        userInfo = repository.getUser()
     }
-    val userInfo: LiveData<User> = repository.user
 
 
-    fun insert(userInfo: User) = viewModelScope.launch {
-        repository.insert(userInfo)
+
+    fun insert(userInfo: User) = GlobalScope.launch {
+        repository.addUser(userInfo)
     }
 }

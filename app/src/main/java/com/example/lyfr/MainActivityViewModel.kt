@@ -6,13 +6,13 @@ import androidx.lifecycle.*
 
 class MainActivityViewModel(application : Application) : AndroidViewModel(application) {
 
-    var userData : LiveData<User>
+    private val db = AppDatabase.getDatabase(application)
+    private val repository = db.dao()
+    var userInfo: LiveData<User> = repository.getUser()
+
     init {
         // log the creation of the viewmodel, use logcat to see logs
         Log.i("MainActivityViewModel", "MainActivityViewModel created!")
-        val repository = repository().getInstance(application)
-        userData = repository.user
-
     }
 
     override fun onCleared() {

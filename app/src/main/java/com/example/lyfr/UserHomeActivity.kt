@@ -25,7 +25,7 @@ class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
     var userLocation = ""
     lateinit var userHomeViewModel: UserHomeViewModel
-    lateinit var currentUser : LiveData<User>
+    lateinit var currentUser : User
     lateinit var userName : TextView
     lateinit var userZIP : String
 
@@ -34,7 +34,14 @@ class UserHomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userHomeViewModel = UserHomeViewModel(application)
-        currentUser = userHomeViewModel.userInfo
+
+        val userObserver = Observer<User> {
+            newUser -> currentUser = newUser
+        }
+
+        userHomeViewModel.userInfo.observe(this, userObserver)
+
+
         setContentView(R.layout.activity_user_home)
 //        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
 //        val profilePicture = sharedPref.getString("profilePicture", "")
@@ -48,7 +55,7 @@ class UserHomeActivity : AppCompatActivity() {
         }
         else {
 //            val savedName = sharedPref.getString("name", "{username}")
-            val savedName = currentUser.value?.name
+            val savedName = currentUser.name
             val splitName = savedName?.split(" ")
             val userName = findViewById<TextView>(R.id.tvUserName)
             userName.text = splitName?.get(0)?.uppercase() ?: "USER"
@@ -142,7 +149,7 @@ class UserHomeActivity : AppCompatActivity() {
                 var fragmentWeather = FragmentWeather()
 
 //                val savedZIP = sharedPref.getString("zip", "")
-                val savedZIP = currentUser.value?.zip
+                val savedZIP = currentUser.zip
                 val bundleWeather = Bundle()
                 bundleWeather.putString("zip", savedZIP)
                 fragmentWeather.arguments = bundleWeather
@@ -164,7 +171,7 @@ class UserHomeActivity : AppCompatActivity() {
         }
 
         val profilePictureButton = findViewById<ImageView>(R.id.profilePicture)
-        var picturePath = currentUser.value?.profilePicturePath
+        var picturePath = currentUser.profilePicturePath
         if (picturePath != null) {
             loadImageFromStorage(picturePath)
         }
@@ -220,7 +227,7 @@ class UserHomeActivity : AppCompatActivity() {
         val fTrans = supportFragmentManager.beginTransaction()
 //        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
 //        val savedName = sharedPref.getString("name", "{username}")
-        val savedName = currentUser.value?.name
+        val savedName = currentUser.name
         val splitName = savedName?.split(" ")
         val bundle = Bundle()
         bundle.putString("username", splitName?.get(0))
