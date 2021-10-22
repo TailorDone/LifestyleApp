@@ -1,3 +1,4 @@
+/*
 package com.example.lyfr
 
 import android.app.Application
@@ -10,7 +11,7 @@ class MainActivityViewModel(application : Application) : AndroidViewModel(applic
     init {
         // log the creation of the viewmodel, use logcat to see logs
         Log.i("MainActivityViewModel", "MainActivityViewModel created!")
-        val repository = repository().getInstance(application)
+        val repository = Repository().getInstance(application)
         userData = repository.user
 
     }
@@ -20,4 +21,4 @@ class MainActivityViewModel(application : Application) : AndroidViewModel(applic
         // log the destruction of the viewmodel, use logcat to see logs
         Log.i("MainActivityViewModel", "MainActivityViewModel destroyed!")
     }
-}
+}*/

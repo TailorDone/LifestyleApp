@@ -6,17 +6,20 @@ import android.graphics.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+import java.util.Observer
 import kotlin.math.pow
 
 const val POUNDS_TO_KILOGRAM = 0.454
 const val INCHES_TO_METERS = 0.0254
 
 class BMIActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmiactivity)
@@ -83,4 +86,16 @@ class BMIActivity : AppCompatActivity() {
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }
+
+//    var observer = Observer<User>() {
+//        fun onChanged(user: User){
+//            if(user != null){
+//                stringName.setText(user.name)
+//                stringZip.setText(user.zip)
+//                stringAge.setText(user.age)
+//                stringHeight.setText(user.height.toString())
+//                stringWeight.setText(user.weight.toString())
+//            }
+//        }
+//    }
 }

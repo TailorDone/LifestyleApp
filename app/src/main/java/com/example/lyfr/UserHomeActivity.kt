@@ -18,9 +18,14 @@ import androidx.core.app.ActivityCompat.requestPermissions
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
+    lateinit var newUserViewModel: NewUserViewModel
+    lateinit var userData: User
+    lateinit var viewName : TextView
     var userLocation = ""
 
     @SuppressLint("MissingPermission")
@@ -30,6 +35,16 @@ class UserHomeActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val profilePicture = sharedPref.getString("profilePicture", "")
 
+        //Grab an instance of the view model
+        newUserViewModel = ViewModelProvider(this).get(NewUserViewModel::class.java)
+
+        val userObserver = Observer<User> { user ->
+            userData = user
+            viewName.setText(userData.name)
+        }
+
+        newUserViewModel.userInfo?.observe(this, userObserver)!!
+
         if (isTablet()) {
             loadWelcome()
             val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
@@ -38,11 +53,20 @@ class UserHomeActivity : AppCompatActivity() {
             }
         }
         else {
-            val savedName = sharedPref.getString("name", "{username}")
-            val splitName = savedName?.split(" ")
-            val userName = findViewById<TextView>(R.id.tvUserName)
-            userName.text = splitName?.get(0)?.uppercase() ?: "USER"
+//            val savedName = sharedPref.getString("name", "{username}")
+//            val splitName = savedName?.split(" ")
+
+                viewName = findViewById<TextView>(R.id.tvUserName)
+////            if (currentUser != null) {
+//                viewName.text = userData.name
+//            }
+//            name.text = splitName?.get(0)?.uppercase() ?: "USER"
         }
+
+
+//
+//        //Set the observer
+//        newUserViewModel.retUser().observe(this, observer)
 
         val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
         if(isTablet()) {
@@ -206,11 +230,11 @@ class UserHomeActivity : AppCompatActivity() {
     fun loadWelcome() {
         var fragmentWelcome = FragmentWelcome()
         val fTrans = supportFragmentManager.beginTransaction()
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val savedName = sharedPref.getString("name", "{username}")
-        val splitName = savedName?.split(" ")
+//        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+//        val savedName = sharedPref.getString("name", "{username}")
+//        val splitName = savedName?.split(" ")
         val bundle = Bundle()
-        bundle.putString("username", splitName?.get(0))
+        bundle.putString("username", userData.name)
         fragmentWelcome.arguments = bundle
 
         fTrans.replace(
@@ -248,4 +272,13 @@ class UserHomeActivity : AppCompatActivity() {
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }
+    //Create an observer that watches the LiveData<com.example.lyfr.User> object
+//    var observer = Observer<User>() {
+//        fun onChanged(user: User){
+//            if(user != null){
+//                name.text = user.name
+//            }
+//        }
+//    }
+
 }

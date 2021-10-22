@@ -25,6 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "com.example.lyfr.AppDatabase"
                 ).build()
+                //.allowMainThreadQueries()
                 INSTANCE = instance
                 // return instance
                 instance

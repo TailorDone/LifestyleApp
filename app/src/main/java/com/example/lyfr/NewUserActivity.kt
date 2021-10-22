@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import android.net.Uri
@@ -20,23 +19,25 @@ import com.example.lyfr.ImageUri.latestTmpUri
 import java.util.*
 import android.content.ContextWrapper
 import android.graphics.*
+import android.os.Handler
 import java.lang.Exception
 import android.view.View
 import java.io.*
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import kotlin.concurrent.schedule
 
 
 class NewUserActivity : AppCompatActivity() {
-    lateinit var stringName: EditText
-    lateinit var stringZip: EditText
-//    lateinit var stringSex : RadioButton
-    lateinit var stringAge: EditText
-    lateinit var stringHeight: EditText
-    lateinit var stringWeight: EditText
+    lateinit var name: EditText
+    lateinit var zip: EditText
+    lateinit var sex : String
+    lateinit var age: EditText
+    lateinit var height: EditText
+    lateinit var weight: EditText
     lateinit var newUserViewModel: NewUserViewModel
-    var userRepository = repository().getInstance(application)
-    var currentUser = newUserViewModel.userInfo.value
     lateinit var previewImage : ImageView
+    lateinit var userData: User
     var bitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,14 +45,40 @@ class NewUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_user)
         setClickListeners()
 
-        previewImage = findViewById(R.id.profilePicture)
-        stringName = findViewById(R.id.etName)
-        stringZip = findViewById(R.id.etZip)
-//        stringSex = findViewById(R.id.etSex)
-        stringAge = findViewById(R.id.etDate)
-        stringHeight = findViewById(R.id.etHeight)
-        stringWeight = findViewById(R.id.etWeight)
+        //Grab an instance of the view model
+        newUserViewModel = ViewModelProvider(this).get(NewUserViewModel::class.java)
 
+        val userObserver = Observer<User> {
+                user ->
+            if (user != null) {
+                userData = user
+                name.setText(userData.name)
+                zip.setText(userData.zip)
+                age.setText(userData.age.toString())
+                height.setText(userData.height.toString())
+                weight.setText(userData.weight.toString())
+                if (userData.sex == "M") {
+                    var radioButtonSexM = findViewById<RadioButton>(R.id.male)
+                    radioButtonSexM.isChecked = true
+                } else {
+                    var radioButtonSexF = findViewById<RadioButton>(R.id.female)
+                    radioButtonSexF.isChecked = true
+                }
+            } else {
+
+            }
+        }
+
+        newUserViewModel.userInfo?.observe(this, userObserver)!!
+
+        previewImage = findViewById(R.id.profilePicture)
+        name = findViewById(R.id.etName)
+        zip = findViewById(R.id.etZip)
+        age = findViewById(R.id.etDate)
+        height = findViewById(R.id.etHeight)
+        weight = findViewById(R.id.etWeight)
+
+        //Labels used for design
         var labelName = findViewById<TextView>(R.id.tvName)
         var labelZip = findViewById<TextView>(R.id.tvZip)
         var labelAge = findViewById<TextView>(R.id.tvDOB)
@@ -63,71 +90,61 @@ class NewUserActivity : AppCompatActivity() {
         var labelWeight = findViewById<TextView>(R.id.tvWeight)
 
         var labelHashMap : HashMap<EditText, TextView> = HashMap<EditText, TextView>()
-        labelHashMap.put(stringName, labelName)
-        labelHashMap.put(stringZip, labelZip)
-        labelHashMap.put(stringAge, labelAge)
-        labelHashMap.put(stringHeight, labelHeight)
-        labelHashMap.put(stringWeight, labelWeight)
+        labelHashMap.put(name, labelName)
+        labelHashMap.put(zip, labelZip)
+        labelHashMap.put(age, labelAge)
+        labelHashMap.put(height, labelHeight)
+        labelHashMap.put(weight, labelWeight)
 
         val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
         var picturePath = sharedPref.getString("profilePicture", "")
 
         bitmap = picturePath?.let { loadImageFromStorage(it) }
 
-        //Grab an instance of the view model
-        newUserViewModel = NewUserViewModel(userRepository)
-
-        //Set the observer
-        newUserViewModel.userInfo.observe(this, observer)
-
-//        when (savedSex) {
-//            "M" -> radioButtonSexM.isChecked = true
-//            "F" -> radioButtonSexF.isChecked = true
-//            else -> {
-//            }
+//        var currentUser = newUserViewModel.getUser().value
+//        if (userData != null){
+//            name.setText(userData.name)
+//            zip.setText(userData.zip)
+//            age.setText(userData.age.toString())
+//            height.setText(userData.height.toString())
+//            weight.setText(userData.weight.toString())
 //        }
 
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
+
         saveProfileButton.setOnClickListener{
-            if (stringName.text.toString().isBlank() || stringZip.text.toString().isBlank() ||
-                stringAge.text.toString().isBlank() || stringHeight.text.toString().isBlank()  ||
-                stringWeight.text.toString().isBlank() || (!radioButtonSexF.isChecked && !radioButtonSexM.isChecked))
+            if (name.text.toString().isBlank() || zip.text.toString().isBlank() ||
+                age.text.toString().isBlank() || height.text.toString().isBlank()  ||
+                weight.text.toString().isBlank() || (!radioButtonSexF.isChecked && !radioButtonSexM.isChecked))
                 Toast.makeText(this, "All fields must be completed", Toast.LENGTH_SHORT).show()
 
             else {
                 //saves bitmap photo
                 picturePath = bitmap?.let { it1 -> saveToInternalStorage(it1) }
 
-                currentUser?.name ?: stringName.text.toString()
-                currentUser?.zip = stringZip.text.toString()
-                val age = stringAge.text.toString()
-                currentUser?.age = age.toInt()
-                val selectedSex = findViewById<RadioButton>(sexButtons.checkedRadioButtonId)
-                var sex : String
-                if (selectedSex == radioButtonSexM)
+                if (radioButtonSexF.isChecked){
+                    sex = "F"
+                } else {
                     sex = "M"
-                else sex = "F"
-                currentUser?.sex = sex
-                val height = stringHeight.text.toString()
-                currentUser?.height = height.toDouble()
-                val weight = stringWeight.text.toString()
-                currentUser?.weight = weight.toDouble()
-                currentUser?.profilePicturePath = picturePath.toString()
-
-                val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
-                with (sharedPref.edit()) {
-                    putString("name", currentUser?.name)
-                    putString("zip", currentUser?.zip)
-                    putString("sex", currentUser?.sex)
-                    putString("age", age)
-                    putString("height", height)
-                    putString("weight", weight)
-                    putString("profilePicture", picturePath)
-                    commit()
                 }
+//                var check = newUserViewModel.getUser().value
+                var newUser = User(
+                    name.text.toString(),
+                    zip.text.toString(),
+                    age.text.toString().toInt(),
+                    sex,
+                    height.text.toString().toDouble(),
+                    weight.text.toString().toDouble(),
+                    profilePicturePath = picturePath )
 
-                val intentSaveProfile = Intent(this, UserHomeActivity::class.java).apply {
-                }
+//                if (newUserViewModel.getUser().value == null) {
+                    newUserViewModel.insert(newUser)
+//                }
+//                } else {
+//                    newUserViewModel.update(newUser)
+//               }
+
+                val intentSaveProfile = Intent(this, UserHomeActivity::class.java).apply {}
                 startActivity(intentSaveProfile)
             }
         }
@@ -263,16 +280,17 @@ class NewUserActivity : AppCompatActivity() {
         return output
     }
 
-    //Create an observer that watches the LiveData<com.example.lyfr.User> object
-    var observer = Observer<User>() {
-        fun onChanged(user: User){
-            if(user != null){
-                stringName.setText(user.name)
-                stringZip.setText(user.zip)
-                stringAge.setText(user.age)
-                stringHeight.setText(user.height.toString())
-                stringWeight.setText(user.weight.toString())
-            }
-        }
-    }
+//    //Create an observer that watches the LiveData<com.example.lyfr.User> object
+//    var observer = Observer<User>() {
+//        user -> userData = user
+//        fun onChanged(user: User){
+//            if(user != null){
+//                name.setText(user.name)
+//                zip.setText(user.zip)
+//                age.setText(user.age)
+//                height.setText(user.height.toString())
+//                weight.setText(user.weight.toString())
+//            }
+//        }
+//    }
 }
