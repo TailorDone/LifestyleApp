@@ -112,8 +112,8 @@ class FitnessGoalsActivity : AppCompatActivity() {
 
                 if ((caloricGoalValue < 1200 && sex == "M") || (caloricGoalValue < 1000 && sex == "F"))
                     warning.text = "Warning: You are below the daily recommended caloric minimum."
-                }
-            })
+            }
+        })
 
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val profilePicture = sharedPref.getString("profilePicture", "")

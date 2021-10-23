@@ -24,7 +24,7 @@ import androidx.lifecycle.ViewModelProvider
 
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
-    lateinit var userData: User
+    var userName = ""
     lateinit var viewName : TextView
     var userHeight : Double = 0.0
     var userWeight : Double = 0.0
@@ -45,33 +45,27 @@ class UserHomeActivity : AppCompatActivity() {
             // Update the cached copy of the user.
             currentUser?.let {
                 val splitName = currentUser.name.split(" ")
-                viewName.text = splitName[0].uppercase()
+                userName = splitName[0].uppercase()
+
+                if (isTablet()) {
+                    loadWelcome()
+                    val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
+                    welcomeButton.setOnClickListener {
+                        loadWelcome()
+                    }
+                }
+                else {
+                    viewName = findViewById<TextView>(R.id.tvUserName)
+                    viewName.text = userName
+                }
             }
         })
 
-        if (isTablet()) {
-            loadWelcome()
-            val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
-            welcomeButton.setOnClickListener {
-                loadWelcome()
-            }
-        }
-        else {
-            viewName = findViewById<TextView>(R.id.tvUserName)
-        }
-
         val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
-//        val savedHeight = userHeight
-//        val savedWeight = userWeight
         if(isTablet()) {
             bMIButton.setOnClickListener {
                 val fTransBMI = supportFragmentManager.beginTransaction()
                 var fragmentBMI = FragmentBMI()
-
-//                val savedHeight = sharedPref.getString("height", "")
-//                val savedWeight = sharedPref.getString("weight", "")
-
-//                fragmentBMI.arguments = bundleBMI
 
                 fTransBMI.replace(
                     R.id.mainFrame,
@@ -112,18 +106,6 @@ class UserHomeActivity : AppCompatActivity() {
                 val fTransFitness = supportFragmentManager.beginTransaction()
                 var fragmentFitness = FragmentFitnessGoals()
 
-                val savedHeight = sharedPref.getString("height", "")
-                val savedWeight = sharedPref.getString("weight", "")
-                val savedAge = sharedPref.getString("age", "")
-                val savedSex = sharedPref.getString("sex", "")
-
-                val bundleBMI = Bundle()
-                bundleBMI.putString("height", savedHeight)
-                bundleBMI.putString("weight", savedWeight)
-                bundleBMI.putString("age", savedAge)
-                bundleBMI.putString("sex", savedSex)
-                fragmentFitness.arguments = bundleBMI
-
                 fTransFitness.replace(
                     R.id.mainFrame,
                     fragmentFitness,
@@ -146,11 +128,6 @@ class UserHomeActivity : AppCompatActivity() {
             weatherButton.setOnClickListener {
                 val fTransWeather = supportFragmentManager.beginTransaction()
                 var fragmentWeather = FragmentWeather()
-
-                val savedZIP = sharedPref.getString("zip", "")
-                val bundleWeather = Bundle()
-                bundleWeather.putString("zip", savedZIP)
-                fragmentWeather.arguments = bundleWeather
 
                 fTransWeather.replace(
                     R.id.mainFrame,
@@ -222,11 +199,8 @@ class UserHomeActivity : AppCompatActivity() {
     fun loadWelcome() {
         var fragmentWelcome = FragmentWelcome()
         val fTrans = supportFragmentManager.beginTransaction()
-//        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-//        val savedName = sharedPref.getString("name", "{username}")
-//        val splitName = savedName?.split(" ")
         val bundle = Bundle()
-        bundle.putString("username", userData.name)
+        bundle.putString("username", userName)
         fragmentWelcome.arguments = bundle
 
         fTrans.replace(
@@ -264,13 +238,4 @@ class UserHomeActivity : AppCompatActivity() {
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }
-    //Create an observer that watches the LiveData<com.example.lyfr.User> object
-//    var observer = Observer<User>() {
-//        fun onChanged(user: User){
-//            if(user != null){
-//                name.text = user.name
-//            }
-//        }
-//    }
-
 }

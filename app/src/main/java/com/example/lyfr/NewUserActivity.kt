@@ -273,18 +273,4 @@ class NewUserActivity : AppCompatActivity() {
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }
-
-//    //Create an observer that watches the LiveData<com.example.lyfr.User> object
-//    var observer = Observer<User>() {
-//        user -> userData = user
-//        fun onChanged(user: User){
-//            if(user != null){
-//                name.setText(user.name)
-//                zip.setText(user.zip)
-//                age.setText(user.age)
-//                height.setText(user.height.toString())
-//                weight.setText(user.weight.toString())
-//            }
-//        }
-//    }
 }

@@ -8,10 +8,16 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import kotlin.math.pow
 
 class FragmentBMI : Fragment(R.layout.activity_bmiactivity) {
+    private val userViewModel: UserViewModel by viewModels {
+        UserViewModelFactory((activity?.application as LYFR_Application).repository)
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -24,18 +30,22 @@ class FragmentBMI : Fragment(R.layout.activity_bmiactivity) {
         val userWeightKilos = fragmentView.findViewById<TextView>(R.id.tvWeightKilos)
         val userBMI = fragmentView.findViewById<TextView>(R.id.tvBMIValue)
 
-        val height = arguments?.getString("height")?.toDouble()
-        val weight = arguments?.getString("weight")?.toDouble()
-        val kg = weight?.times(POUNDS_TO_KILOGRAM)
-        val meters = height?.times(INCHES_TO_METERS)
-        val meters_squared = meters?.pow(2)
-        val BMI = (meters_squared?.let { kg?.div(it) })
+        userViewModel.user.observe(viewLifecycleOwner, Observer { currentUser ->
+            currentUser?.let {
+                val weight = currentUser.weight
+                val height = currentUser.height
+                val kg = weight.times(POUNDS_TO_KILOGRAM)
+                val meters = height.times(INCHES_TO_METERS)
+                val meters_squared = meters.pow(2)
+                val BMI = (meters_squared.let { kg.div(it) })
 
-        userHeight.setText("%.0f".format(height))
-        userHeightMeters.setText("%.2f".format(meters))
-        userWeight.setText("%.0f".format(weight))
-        userWeightKilos.setText("%.2f".format(kg))
-        userBMI.setText("%.1f".format(BMI))
+                userHeight.text = "%.0f".format(height)
+                userHeightMeters.text = ("%.2f".format(meters))
+                userWeight.text =("%.0f".format(weight))
+                userWeightKilos.text = ("%.2f".format(kg))
+                userBMI.text = ("%.1f".format(BMI))
+            }
+        })
 
         return fragmentView
     }
