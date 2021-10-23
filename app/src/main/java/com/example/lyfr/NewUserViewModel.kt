@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 
 
 class NewUserViewModel(application: Application) : AndroidViewModel(application) {
-    var repository : Repository = Repository().getInstance(application)
-    var userInfo: LiveData<User>? = repository.repoGetUser()
+//    var repository : Repository = Repository().getInstance(application)
+//    var userInfo: LiveData<User>? = repository.repoGetUser()
 
     init {
         viewModelScope.launch {
@@ -20,19 +20,22 @@ class NewUserViewModel(application: Application) : AndroidViewModel(application)
     }
 
 
-    override fun onCleared() {
-        super.onCleared()
-        // log the destruction of the viewmodel, use logcat to see logs
-        Log.i("NewUserViewModel", "NewUserViewModel destroyed!")
-    }
+//    override fun onCleared() {
+//        super.onCleared()
+//        // log the destruction of the viewmodel, use logcat to see logs
+//        Log.i("NewUserViewModel", "NewUserViewModel destroyed!")
+//    }
+//
+//    fun insert(user: User) = viewModelScope.launch {
+//        repository.insert(user)
+//    }
+//
+//    fun update(user: User) = viewModelScope.launch {
+//        repository.update(user)
+//    }
 
-    fun insert(user: User) = viewModelScope.launch {
-        repository.insert(user)
-    }
 
-    fun update(user: User) = viewModelScope.launch {
-        repository.update(user)
-    }
+
 //
 //    fun setUser() = viewModelScope.launch {
 //        userInfo = repository.repoGetUser()!!

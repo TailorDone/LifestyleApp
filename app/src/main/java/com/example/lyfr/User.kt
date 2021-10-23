@@ -9,9 +9,12 @@ import androidx.room.PrimaryKey
 data class User(
     @PrimaryKey var name : String,
     var zip : String,
-    var age: Int,
-    var sex: String,
-    var height: Double,
-    var weight: Double,
-    var profilePicturePath: String?,
+    var age : Int,
+    var sex : String,
+    var height : Double,
+    var weight : Double,
+    var profilePicturePath : String?,
+    var lifestyle : Int,
+    var weightChangeGoal : Double,
+    var weightGoalOption : Int,
 )

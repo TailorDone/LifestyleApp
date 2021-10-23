@@ -4,46 +4,40 @@ import android.app.Application
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.Flow
 
 
 // Declares the com.example.lyfr.DAO as a private property in the constructor. Pass in the com.example.lyfr.DAO
 // instead of the whole database, because you only need access to the com.example.lyfr.DAO
-class Repository (){
-    private var instance: Repository? = null
-    private var dao: DAO? = null
-    private lateinit var user: LiveData<User>
-    private lateinit var context: Context
+class Repository (private val dao: DAO){
 
-    constructor(application: Application) : this() {
-        val db: AppDatabase = AppDatabase.getDatabase(application)
-        context = application.applicationContext
-        dao = db.dao()
-        if (dao != null) {
-            user = dao!!.getUser()
-        }
-    }
+    val getUser : Flow<User> = dao.getUser()
 
-    @Synchronized
-    fun getInstance(application: Application): Repository {
-        if (instance == null) {
-            instance = Repository(application)
-        }
-        return instance as Repository
-    }
+//    @Synchronized
+//    fun getInstance(application: Application): Repository {
+//        if (instance == null) {
+//            instance = Repository(application)
+//        }
+//        return instance as Repository
+//    }
 
     @WorkerThread
     suspend fun insert(user: User){
-        dao?.addUser(user)
+        dao.addUser(user)
     }
 
     @WorkerThread
     suspend fun update(user: User) {
-        dao?.updateUser(user)
+        dao.updateUser(user)
     }
 
-    fun repoGetUser(): LiveData<User>? {
-        return user
+    @WorkerThread
+    suspend fun updateFitnessGoals(lifestyle: Int, weightChangeGoal: Double, weightGoalOption: Int, name: String) {
+        dao.updateFitnessGoals(lifestyle, weightChangeGoal, weightGoalOption, name)
     }
+//
+//    fun repoGetUser(): LiveData<User>? {
+//        return user
+//    }
 
 }

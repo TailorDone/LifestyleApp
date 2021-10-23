@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -23,10 +24,15 @@ import androidx.lifecycle.ViewModelProvider
 
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
-    lateinit var newUserViewModel: NewUserViewModel
     lateinit var userData: User
     lateinit var viewName : TextView
+    var userHeight : Double = 0.0
+    var userWeight : Double = 0.0
     var userLocation = ""
+
+    private val userViewModel: UserViewModel by viewModels {
+        UserViewModelFactory((application as LYFR_Application).repository)
+    }
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,15 +41,13 @@ class UserHomeActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val profilePicture = sharedPref.getString("profilePicture", "")
 
-        //Grab an instance of the view model
-        newUserViewModel = ViewModelProvider(this).get(NewUserViewModel::class.java)
-
-        val userObserver = Observer<User> { user ->
-            userData = user
-            viewName.setText(userData.name)
-        }
-
-        newUserViewModel.userInfo?.observe(this, userObserver)!!
+        userViewModel.user.observe(this, Observer { currentUser ->
+            // Update the cached copy of the user.
+            currentUser?.let {
+                val splitName = currentUser.name.split(" ")
+                viewName.text = splitName[0].uppercase()
+            }
+        })
 
         if (isTablet()) {
             loadWelcome()
@@ -53,33 +57,21 @@ class UserHomeActivity : AppCompatActivity() {
             }
         }
         else {
-//            val savedName = sharedPref.getString("name", "{username}")
-//            val splitName = savedName?.split(" ")
-
-                viewName = findViewById<TextView>(R.id.tvUserName)
-////            if (currentUser != null) {
-//                viewName.text = userData.name
-//            }
-//            name.text = splitName?.get(0)?.uppercase() ?: "USER"
+            viewName = findViewById<TextView>(R.id.tvUserName)
         }
 
-
-//
-//        //Set the observer
-//        newUserViewModel.retUser().observe(this, observer)
-
         val bMIButton = findViewById<ImageButton>(R.id.ibBMI)
+//        val savedHeight = userHeight
+//        val savedWeight = userWeight
         if(isTablet()) {
             bMIButton.setOnClickListener {
                 val fTransBMI = supportFragmentManager.beginTransaction()
                 var fragmentBMI = FragmentBMI()
 
-                val savedHeight = sharedPref.getString("height", "")
-                val savedWeight = sharedPref.getString("weight", "")
-                val bundleBMI = Bundle()
-                bundleBMI.putString("height", savedHeight)
-                bundleBMI.putString("weight", savedWeight)
-                fragmentBMI.arguments = bundleBMI
+//                val savedHeight = sharedPref.getString("height", "")
+//                val savedWeight = sharedPref.getString("weight", "")
+
+//                fragmentBMI.arguments = bundleBMI
 
                 fTransBMI.replace(
                     R.id.mainFrame,

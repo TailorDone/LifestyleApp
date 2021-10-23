@@ -14,18 +14,16 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
 import androidx.core.content.FileProvider.getUriForFile
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import com.example.lyfr.ImageUri.latestTmpUri
 import java.util.*
 import android.content.ContextWrapper
 import android.graphics.*
-import android.os.Handler
 import java.lang.Exception
 import android.view.View
+import androidx.activity.viewModels
 import java.io.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import kotlin.concurrent.schedule
 
 
 class NewUserActivity : AppCompatActivity() {
@@ -35,41 +33,43 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var age: EditText
     lateinit var height: EditText
     lateinit var weight: EditText
-    lateinit var newUserViewModel: NewUserViewModel
+    var lifestyle = 0
+    var weightGoalOption = 0
+    var weightChangeGoal = 0.0
     lateinit var previewImage : ImageView
-    lateinit var userData: User
     var bitmap: Bitmap? = null
+    var userExists : Boolean = false
+
+    private val userViewModel: UserViewModel by viewModels {
+        UserViewModelFactory((application as LYFR_Application).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_user)
         setClickListeners()
 
-        //Grab an instance of the view model
-        newUserViewModel = ViewModelProvider(this).get(NewUserViewModel::class.java)
-
-        val userObserver = Observer<User> {
-                user ->
-            if (user != null) {
-                userData = user
-                name.setText(userData.name)
-                zip.setText(userData.zip)
-                age.setText(userData.age.toString())
-                height.setText(userData.height.toString())
-                weight.setText(userData.weight.toString())
-                if (userData.sex == "M") {
+        userViewModel.user.observe(this, Observer { currentUser ->
+            // Update the cached copy of the user.
+            currentUser?.let {
+                name.setText(currentUser.name)
+                zip.setText(currentUser.zip)
+                age.setText(currentUser.age.toString())
+                height.setText(currentUser.height.toString())
+                weight.setText(currentUser.weight.toString())
+                lifestyle = currentUser.lifestyle
+                weightGoalOption = currentUser.weightGoalOption
+                weightChangeGoal = currentUser.weightChangeGoal
+                if (currentUser.sex == "M") {
                     var radioButtonSexM = findViewById<RadioButton>(R.id.male)
                     radioButtonSexM.isChecked = true
                 } else {
                     var radioButtonSexF = findViewById<RadioButton>(R.id.female)
                     radioButtonSexF.isChecked = true
                 }
-            } else {
-
             }
-        }
-
-        newUserViewModel.userInfo?.observe(this, userObserver)!!
+//            userExists = true
+        })
 
         previewImage = findViewById(R.id.profilePicture)
         name = findViewById(R.id.etName)
@@ -101,15 +101,6 @@ class NewUserActivity : AppCompatActivity() {
 
         bitmap = picturePath?.let { loadImageFromStorage(it) }
 
-//        var currentUser = newUserViewModel.getUser().value
-//        if (userData != null){
-//            name.setText(userData.name)
-//            zip.setText(userData.zip)
-//            age.setText(userData.age.toString())
-//            height.setText(userData.height.toString())
-//            weight.setText(userData.weight.toString())
-//        }
-
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
 
         saveProfileButton.setOnClickListener{
@@ -127,22 +118,25 @@ class NewUserActivity : AppCompatActivity() {
                 } else {
                     sex = "M"
                 }
-//                var check = newUserViewModel.getUser().value
-                var newUser = User(
-                    name.text.toString(),
-                    zip.text.toString(),
-                    age.text.toString().toInt(),
-                    sex,
-                    height.text.toString().toDouble(),
-                    weight.text.toString().toDouble(),
+
+                var user = User(
+                    name = name.text.toString(),
+                    zip = zip.text.toString(),
+                    age = age.text.toString().toInt(),
+                    sex = sex,
+                    height = height.text.toString().toDouble(),
+                    weight = weight.text.toString().toDouble(),
+                    lifestyle = lifestyle,
+                    weightGoalOption = weightGoalOption,
+                    weightChangeGoal = weightChangeGoal,
                     profilePicturePath = picturePath )
 
-//                if (newUserViewModel.getUser().value == null) {
-                    newUserViewModel.insert(newUser)
-//                }
+                userViewModel.insert(user)
+//                if (userExists) {
+//                    userViewModel.update(user)
 //                } else {
-//                    newUserViewModel.update(newUser)
-//               }
+//                    userViewModel.insert(user)
+//                }
 
                 val intentSaveProfile = Intent(this, UserHomeActivity::class.java).apply {}
                 startActivity(intentSaveProfile)

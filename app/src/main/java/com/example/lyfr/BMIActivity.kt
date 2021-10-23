@@ -1,5 +1,6 @@
 package com.example.lyfr
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
@@ -9,27 +10,28 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
-import java.util.Observer
+import androidx.lifecycle.Observer
 import kotlin.math.pow
 
 const val POUNDS_TO_KILOGRAM = 0.454
 const val INCHES_TO_METERS = 0.0254
 
+
 class BMIActivity : AppCompatActivity() {
 
+    private val userViewModel: UserViewModel by viewModels {
+        UserViewModelFactory((application as LYFR_Application).repository)
+    }
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmiactivity)
-
-        val profilePic = findViewById<ImageView>(R.id.profilePicture)
-        profilePic.setOnClickListener{
-            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
-            }
-            startActivity(editProfileIntent)
-        }
 
         val userHeight = findViewById<TextView>(R.id.tvHeightInches)
         val userHeightMeters = findViewById<TextView>(R.id.tvHeightMeters)
@@ -39,24 +41,36 @@ class BMIActivity : AppCompatActivity() {
 
         val userBMI = findViewById<TextView>(R.id.tvBMIValue)
 
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val savedHeight = sharedPref.getString("height", "")
-        val savedWeight = sharedPref.getString("weight", "")
-        val profilePicture = sharedPref.getString("profilePicture", "")
-        val kg = savedWeight?.toDouble()?.times(POUNDS_TO_KILOGRAM)
-        val meters = savedHeight?.toDouble()?.times(INCHES_TO_METERS)
-        val meters_squared = meters?.pow(2)
-        val BMI = (meters_squared?.let { kg?.div(it) })
+        userViewModel.user.observe(this, Observer { currentUser ->
+            currentUser?.let {
+                val weight = currentUser.weight
+                val height = currentUser.height
+                val kg = weight.times(POUNDS_TO_KILOGRAM)
+                val meters = height.times(INCHES_TO_METERS)
+                val meters_squared = meters.pow(2)
+                val BMI = (meters_squared.let { kg.div(it) })
 
-        if (profilePicture != null) {
-            loadImageFromStorage(profilePicture)
+                userHeight.text = "%.0f".format(height)
+                userHeightMeters.text = ("%.2f".format(meters))
+                userWeight.text =("%.0f".format(weight))
+                userWeightKilos.text = ("%.2f".format(kg))
+                userBMI.text = ("%.1f".format(BMI))
+            }
+        })
+
+        val profilePic = findViewById<ImageView>(R.id.profilePicture)
+        profilePic.setOnClickListener{
+            val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
+            }
+            startActivity(editProfileIntent)
         }
 
-        userHeight.setText("%.0f".format(savedHeight?.toDouble()))
-        userHeightMeters.setText("%.2f".format(meters))
-        userWeight.setText("%.0f".format(savedWeight?.toDouble()))
-        userWeightKilos.setText("%.2f".format(kg))
-        userBMI.setText("%.1f".format(BMI))
+//        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+//        val profilePicture = sharedPref.getString("profilePicture", "")
+
+//        if (profilePicture != null) {
+//            loadImageFromStorage(profilePicture)
+//        }
     }
 
     private fun loadImageFromStorage(path: String) : Bitmap? {
@@ -86,16 +100,4 @@ class BMIActivity : AppCompatActivity() {
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }
-
-//    var observer = Observer<User>() {
-//        fun onChanged(user: User){
-//            if(user != null){
-//                stringName.setText(user.name)
-//                stringZip.setText(user.zip)
-//                stringAge.setText(user.age)
-//                stringHeight.setText(user.height.toString())
-//                stringWeight.setText(user.weight.toString())
-//            }
-//        }
-//    }
 }

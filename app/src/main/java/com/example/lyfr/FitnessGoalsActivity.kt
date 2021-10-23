@@ -9,25 +9,44 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import kotlin.math.abs
+import kotlin.math.pow
 
 const val INCHES_TO_CENTIMETERS = 2.54
 const val POUNDS_TO_CALORIES = 3500
-val activityLevelDictionary = mapOf(0 to FitnessGoalsActivity.ActivityLevel("Sedentary", 1.2),
+
+val activityLevelDictionary = mapOf(
+    0 to FitnessGoalsActivity.ActivityLevel("Sedentary", 1.2),
     1 to FitnessGoalsActivity.ActivityLevel("Lightly active", 1.375),
     2 to FitnessGoalsActivity.ActivityLevel("Moderately active", 1.55),
     3 to FitnessGoalsActivity.ActivityLevel("Very active", 1.725),
-    4 to FitnessGoalsActivity.ActivityLevel("Extra active", 1.9))
+    4 to FitnessGoalsActivity.ActivityLevel("Extra active", 1.9)
+)
+
+val weightGoalDictionary = mapOf(
+    0 to R.id.rbLose,
+    1 to R.id.rbMaintain,
+    2 to R.id.rbGain,
+)
 
 class FitnessGoalsActivity : AppCompatActivity() {
     var BMR = 0
     var lifestyleScaleFactor = 0.0
-    var weightChange = 0.0
+    var lifestyle = 0
+    var weightChangeGoal = 0.0
+    var weightGoalOption = 0
+    var name : String = ""
+    var sex : String = ""
     class ActivityLevel(val lifestyle: String, val scale : Double) {
+    }
+    private val userViewModel: UserViewModel by viewModels {
+        UserViewModelFactory((application as LYFR_Application).repository)
     }
 
     @SuppressLint("SetTextI18n")
@@ -42,34 +61,10 @@ class FitnessGoalsActivity : AppCompatActivity() {
             startActivity(editProfileIntent)
         }
 
-
         val userBMR = findViewById<TextView>(R.id.tvBMRValue)
         val caloricGoal = findViewById<TextView>(R.id.tvCaloriesNeededValue)
-
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-
-        val savedHeight = sharedPref.getString("height", "")
-        val savedWeight = sharedPref.getString("weight", "")
-        val savedAge = sharedPref.getString("age", "")
-        val savedSex = sharedPref.getString("sex", "M")
-        val profilePicture = sharedPref.getString("profilePicture", "")
-        val weightInKG = savedWeight?.toDouble()?.times(POUNDS_TO_KILOGRAM)
-        val heightInCM = savedHeight?.toDouble()?.times(INCHES_TO_CENTIMETERS)
-        val age = savedAge?.toInt()
-
-        if (profilePicture != null) {
-            loadImageFromStorage(profilePicture)
-        }
-
         val seekBar = findViewById<SeekBar>(R.id.seekBarLifeStyle)
-        var lifestyle = findViewById<TextView>(R.id.tvLifeStyleValue)
-        val savedLifestyle = sharedPref.getString("lifestyle", "0")?.toInt()
-        if (savedLifestyle != null) {
-            seekBar.progress = savedLifestyle
-            lifestyle.text = activityLevelDictionary[savedLifestyle]?.lifestyle ?: "Sedentary"
-            lifestyleScaleFactor = activityLevelDictionary[savedLifestyle]?.scale ?: 1.2
-        }
-
+        var lifestyleTextView = findViewById<TextView>(R.id.tvLifeStyleValue)
         val loseWeightOption = findViewById<RadioButton>(R.id.rbLose)
         val maintainWeightOption = findViewById<RadioButton>(R.id.rbMaintain)
         val gainWeightOption = findViewById<RadioButton>(R.id.rbGain)
@@ -78,41 +73,72 @@ class FitnessGoalsActivity : AppCompatActivity() {
         val warning = findViewById<TextView>(R.id.tvWarning)
         val radioGroup = findViewById<RadioGroup>(R.id.rgWeightGoals)
 
-        val savedWeightGoal = sharedPref.getString("weightGoal", maintainWeightOption.id.toString())
-        if (savedWeightGoal != null) {
-            val selected = findViewById<RadioButton>(savedWeightGoal.toInt())
-            selected.isChecked = true
-            if (selected == loseWeightOption || selected == gainWeightOption)
-                weightValueRow.visibility = VISIBLE
-        }
+        userViewModel.user.observe(this, Observer { currentUser ->
+            currentUser?.let {
+                lifestyle = currentUser.lifestyle
+                weightGoalOption = currentUser.weightGoalOption
+                weightChangeGoal = currentUser.weightChangeGoal
+                name = currentUser.name
+                sex = currentUser.sex
+                val weight = currentUser.weight
+                val height = currentUser.height
+                val age = currentUser.age
+                val weightInKG = weight.times(POUNDS_TO_KILOGRAM)
+                val heightInCM = height.times(INCHES_TO_CENTIMETERS)
 
-        val savedWeightChange = sharedPref.getString("weightChange", "0")
-        if (savedWeightChange != null) {
-            weightValueNumber.setText(abs(savedWeightChange.toDouble()).toString())
-            weightChange = savedWeightChange.toDouble()
-        }
+                seekBar.progress = lifestyle
+                lifestyleTextView.text = activityLevelDictionary[lifestyle]?.lifestyle
+                lifestyleScaleFactor = activityLevelDictionary[lifestyle]?.scale!!
 
-        if (savedSex == "M"){
-            BMR = ((10 * weightInKG!!) + (6.25 * heightInCM!!) - (5 * age!!) + 5).toInt()
-        } else {
-            BMR = ((10 * weightInKG!!) + (6.25 * heightInCM!!) - (5 * age!!) - 161).toInt()
+                val weightGoalID = weightGoalDictionary[weightGoalOption]
+                val selected = weightGoalID?.let { it1 -> findViewById<RadioButton>(it1) }
+                if (selected != null) {
+                    selected.isChecked = true
+                }
+                if (selected == loseWeightOption || selected == gainWeightOption)
+                    weightValueRow.visibility = VISIBLE
+
+                weightValueNumber.setText(abs(weightChangeGoal).toString())
+
+                BMR = if (sex == "M"){
+                    ((10 * weightInKG) + (6.25 * heightInCM) - (5 * age) + 5).toInt()
+                } else {
+                    ((10 * weightInKG) + (6.25 * heightInCM) - (5 * age) - 161).toInt()
+                }
+
+                userBMR.text = BMR.toString()
+                val  caloricGoalValue = calculateCaloricGoal()
+                caloricGoal.text = caloricGoalValue.toString()
+
+                if ((caloricGoalValue < 1200 && sex == "M") || (caloricGoalValue < 1000 && sex == "F"))
+                    warning.text = "Warning: You are below the daily recommended caloric minimum."
+                }
+            })
+
+        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val profilePicture = sharedPref.getString("profilePicture", "")
+
+        if (profilePicture != null) {
+            loadImageFromStorage(profilePicture)
         }
-        userBMR.text = BMR.toString()
-        caloricGoal.text = calculateCaloricGoal().toString()
 
         loseWeightOption.setOnClickListener {
             weightValueRow.visibility = VISIBLE
-        }
-        gainWeightOption.setOnClickListener {
-            weightValueRow.visibility = VISIBLE
+            weightGoalOption = 0
         }
         maintainWeightOption.setOnClickListener {
             weightValueRow.visibility = GONE
+            weightGoalOption = 1
         }
+        gainWeightOption.setOnClickListener {
+            weightValueRow.visibility = VISIBLE
+            weightGoalOption = 2
+        }
+
 
         seekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lifestyle.text = activityLevelDictionary[progress]?.lifestyle ?: "Lifestyle"
+                lifestyleTextView.text = activityLevelDictionary[progress]?.lifestyle ?: "Lifestyle"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -121,6 +147,7 @@ class FitnessGoalsActivity : AppCompatActivity() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 lifestyleScaleFactor = activityLevelDictionary[seekBar.progress]?.scale!!
+                lifestyle = seekBar.progress
             }
         })
 
@@ -135,39 +162,30 @@ class FitnessGoalsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Enter how many pounds you would like to gain.", Toast.LENGTH_SHORT).show()
             else {
                 if (weightGoal == loseWeightOption && weightValueNumber.text.toString().toDouble() > 2) {
-                    weightChange = weightValueNumber.text.toString().toDouble() * -1
-                    warning.text = "Warning: Losing more than 2 pounds a week is ill-advised."
+                    weightChangeGoal = weightValueNumber.text.toString().toDouble() * -1
+                    warning.text = "Warning: Losing more than 2 pounds a week is dangerous."
                     warning.visibility = VISIBLE
                 }
                 else if (weightGoal == gainWeightOption && weightValueNumber.text.toString().toDouble() > 2) {
-                    weightChange = weightValueNumber.text.toString().toDouble()
-                    warning.text = "Warning: Gaining more than 2 pounds a week is ill-advised."
+                    weightChangeGoal = weightValueNumber.text.toString().toDouble()
+                    warning.text = "Warning: Gaining more than 2 pounds a week is dangerous."
                     warning.visibility = VISIBLE
                 }
                 else {
                     if (weightGoal == maintainWeightOption)
-                        weightChange = 0.0
+                        weightChangeGoal = 0.0
                     else {
-                        weightChange = weightValueNumber.text.toString().toDouble()
+                        weightChangeGoal = weightValueNumber.text.toString().toDouble()
                         if (weightGoal == loseWeightOption)
-                            weightChange *= -1
+                            weightChangeGoal *= -1
                     }
                 }
-                val caloricGoalValue = calculateCaloricGoal()
-                caloricGoal.text = caloricGoalValue.toString()
-                with (sharedPref.edit()) {
-                    putString("weightGoal", selectedOption.toString())
-                    putString("weightChange", weightChange.toString())
-                    putString("lifestyle", seekBar.progress.toString())
-                    commit()
-                }
-                if ((caloricGoalValue < 1200 && savedSex == "M") || (caloricGoalValue < 1000 && savedSex == "F"))
-                    warning.text = "Warning: You are below the daily recommended caloric minimum."
+                userViewModel.updateFitnessGoals(lifestyle, weightChangeGoal, weightGoalOption, name)
             }
         }
     }
     fun calculateCaloricGoal(): Int {
-        var caloricChange = (weightChange * POUNDS_TO_CALORIES) / 7
+        var caloricChange = (weightChangeGoal * POUNDS_TO_CALORIES) / 7
         var caloricGoal = (BMR * lifestyleScaleFactor).toInt()
         caloricGoal = (caloricGoal + caloricChange).toInt()
         return caloricGoal
