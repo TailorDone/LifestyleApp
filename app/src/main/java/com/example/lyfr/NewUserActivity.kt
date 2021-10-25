@@ -238,7 +238,6 @@ class NewUserActivity : AppCompatActivity() {
     private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
             val f = File(path)
-//            val f = File(path, "profile.jpg")
             var b =  BitmapFactory.decodeStream(FileInputStream(f))
             val img = findViewById<View>(R.id.profilePicture) as ImageView
             b = getCircledBitmap(b)
