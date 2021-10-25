@@ -23,7 +23,7 @@ const val INCHES_TO_METERS = 0.0254
 
 
 class BMIActivity : AppCompatActivity() {
-
+    val picturePath : String? = null
     private val userViewModel: UserViewModel by viewModels {
         UserViewModelFactory((application as LYFR_Application).repository)
     }
@@ -49,6 +49,9 @@ class BMIActivity : AppCompatActivity() {
                 val meters = height.times(INCHES_TO_METERS)
                 val meters_squared = meters.pow(2)
                 val BMI = (meters_squared.let { kg.div(it) })
+                if (currentUser.profilePicturePath != null) {
+                    loadImageFromStorage(currentUser.profilePicturePath.toString())
+                }
 
                 userHeight.text = "%.0f".format(height)
                 userHeightMeters.text = ("%.2f".format(meters))
@@ -64,18 +67,11 @@ class BMIActivity : AppCompatActivity() {
             }
             startActivity(editProfileIntent)
         }
-
-//        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-//        val profilePicture = sharedPref.getString("profilePicture", "")
-
-//        if (profilePicture != null) {
-//            loadImageFromStorage(profilePicture)
-//        }
     }
 
     private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
-            val f = File(path, "profile.jpg")
+            val f = File(path)
             var b =  BitmapFactory.decodeStream(FileInputStream(f))
             val img = findViewById<View>(R.id.profilePicture) as ImageView
             b = getCircledBitmap(b)

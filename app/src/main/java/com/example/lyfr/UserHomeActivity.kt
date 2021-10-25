@@ -2,7 +2,6 @@ package com.example.lyfr
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
@@ -20,14 +19,11 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
     var userName = ""
     lateinit var viewName : TextView
-    var userHeight : Double = 0.0
-    var userWeight : Double = 0.0
     var userLocation = ""
 
     private val userViewModel: UserViewModel by viewModels {
@@ -38,15 +34,15 @@ class UserHomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_home)
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val profilePicture = sharedPref.getString("profilePicture", "")
 
         userViewModel.user.observe(this, Observer { currentUser ->
             // Update the cached copy of the user.
             currentUser?.let {
                 val splitName = currentUser.name.split(" ")
                 userName = splitName[0].uppercase()
-
+                if (currentUser.profilePicturePath != null) {
+                    loadImageFromStorage(currentUser.profilePicturePath.toString())
+                }
                 if (isTablet()) {
                     loadWelcome()
                     val welcomeButton = findViewById<Button>(R.id.ibWelcome) as ImageButton
@@ -55,7 +51,7 @@ class UserHomeActivity : AppCompatActivity() {
                     }
                 }
                 else {
-                    viewName = findViewById<TextView>(R.id.tvUserName)
+                    viewName = findViewById(R.id.tvUserName)
                     viewName.text = userName
                 }
             }
@@ -144,12 +140,9 @@ class UserHomeActivity : AppCompatActivity() {
                 startActivity(intentWeather)
             }
         }
-
-        val profilePictureButton = findViewById<ImageView>(R.id.profilePicture)
-        if (profilePicture != null) {
-            loadImageFromStorage(profilePicture)
-        }
-        profilePictureButton.setOnClickListener{
+        
+        val profilePicture = findViewById<ImageView>(R.id.profilePicture)
+        profilePicture.setOnClickListener{
             val editProfileIntent = Intent(this, NewUserActivity::class.java).apply {
             }
             startActivity(editProfileIntent)
@@ -213,7 +206,7 @@ class UserHomeActivity : AppCompatActivity() {
 
     private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
-            val f = File(path, "profile.jpg")
+            val f = File(path)
             var b =  BitmapFactory.decodeStream(FileInputStream(f))
             val img = findViewById<View>(R.id.profilePicture) as ImageView
             b = getCircledBitmap(b)

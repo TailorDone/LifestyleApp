@@ -33,12 +33,12 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var age: EditText
     lateinit var height: EditText
     lateinit var weight: EditText
+    var picturePath : String = ""
     var lifestyle = 0
     var weightGoalOption = 0
     var weightChangeGoal = 0.0
     lateinit var previewImage : ImageView
     var bitmap: Bitmap? = null
-    var userExists : Boolean = false
 
     private val userViewModel: UserViewModel by viewModels {
         UserViewModelFactory((application as LYFR_Application).repository)
@@ -52,6 +52,8 @@ class NewUserActivity : AppCompatActivity() {
         userViewModel.user.observe(this, Observer { currentUser ->
             // Update the cached copy of the user.
             currentUser?.let {
+                picturePath = currentUser.profilePicturePath.toString()
+                bitmap = picturePath.let { loadImageFromStorage(it) }
                 name.setText(currentUser.name)
                 zip.setText(currentUser.zip)
                 age.setText(currentUser.age.toString())
@@ -68,7 +70,6 @@ class NewUserActivity : AppCompatActivity() {
                     radioButtonSexF.isChecked = true
                 }
             }
-//            userExists = true
         })
 
         previewImage = findViewById(R.id.profilePicture)
@@ -83,7 +84,6 @@ class NewUserActivity : AppCompatActivity() {
         var labelZip = findViewById<TextView>(R.id.tvZip)
         var labelAge = findViewById<TextView>(R.id.tvDOB)
         val photoOptions = findViewById<LinearLayout>(R.id.photoOptions)
-        val sexButtons = findViewById<RadioGroup>(R.id.etSex)
         var radioButtonSexM = findViewById<RadioButton>(R.id.male)
         var radioButtonSexF = findViewById<RadioButton>(R.id.female)
         var labelHeight = findViewById<TextView>(R.id.tvHeight)
@@ -96,11 +96,6 @@ class NewUserActivity : AppCompatActivity() {
         labelHashMap.put(height, labelHeight)
         labelHashMap.put(weight, labelWeight)
 
-        val sharedPref = getSharedPreferences("userInfo", MODE_PRIVATE)
-        var picturePath = sharedPref.getString("profilePicture", "")
-
-        bitmap = picturePath?.let { loadImageFromStorage(it) }
-
         val saveProfileButton = findViewById<Button>(R.id.buttonSaveProfile)
 
         saveProfileButton.setOnClickListener{
@@ -111,7 +106,7 @@ class NewUserActivity : AppCompatActivity() {
 
             else {
                 //saves bitmap photo
-                picturePath = bitmap?.let { it1 -> saveToInternalStorage(it1) }
+                picturePath = bitmap?.let { it1 -> saveToInternalStorage(it1) }.toString()
 
                 if (radioButtonSexF.isChecked){
                     sex = "F"
@@ -132,11 +127,6 @@ class NewUserActivity : AppCompatActivity() {
                     profilePicturePath = picturePath )
 
                 userViewModel.insert(user)
-//                if (userExists) {
-//                    userViewModel.update(user)
-//                } else {
-//                    userViewModel.insert(user)
-//                }
 
                 val intentSaveProfile = Intent(this, UserHomeActivity::class.java).apply {}
                 startActivity(intentSaveProfile)
@@ -220,7 +210,7 @@ class NewUserActivity : AppCompatActivity() {
         )
     }
 
-    private fun saveToInternalStorage(bitmapImage: Bitmap): String? {
+    private fun saveToInternalStorage(bitmapImage: Bitmap): String {
         val cw = ContextWrapper(applicationContext)
         // path to /data/data/yourapp/app_data/imageDir
         val directory = cw.getDir("imageDir", MODE_PRIVATE)
@@ -242,12 +232,13 @@ class NewUserActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-        return directory.absolutePath
+        return mypath.absolutePath
     }
 
     private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
-            val f = File(path, "profile.jpg")
+            val f = File(path)
+//            val f = File(path, "profile.jpg")
             var b =  BitmapFactory.decodeStream(FileInputStream(f))
             val img = findViewById<View>(R.id.profilePicture) as ImageView
             b = getCircledBitmap(b)

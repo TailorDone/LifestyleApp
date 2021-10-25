@@ -45,6 +45,9 @@ class WeatherActivity : AppCompatActivity() {
 
         userViewModel.user.observe(this, Observer { currentUser ->
             currentUser?.let {
+                if (currentUser.profilePicturePath != null) {
+                    loadImageFromStorage(currentUser.profilePicturePath.toString())
+                }
                 zip = currentUser.zip
 
                 val retrofit = Retrofit.Builder()
@@ -89,18 +92,11 @@ class WeatherActivity : AppCompatActivity() {
             }
             startActivity(editProfileIntent)
         }
-
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val profilePicture = sharedPref.getString("profilePicture", "")
-
-        if (profilePicture != null) {
-            loadImageFromStorage(profilePicture)
-        }
     }
 
     private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
-            val f = File(path, "profile.jpg")
+            val f = File(path)
             var b =  BitmapFactory.decodeStream(FileInputStream(f))
             val img = findViewById<View>(R.id.profilePicture) as ImageView
             b = getCircledBitmap(b)

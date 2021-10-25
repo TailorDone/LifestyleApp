@@ -75,6 +75,10 @@ class FitnessGoalsActivity : AppCompatActivity() {
 
         userViewModel.user.observe(this, Observer { currentUser ->
             currentUser?.let {
+                if (currentUser.profilePicturePath != null) {
+                    loadImageFromStorage(currentUser.profilePicturePath.toString())
+                }
+
                 lifestyle = currentUser.lifestyle
                 weightGoalOption = currentUser.weightGoalOption
                 weightChangeGoal = currentUser.weightChangeGoal
@@ -193,7 +197,7 @@ class FitnessGoalsActivity : AppCompatActivity() {
 
     private fun loadImageFromStorage(path: String) : Bitmap? {
         try {
-            val f = File(path, "profile.jpg")
+            val f = File(path)
             var b =  BitmapFactory.decodeStream(FileInputStream(f))
             val img = findViewById<View>(R.id.profilePicture) as ImageView
             b = getCircledBitmap(b)
