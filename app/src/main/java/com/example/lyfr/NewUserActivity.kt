@@ -126,7 +126,12 @@ class NewUserActivity : AppCompatActivity() {
                     weightChangeGoal = weightChangeGoal,
                     profilePicturePath = picturePath )
 
-                userViewModel.insert(user)
+//                userViewModel.insert(user)
+                if (userViewModel.user.value == null) {
+                    userViewModel.insert(user)
+                } else {
+                    userViewModel.update(user)
+                }
 
                 val intentSaveProfile = Intent(this, UserHomeActivity::class.java).apply {}
                 startActivity(intentSaveProfile)
