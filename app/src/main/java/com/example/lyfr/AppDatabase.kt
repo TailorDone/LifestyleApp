@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(entities = [User::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun dao(): DAO
@@ -24,7 +24,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "com.example.lyfr.AppDatabase"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 //.allowMainThreadQueries()
                 INSTANCE = instance
                 // return instance
