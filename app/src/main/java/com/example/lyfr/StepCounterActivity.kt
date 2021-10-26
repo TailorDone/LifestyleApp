@@ -93,8 +93,10 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        todaysTotalSteps += event!!.values[0]
-        tvTodaysSteps.text = ("$todaysTotalSteps")
+        if(running) {
+            todaysTotalSteps += event!!.values[0]
+            tvTodaysSteps.text = ("$todaysTotalSteps")
+        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
