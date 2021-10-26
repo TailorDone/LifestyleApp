@@ -78,6 +78,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         running = false
         if(stepSensor!=null)
             saveStepData(stepData)
+        sensorManager?.unregisterListener(this)
     }
 
     private fun saveStepData(stepData: Steps) {

@@ -31,7 +31,7 @@ class StepCounterViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun insertSteps(steps: Steps) = viewModelScope.launch {
-        val stepDate = steps.date.toString()
+        val stepDate = steps.date
         if(stepDate == todaysDate.toString())
             repository.insertSteps(steps)
         else{
