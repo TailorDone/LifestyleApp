@@ -59,11 +59,6 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
 
         stepData = Steps(id = 1, steps = todaysTotalSteps, date = todaysDate)
 
-//        stepCounterViewModel.stepData.observe(this, Observer { data ->
-//            data?.let{
-//                stepData = data
-//            }
-//        })
     }
 
     override fun onResume() {
