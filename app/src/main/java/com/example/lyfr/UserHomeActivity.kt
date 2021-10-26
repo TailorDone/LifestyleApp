@@ -113,7 +113,8 @@ class UserHomeActivity : AppCompatActivity() {
         }
         else {
             fitnessGoalsButton.setOnClickListener {
-                val intentFitnessGoals = Intent(this, FitnessGoalsActivity::class.java).apply {
+                //"change this back to FitnessGoalsActivity::class.java"
+                val intentFitnessGoals = Intent(this, StepCounterActivity::class.java).apply {
                 }
                 startActivity(intentFitnessGoals)
             }
