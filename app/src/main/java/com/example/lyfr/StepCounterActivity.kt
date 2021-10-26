@@ -16,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import java.time.LocalDate
-import java.time.ZoneId
 import java.util.*
 
 
