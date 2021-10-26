@@ -57,11 +57,13 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
             }
         })
 
-        stepCounterViewModel.stepData.observe(this, Observer { data ->
-            data?.let{
-                stepData = data
-            }
-        })
+        stepData = Steps(id = 1, steps = todaysTotalSteps, date = todaysDate.toString())
+
+//        stepCounterViewModel.stepData.observe(this, Observer { data ->
+//            data?.let{
+//                stepData = data
+//            }
+//        })
     }
 
     override fun onResume() {
@@ -78,6 +80,8 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         super.onPause()
         running = false
         if(stepSensor!=null)
+            stepData.steps = todaysTotalSteps
+            stepData.date = todaysDate.toString()
             saveStepData(stepData)
         sensorManager?.unregisterListener(this)
     }
@@ -86,7 +90,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         if(LocalDate.now().atStartOfDay().toString() == todaysDate.toString()){
             stepCounterViewModel.updateSteps(stepData)
         }else{
-            stepData.steps = todaysTotalSteps.toInt()
+            stepData.steps = todaysTotalSteps
             stepData.date = todaysDate.toString()
             stepCounterViewModel.insertSteps(stepData)
         }
