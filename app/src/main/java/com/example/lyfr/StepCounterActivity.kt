@@ -7,6 +7,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -15,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import org.w3c.dom.Text
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
@@ -28,7 +28,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     var running = false
     var todaysTotalSteps = 0
     lateinit var stepData : Steps
-    lateinit var todaysDate : Date
+    lateinit var todaysDate : String
     lateinit var tvTodaysSteps : TextView
 
     private val stepCounterViewModel: StepCounterViewModel by viewModels {
@@ -46,7 +46,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
                 1)
         }
         tvTodaysSteps = findViewById(R.id.tvTodaysSteps)
-        todaysDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
+        todaysDate = getDate()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
@@ -57,7 +57,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
             }
         })
 
-        stepData = Steps(id = 1, steps = todaysTotalSteps, date = todaysDate.toString())
+        stepData = Steps(id = 1, steps = todaysTotalSteps, date = todaysDate)
 
 //        stepCounterViewModel.stepData.observe(this, Observer { data ->
 //            data?.let{
@@ -79,19 +79,19 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     override fun onPause() {
         super.onPause()
         running = false
-        if(stepSensor!=null)
+        if(!running) {
             stepData.steps = todaysTotalSteps
-            stepData.date = todaysDate.toString()
             saveStepData(stepData)
+        }
         sensorManager?.unregisterListener(this)
     }
 
     private fun saveStepData(stepData: Steps) {
-        if(LocalDate.now().atStartOfDay().toString() == todaysDate.toString()){
+        if(isSameDay(todaysDate)){
             stepCounterViewModel.updateSteps(stepData)
         }else{
             stepData.steps = todaysTotalSteps
-            stepData.date = todaysDate.toString()
+            stepData.date = todaysDate
             stepCounterViewModel.insertSteps(stepData)
         }
 
@@ -105,6 +105,17 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    }
+
+    fun isSameDay(date1: String?, date2: String? = getDate()): Boolean {
+        val fmt = SimpleDateFormat("dd-MM-yyyy")
+        return fmt.format(date1).equals(fmt.format(date2))
+    }
+
+    fun getDate(): String {
+        val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val date = Date()
+        return simpleDateFormat.format(date)
     }
 
 }
