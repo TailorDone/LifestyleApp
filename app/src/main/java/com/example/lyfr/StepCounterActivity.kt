@@ -8,7 +8,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import org.w3c.dom.Text
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
@@ -29,7 +29,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     var todaysTotalSteps = 0f
     lateinit var stepData : Steps
     lateinit var todaysDate : Date
-    lateinit var tvTodaysSteps: TextView
+    lateinit var tvTodaysSteps : TextView
 
     private val stepCounterViewModel: StepCounterViewModel by viewModels {
         StepCounterViewModel.StepModelFactory((application as LYFR_Application).repository)
@@ -45,6 +45,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
                 arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
                 1)
         }
+        tvTodaysSteps = findViewById(R.id.tvTodaysSteps)
         todaysDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -95,7 +96,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     override fun onSensorChanged(event: SensorEvent?) {
         if(running) {
             todaysTotalSteps += event!!.values[0]
-            tvTodaysSteps.text = ("$todaysTotalSteps")
+            tvTodaysSteps.setText("$todaysTotalSteps")
         }
     }
 
