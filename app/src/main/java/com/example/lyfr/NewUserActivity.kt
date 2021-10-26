@@ -126,7 +126,6 @@ class NewUserActivity : AppCompatActivity() {
                     weightChangeGoal = weightChangeGoal,
                     profilePicturePath = picturePath )
 
-//                userViewModel.insert(user)
                 if (userViewModel.user.value == null) {
                     userViewModel.insert(user)
                 } else {

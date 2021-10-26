@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.ImageView
 import com.example.lyfr.databinding.PictureLookAtBinding
 
-
 class LookAtPicture : AppCompatActivity() {
 
     private lateinit var binding: PictureLookAtBinding

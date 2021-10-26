@@ -13,14 +13,6 @@ class Repository (private val dao: DAO){
 
     val getUser : Flow<User> = dao.getUser()
 
-//    @Synchronized
-//    fun getInstance(application: Application): Repository {
-//        if (instance == null) {
-//            instance = Repository(application)
-//        }
-//        return instance as Repository
-//    }
-
     @WorkerThread
     suspend fun insert(user: User){
         dao.addUser(user)
@@ -35,9 +27,4 @@ class Repository (private val dao: DAO){
     suspend fun updateFitnessGoals(lifestyle: Int, weightChangeGoal: Double, weightGoalOption: Int, name: String) {
         dao.updateFitnessGoals(lifestyle, weightChangeGoal, weightGoalOption, name)
     }
-//
-//    fun repoGetUser(): LiveData<User>? {
-//        return user
-//    }
-
 }
