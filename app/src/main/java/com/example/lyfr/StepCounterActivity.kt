@@ -23,7 +23,6 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     var stepSensor : Sensor? = null
     var running = false
     var todaysTotalSteps = 0f
-    var stepListener : Boolean? = false
     lateinit var stepData : Steps
     lateinit var todaysDate : Date
     lateinit var tvTodaysSteps: TextView
@@ -32,9 +31,8 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         StepCounterViewModel.StepModelFactory((application as LYFR_Application).repository)
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_step_counter)
         todaysDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
 
@@ -58,7 +56,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         super.onResume()
         running = true
         if(stepSensor!=null)
-            stepListener = sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+           sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
         else{
             Toast.makeText(this, "No step sensor detected", Toast.LENGTH_SHORT).show()
         }
@@ -66,6 +64,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
 
     override fun onPause() {
         super.onPause()
+        running = false
         if(stepSensor!=null)
             saveStepData(stepData)
     }
