@@ -26,7 +26,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     var sensorManager : SensorManager? = null
     var stepSensor : Sensor? = null
     var running = false
-    var todaysTotalSteps = 0f
+    var todaysTotalSteps = 0
     lateinit var stepData : Steps
     lateinit var todaysDate : Date
     lateinit var tvTodaysSteps : TextView
@@ -53,7 +53,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
 
         stepCounterViewModel.todaysSteps.observe(this, Observer { todaysSteps ->
             todaysSteps?.let{
-                todaysTotalSteps = todaysSteps.steps.toFloat()
+                todaysTotalSteps = todaysSteps.steps
             }
         })
 
@@ -95,8 +95,8 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         if(running) {
-            todaysTotalSteps += event!!.values[0]
-            tvTodaysSteps.setText("$todaysTotalSteps")
+            todaysTotalSteps += event!!.values[0].toInt()
+            tvTodaysSteps.text = "$todaysTotalSteps"
         }
     }
 

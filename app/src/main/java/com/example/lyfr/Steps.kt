@@ -9,6 +9,6 @@ import java.util.*
 @Entity
 data class Steps(
     @PrimaryKey(autoGenerate = true) var id  : Int,
-    var steps : Int?,
+    var steps : Int,
     var date : String?
 )
