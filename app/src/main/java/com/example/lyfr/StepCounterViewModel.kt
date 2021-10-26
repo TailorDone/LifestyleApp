@@ -21,6 +21,7 @@ import java.util.*
 class StepCounterViewModel(private val repository: Repository) : ViewModel() {
 
     var todaysSteps : MutableLiveData<Steps> = repository.todaysSteps.asLiveData() as MutableLiveData<Steps>
+    var totalSteps : MutableLiveData<Int> = repository.totalSteps.asLiveData() as MutableLiveData<Int>
 
 
     init {

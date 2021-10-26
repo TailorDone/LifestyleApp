@@ -15,9 +15,9 @@ import java.util.*
 class Repository (private val dao: DAO){
 
     val getUser : Flow<User> = dao.getUser()
-    val getSteps : Flow<Steps> = dao.getSteps()
     val todaysDate : Date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
     val todaysSteps: Flow<Steps> = dao.getTodaysSteps(todaysDate.toString())
+    val totalSteps: Flow<Int> = dao.getTotalSteps()
 
 //    @Synchronized
 //    fun getInstance(application: Application): Repository {
@@ -51,10 +51,5 @@ class Repository (private val dao: DAO){
     suspend fun updateSteps(steps: Steps){
         dao.updateSteps(steps)
     }
-
-//
-//    fun repoGetUser(): LiveData<User>? {
-//        return user
-//    }
 
 }
