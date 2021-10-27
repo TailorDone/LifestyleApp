@@ -183,6 +183,38 @@
                 android:textSize="18dp" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ibStepCounter"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_weight="0"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:scaleX="1.1"
+                android:scaleY="1.1"
+                app:srcCompat="@drawable/calculator" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvStepCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/raleway_bold"
+                android:gravity="center"
+                android:text="@string/tvStepCounter"
+                android:textColor="@color/step_orange"
+                android:textSize="18dp" />
+        </TableRow>
+
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
