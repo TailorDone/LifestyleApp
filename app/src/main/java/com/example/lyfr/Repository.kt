@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 import java.time.ZoneId
@@ -18,6 +19,7 @@ class Repository (private val dao: DAO){
     val todaysDate : Date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
     val todaysSteps: Flow<Steps> = dao.getTodaysSteps(todaysDate.toString())
     val totalSteps: Flow<Int> = dao.getTotalSteps()
+    val stepRowCount : Flow<Int> = dao.getStepRowCount()
 
 //    @Synchronized
 //    fun getInstance(application: Application): Repository {

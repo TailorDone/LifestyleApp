@@ -28,6 +28,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     private lateinit var todaysDate : String
     private lateinit var tvTodaysSteps : TextView
     private var totalSteps : Int = 0
+    private var rowCount : Int = 0
 
     private val stepCounterViewModel: StepCounterViewModel by viewModels {
         StepCounterViewModel.StepModelFactory((application as LYFR_Application).repository)
@@ -47,7 +48,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         todaysDate = getDate()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
 
         stepCounterViewModel.todaysSteps.observe(this, { todaysSteps ->
             todaysSteps?.let{
@@ -55,12 +56,19 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
                 stepData.steps = todaysSteps.steps
                 stepData.date = todaysSteps.date
                 stepData.id = todaysSteps.id
+                tvTodaysSteps.text = todaysSteps.steps.toString()
             }
         })
 
         stepCounterViewModel.totalSteps.observe(this, { total ->
             total?.let{
                 totalSteps = total
+            }
+        })
+
+        stepCounterViewModel.stepRowCount.observe(this, { stepRowCount ->
+            stepRowCount?.let{
+                rowCount = stepRowCount
             }
         })
 
@@ -72,7 +80,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         super.onResume()
         running = true
         if(stepSensor!=null)
-           sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+           sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_GAME)
         else{
             Toast.makeText(this, "No step sensor detected", Toast.LENGTH_SHORT).show()
         }
@@ -82,21 +90,22 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         super.onPause()
         running = false
         if(stepSensor!=null) {
-            stepData.steps += todaysTotalSteps
+            stepData.steps = todaysTotalSteps
             saveStepData(stepData)
         }
         sensorManager?.unregisterListener(this)
     }
 
     private fun saveStepData(stepData: Steps) {
-        if(isSameDay(todaysDate, getDate())){
+        if(isSameDay(todaysDate, getDate()) && rowCount > 0){
+            stepData.steps = todaysTotalSteps
+            stepData.date = todaysDate
             stepCounterViewModel.updateSteps(stepData)
         }else{
             stepData.steps = todaysTotalSteps
             stepData.date = todaysDate
             stepCounterViewModel.insertSteps(stepData)
         }
-
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -120,5 +129,4 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         val date = Date()
         return simpleDateFormat.format(date)
     }
-
 }

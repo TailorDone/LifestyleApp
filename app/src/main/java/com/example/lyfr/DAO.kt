@@ -33,4 +33,7 @@ interface DAO {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateSteps(steps: Steps)
 
+    @Query("SELECT COUNT(*) FROM Steps")
+    fun getStepRowCount(): Flow<Int>
+
 }
