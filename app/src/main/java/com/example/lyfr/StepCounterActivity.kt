@@ -64,7 +64,6 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
             }
         })
 
-        if(stepData == null)
         stepData = Steps(id = 1, steps = todaysTotalSteps, date = todaysDate)
 
     }
@@ -90,7 +89,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     }
 
     private fun saveStepData(stepData: Steps) {
-        if(isSameDay(todaysDate)){
+        if(isSameDay(todaysDate, getDate())){
             stepCounterViewModel.updateSteps(stepData)
         }else{
             stepData.steps = todaysTotalSteps
@@ -110,9 +109,10 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
 
-    private fun isSameDay(date1: String?, date2: String? = getDate()): Boolean {
-        val fmt = SimpleDateFormat("dd-MM-yyyy")
-        return fmt.format(date1).equals(fmt.format(date2))
+    private fun isSameDay(date1: String?, date2: String?): Boolean {
+        val d1 = SimpleDateFormat("dd-MM-yyyy").parse(date1)
+        val d2 = SimpleDateFormat("dd-MM-yyyy").parse(date2)
+        return (d1).equals(d2)
     }
 
     private fun getDate(): String {
