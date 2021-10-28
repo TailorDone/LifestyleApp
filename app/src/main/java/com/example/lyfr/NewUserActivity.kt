@@ -105,13 +105,10 @@ class NewUserActivity : AppCompatActivity() {
                 Toast.makeText(this, "All fields must be completed", Toast.LENGTH_SHORT).show()
 
             else {
-                //saves bitmap photo
-                picturePath = bitmap?.let { it1 -> saveToInternalStorage(it1) }.toString()
-
-                if (radioButtonSexF.isChecked){
-                    sex = "F"
+                sex = if (radioButtonSexF.isChecked){
+                    "F"
                 } else {
-                    sex = "M"
+                    "M"
                 }
 
                 var user = User(
@@ -177,6 +174,7 @@ class NewUserActivity : AppCompatActivity() {
                     val source = ImageDecoder.createSource(this.contentResolver, uri)
                     bitmap = ImageDecoder.decodeBitmap(source)
                     previewImage.setImageBitmap(bitmap)
+                    saveToInternalStorage(bitmap!!)
                 }
             }
             val intent = Intent(this, LookAtPicture::class.java)
@@ -215,7 +213,7 @@ class NewUserActivity : AppCompatActivity() {
         )
     }
 
-    private fun saveToInternalStorage(bitmapImage: Bitmap): String {
+    private fun saveToInternalStorage(bitmapImage: Bitmap) {
         val cw = ContextWrapper(applicationContext)
         // path to /data/data/yourapp/app_data/imageDir
         val directory = cw.getDir("imageDir", MODE_PRIVATE)
@@ -237,7 +235,7 @@ class NewUserActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-        return mypath.absolutePath
+        picturePath = mypath.absolutePath
     }
 
     private fun loadImageFromStorage(path: String) : Bitmap? {
