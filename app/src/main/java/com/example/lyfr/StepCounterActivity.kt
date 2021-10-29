@@ -156,10 +156,10 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener, GestureOver
         predictions?.let{
             if(it.size > 0 && it[0].score > 1.0){
                 val action = it[0].name
-                if(action == "Checkmark") {
+                if(action == "Circle") {
                     running = true
                     Toast.makeText(this, "Step Counter Started", Toast.LENGTH_SHORT).show()
-                }else if(action == "Circle"){
+                }else if(action == "Checkmark"){
                     running = false
                     Toast.makeText(this, "Step Counter Stopped", Toast.LENGTH_SHORT).show()
                 }
