@@ -119,6 +119,12 @@ class UserHomeActivity : AppCompatActivity() {
             }
         }
 
+        val stepButton = findViewById<Button>(R.id.ibStepCounter) as ImageButton
+            stepButton.setOnClickListener{
+                val intentStep = Intent(this, StepCounterActivity::class.java)
+                startActivity(intentStep)
+            }
+
         val weatherButton = findViewById<Button>(R.id.ibWeather) as ImageButton
         if(isTablet()) {
             weatherButton.setOnClickListener {

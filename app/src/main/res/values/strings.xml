@@ -38,4 +38,5 @@
     <string name="tvFeelsLike">Feels Like:</string>
     <string name="tvHumidity">Humidity:</string>
     <string name="tvWind">Wind:</string>
+    <string name="tvStepCounter">STEP COUNTER</string>
 </resources>
