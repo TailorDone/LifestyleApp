@@ -3,6 +3,11 @@ package com.example.lyfr
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.gesture.Gesture
+import android.gesture.GestureLibraries
+import android.gesture.GestureLibraries.fromRawResource
+import android.gesture.GestureLibrary
+import android.gesture.GestureOverlayView
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -18,7 +23,7 @@ import androidx.core.content.ContextCompat
 import java.util.*
 
 
-class StepCounterActivity: AppCompatActivity(), SensorEventListener {
+class StepCounterActivity: AppCompatActivity(), SensorEventListener, GestureOverlayView.OnGesturePerformedListener {
 
     private var sensorManager : SensorManager? = null
     private var stepSensor : Sensor? = null
@@ -29,8 +34,9 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     private lateinit var tvTodaysSteps : TextView
     private lateinit var tvTotalStepCount : TextView
     private lateinit var latestDate: String
-    private var totalSteps : Int = 0
     private var rowCount : Int = 0
+    private var gestureLibrary: GestureLibrary? = null
+    private lateinit var gestureOverlay: GestureOverlayView
 
     private val stepCounterViewModel: StepCounterViewModel by viewModels {
         StepCounterViewModel.StepModelFactory((application as LYFR_Application).repository)
@@ -48,6 +54,8 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         }
         tvTodaysSteps = findViewById(R.id.tvTodaysSteps)
         tvTotalStepCount = findViewById(R.id.tvTotalStepCount)
+        gestureOverlay = findViewById(R.id.gestureOverlay)
+
         todaysDate = getDate()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -84,6 +92,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
             }
         })
 
+        gestureSetup()
     }
 
     override fun onResume() {
@@ -139,5 +148,31 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
         val date = Date()
         return simpleDateFormat.format(date)
+    }
+
+    override fun onGesturePerformed(overlay: GestureOverlayView?, gesture: Gesture?) {
+        val predictions = gestureLibrary?.recognize(gesture)
+
+        predictions?.let{
+            if(it.size > 0 && it[0].score > 1.0){
+                val action = it[0].name
+                if(action == "Checkmark") {
+                    running = true
+                    Toast.makeText(this, "Step Counter Started", Toast.LENGTH_SHORT).show()
+                }else if(action == "Circle"){
+                    running = false
+                    Toast.makeText(this, "Step Counter Stopped", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun gestureSetup(){
+        gestureLibrary = fromRawResource(this, R.raw.gestures)
+
+        if(gestureLibrary?.load() == false){
+            finish()
+        }
+        gestureOverlay.addOnGesturePerformedListener(this)
     }
 }

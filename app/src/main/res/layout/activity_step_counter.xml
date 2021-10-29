@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.gesture.GestureOverlayView
+        android:gestureColor="#CCCCCC"
+        android:uncertainGestureColor="#FF5722"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gestureOverlay"
+        android:eventsInterceptionEnabled="true"/>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
