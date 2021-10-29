@@ -2,6 +2,7 @@ package com.example.lyfr
 
 import android.app.Application
 import android.content.Context
+import android.icu.text.SimpleDateFormat
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.room.Query
@@ -16,10 +17,11 @@ import java.util.*
 class Repository (private val dao: DAO){
 
     val getUser : Flow<User> = dao.getUser()
-    val todaysDate : Date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
-    val todaysSteps: Flow<Steps> = dao.getTodaysSteps(todaysDate.toString())
+    val todaysDate : String = getDate()
+    val todaysSteps: Flow<Steps> = dao.getTodaysSteps(todaysDate)
     val totalSteps: Flow<Int> = dao.getTotalSteps()
     val stepRowCount : Flow<Int> = dao.getStepRowCount()
+    val latestDate: Flow<Steps> = dao.getMostRecentDay()
 
 //    @Synchronized
 //    fun getInstance(application: Application): Repository {
@@ -52,6 +54,12 @@ class Repository (private val dao: DAO){
     @WorkerThread
     suspend fun updateSteps(steps: Steps){
         dao.updateSteps(steps)
+    }
+
+    private fun getDate(): String {
+        val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val date = Date()
+        return simpleDateFormat.format(date)
     }
 
 }

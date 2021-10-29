@@ -36,4 +36,7 @@ interface DAO {
     @Query("SELECT COUNT(*) FROM Steps")
     fun getStepRowCount(): Flow<Int>
 
+    @Query("SELECT * FROM Steps ORDER BY id DESC LIMIT 1")
+    fun getMostRecentDay(): Flow<Steps>
+
 }

@@ -113,12 +113,17 @@ class UserHomeActivity : AppCompatActivity() {
         }
         else {
             fitnessGoalsButton.setOnClickListener {
-                //"change this back to FitnessGoalsActivity::class.java"
-                val intentFitnessGoals = Intent(this, StepCounterActivity::class.java).apply {
+                val intentFitnessGoals = Intent(this, FitnessGoalsActivity::class.java).apply {
                 }
                 startActivity(intentFitnessGoals)
             }
         }
+
+        val stepButton = findViewById<Button>(R.id.ibStepCounter) as ImageButton
+            stepButton.setOnClickListener{
+                val intentStep = Intent(this, StepCounterActivity::class.java)
+                startActivity(intentStep)
+            }
 
         val weatherButton = findViewById<Button>(R.id.ibWeather) as ImageButton
         if(isTablet()) {

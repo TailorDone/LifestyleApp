@@ -27,6 +27,8 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     private lateinit var stepData : Steps
     private lateinit var todaysDate : String
     private lateinit var tvTodaysSteps : TextView
+    private lateinit var tvTotalStepCount : TextView
+    private lateinit var latestDate: String
     private var totalSteps : Int = 0
     private var rowCount : Int = 0
 
@@ -45,6 +47,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
                 1)
         }
         tvTodaysSteps = findViewById(R.id.tvTodaysSteps)
+        tvTotalStepCount = findViewById(R.id.tvTotalStepCount)
         todaysDate = getDate()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -62,7 +65,7 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
 
         stepCounterViewModel.totalSteps.observe(this, { total ->
             total?.let{
-                totalSteps = total
+                tvTotalStepCount.text = total.toString()
             }
         })
 
@@ -73,6 +76,13 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
         })
 
         stepData = Steps(id = 1, steps = todaysTotalSteps, date = todaysDate)
+
+        stepCounterViewModel.latestDate.observe(this, { date ->
+            date?.let{
+                latestDate = date.date.toString()
+                stepData.id = date.id
+            }
+        })
 
     }
 
@@ -97,13 +107,14 @@ class StepCounterActivity: AppCompatActivity(), SensorEventListener {
     }
 
     private fun saveStepData(stepData: Steps) {
-        if(isSameDay(todaysDate, getDate()) && rowCount > 0){
+        if(isSameDay(todaysDate, latestDate) && rowCount > 0){
             stepData.steps = todaysTotalSteps
             stepData.date = todaysDate
             stepCounterViewModel.updateSteps(stepData)
         }else{
             stepData.steps = todaysTotalSteps
             stepData.date = todaysDate
+            stepData.id += 1
             stepCounterViewModel.insertSteps(stepData)
         }
     }

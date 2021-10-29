@@ -23,6 +23,7 @@ class StepCounterViewModel(private val repository: Repository) : ViewModel() {
     var todaysSteps : MutableLiveData<Steps> = repository.todaysSteps.asLiveData() as MutableLiveData<Steps>
     var totalSteps : MutableLiveData<Int> = repository.totalSteps.asLiveData() as MutableLiveData<Int>
     var stepRowCount : LiveData<Int> = repository.stepRowCount.asLiveData()
+    var latestDate : MutableLiveData<Steps> = repository.latestDate.asLiveData() as MutableLiveData<Steps>
 
     init {
         // log the creation of the viewmodel, use logcat to see logs
