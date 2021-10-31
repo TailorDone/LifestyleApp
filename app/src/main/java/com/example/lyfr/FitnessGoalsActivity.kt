@@ -16,7 +16,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import kotlin.math.abs
-import kotlin.math.pow
 
 const val INCHES_TO_CENTIMETERS = 2.54
 const val POUNDS_TO_CALORIES = 3500

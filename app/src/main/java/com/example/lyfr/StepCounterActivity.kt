@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.gesture.Gesture
-import android.gesture.GestureLibraries
 import android.gesture.GestureLibraries.fromRawResource
 import android.gesture.GestureLibrary
 import android.gesture.GestureOverlayView

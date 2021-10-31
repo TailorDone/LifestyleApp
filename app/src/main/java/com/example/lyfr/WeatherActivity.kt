@@ -1,6 +1,5 @@
 package com.example.lyfr
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
-import kotlin.math.pow
 
 class WeatherActivity : AppCompatActivity() {
     var zip = ""
