@@ -1,0 +1,65 @@
+{
+    "identityPoolName": "myamplifyapp28bdef00_identitypool_28bdef00",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "myampl28bdef00",
+    "userPoolName": "myamplifyapp28bdef00_userpool_28bdef00",
+    "autoVerifiedAttributes": [
+        "phone_number"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "'{####}'",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+        "email"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+        "email"
+    ],
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "userpoolClientLambdaRole": "myampl28bdef00_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "28bdef00",
+    "resourceName": "myamplifyapp28bdef00",
+    "authSelections": "identityPoolAndUserPool",
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    },
+    "useDefault": "manual",
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "dependsOn": [],
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "breakCircularDependency": true,
+    "permissions": [],
+    "authProviders": []
+}

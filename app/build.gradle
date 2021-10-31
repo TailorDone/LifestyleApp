@@ -44,6 +44,9 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.amplifyframework:aws-storage-s3:1.28.1'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.28.1'
     implementation 'com.amplifyframework:core:1.28.1'
 
     // Support for Java 8 features

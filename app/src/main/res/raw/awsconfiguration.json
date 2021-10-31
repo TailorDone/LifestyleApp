@@ -3,5 +3,48 @@
     "Version": "0.1.0",
     "IdentityManager": {
         "Default": {}
+    },
+    "CredentialsProvider": {
+        "CognitoIdentity": {
+            "Default": {
+                "PoolId": "us-west-1:9a34508b-558c-4cf8-b272-dc7ded0b80e9",
+                "Region": "us-west-1"
+            }
+        }
+    },
+    "CognitoUserPool": {
+        "Default": {
+            "PoolId": "us-west-1_qzyDIHpHU",
+            "AppClientId": "4bf2evu0vtjaf0al7fhvfdg9r9",
+            "Region": "us-west-1"
+        }
+    },
+    "Auth": {
+        "Default": {
+            "authenticationFlowType": "USER_SRP_AUTH",
+            "loginMechanisms": [
+                "PREFERRED_USERNAME"
+            ],
+            "signupAttributes": [
+                "EMAIL"
+            ],
+            "passwordProtectionSettings": {
+                "passwordPolicyMinLength": 8,
+                "passwordPolicyCharacters": []
+            },
+            "mfaConfiguration": "OFF",
+            "mfaTypes": [
+                "SMS"
+            ],
+            "verificationMechanisms": [
+                "PHONE_NUMBER"
+            ]
+        }
+    },
+    "S3TransferUtility": {
+        "Default": {
+            "Bucket": "amplifybucket144343-dev",
+            "Region": "us-west-1"
+        }
     }
 }
