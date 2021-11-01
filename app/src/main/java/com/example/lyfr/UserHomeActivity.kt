@@ -8,6 +8,7 @@ import android.graphics.*
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
@@ -19,6 +20,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import androidx.lifecycle.Observer
+import com.amplifyframework.core.Amplify
 
 class UserHomeActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient : FusedLocationProviderClient
@@ -236,5 +238,14 @@ class UserHomeActivity : AppCompatActivity() {
         paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
+    }
+
+    private fun uploadFile() {
+        val dbFile = applicationContext.getDatabasePath("app_database")
+        var uploadedFile = File(dbFile.toString())
+        Amplify.Storage.uploadFile("database", uploadedFile,
+            { Log.i("LYFR_Application", "Successfully uploaded: ${it.key}") },
+            { Log.e("LYFR_Application", "Upload failed", it) }
+        )
     }
 }
