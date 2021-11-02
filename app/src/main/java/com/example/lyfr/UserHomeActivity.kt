@@ -239,13 +239,4 @@ class UserHomeActivity : AppCompatActivity() {
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
     }
-
-    private fun uploadFile() {
-        val dbFile = applicationContext.getDatabasePath("app_database")
-        var uploadedFile = File(dbFile.toString())
-        Amplify.Storage.uploadFile("database", uploadedFile,
-            { Log.i("LYFR_Application", "Successfully uploaded: ${it.key}") },
-            { Log.e("LYFR_Application", "Upload failed", it) }
-        )
-    }
 }

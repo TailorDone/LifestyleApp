@@ -1,5 +1,6 @@
 package com.example.lyfr
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,11 +20,13 @@ import com.example.lyfr.ImageUri.latestTmpUri
 import java.util.*
 import android.content.ContextWrapper
 import android.graphics.*
+import android.util.Log
 import java.lang.Exception
 import android.view.View
 import androidx.activity.viewModels
 import java.io.*
 import androidx.lifecycle.Observer
+import com.amplifyframework.core.Amplify
 
 
 class NewUserActivity : AppCompatActivity() {
@@ -264,5 +267,20 @@ class NewUserActivity : AppCompatActivity() {
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmap, rect, rect, paint)
         return output
+    }
+
+    @SuppressLint("SdCardPath")
+    private fun uploadFile() {
+        val dbFile = applicationContext.getDatabasePath("com.example.lyfr.AppDatabase")
+        var uploadedFile = File(dbFile.toString())
+        Amplify.Storage.uploadFile("database", uploadedFile,
+            { Log.i("LYFR_Application", "Successfully uploaded: ${it.key}") },
+            { Log.e("LYFR_Application", "Upload failed", it) }
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        uploadFile()
     }
 }

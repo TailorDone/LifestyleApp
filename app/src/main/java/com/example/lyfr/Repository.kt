@@ -1,20 +1,9 @@
 package com.example.lyfr
 
-import android.app.Application
-import android.content.Context
 import android.icu.text.SimpleDateFormat
-import android.util.Log
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
-import androidx.room.Query
-import com.amplifyframework.core.Amplify
 import kotlinx.coroutines.flow.Flow
-import java.io.File
-import java.time.LocalDate
-import java.time.ZoneId
 import java.util.*
-
-
 
 // Declares the com.example.lyfr.DAO as a private property in the constructor. Pass in the com.example.lyfr.DAO
 // instead of the whole database, because you only need access to the com.example.lyfr.DAO
